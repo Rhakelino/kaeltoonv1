@@ -17,9 +17,9 @@ function App() {
         <Route path="recommended" element={<LatestManga />} />
         <Route path="search" element={<SearchPage />} />
         
-        <Route path="genres" element={<TaxonomyList title="Genres" description="Semua genre yang tersedia di Shinigami." />} />
-        <Route path="authors" element={<TaxonomyList title="Authors" description="Cari dan browse author manga." />} />
-        <Route path="artists" element={<TaxonomyList title="Artists" description="Cari dan browse artist manga." />} />
+        <Route path="genres" element={<TaxonomyList title="Genres" />} />
+        <Route path="authors" element={<TaxonomyList title="Authors" />} />
+        <Route path="artists" element={<TaxonomyList title="Artists" />} />
 
         <Route path="manga/:id" element={<MangaDetail />} />
       </Route>
