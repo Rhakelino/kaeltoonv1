@@ -42,7 +42,11 @@ export default function MangaDetail() {
       try {
         const response = await comicApi.getChapterList(id, 1);
         setChapters(response.data || []);
-        setHasMore(response.data?.length > 0);
+        if (response.pagination) {
+          setHasMore(1 < response.pagination.total_pages);
+        } else {
+          setHasMore(response.data?.length > 0);
+        }
         setPage(1);
       } catch (error) {
         console.error("Failed to fetch chapters:", error);
@@ -65,6 +69,9 @@ export default function MangaDetail() {
       } else {
         setChapters(prev => [...prev, ...newChapters]);
         setPage(nextPage);
+        if (response.pagination) {
+          setHasMore(nextPage < response.pagination.total_pages);
+        }
       }
     } catch (error) {
       console.error("Failed to load more chapters:", error);
@@ -145,13 +152,13 @@ export default function MangaDetail() {
           </div>
 
           <div className="flex gap-3 pt-2">
-            {chapters.length > 0 && chapters[chapters.length - 1] && (
-               <Button className="flex-1 md:flex-none w-full md:w-auto font-bold h-12" render={<Link to={`/read/${chapters[chapters.length - 1].chapter_id}?manga=${id}`} className="flex items-center w-full justify-center" />}>
+            {chapters.length > 0 && (
+               <Button className="flex-1 md:flex-none w-full md:w-auto font-bold h-12" render={<Link to={`/read/${chapters[chapters.length - 1]?.chapter_id}?manga=${id}`} className="flex items-center w-full justify-center" />}>
                   <BookOpen className="w-4 h-4 mr-2" /> Read First Chapter
                </Button>
             )}
-            {chapters.length > 0 && chapters[0] && (
-              <Button variant="outline" className="flex-1 md:flex-none w-full md:w-auto font-bold h-12" render={<Link to={`/read/${chapters[0].chapter_id}?manga=${id}`} className="flex items-center w-full justify-center" />}>
+            {chapters.length > 0 && (
+              <Button variant="outline" className="flex-1 md:flex-none w-full md:w-auto font-bold h-12" render={<Link to={`/read/${chapters[0]?.chapter_id}?manga=${id}`} className="flex items-center w-full justify-center" />}>
                 Latest Chapter
               </Button>
             )}
@@ -179,12 +186,12 @@ export default function MangaDetail() {
           </h3>
         </div>
         
-        <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-2 grid-cols-1">
           {chapters.map(chapter => (
             <Link key={chapter.chapter_id} to={`/read/${chapter.chapter_id}?manga=${id}`}>
-              <Card className="hover:border-primary transition-colors bg-card shadow-sm h-full">
-                <CardContent className="p-3 md:p-4 flex justify-between items-center h-full">
-                  <span className="font-medium text-sm md:text-base line-clamp-1 mr-2">
+              <Card className="hover:border-primary transition-colors bg-card shadow-sm h-full rounded-md">
+                <CardContent className="p-4 flex justify-between items-center h-full">
+                  <span className="font-semibold text-sm md:text-base line-clamp-1 mr-2">
                     {chapter.chapter_title || `Chapter ${chapter.chapter_number}`}
                   </span>
                   <span className="text-xs text-muted-foreground shrink-0">
@@ -194,12 +201,17 @@ export default function MangaDetail() {
               </Card>
             </Link>
           ))}
+          {loadingChapters && page === 1 && (
+             Array(10).fill(0).map((_, i) => (
+                <Skeleton key={i} className="h-16 w-full rounded-md bg-muted" />
+             ))
+          )}
         </div>
         
         {hasMore && !loadingChapters && chapters.length > 0 && (
           <Button 
             variant="secondary" 
-            className="w-full mt-6" 
+            className="w-full mt-6 h-12" 
             onClick={loadMoreChapters}
             disabled={loadingMore}
           >
