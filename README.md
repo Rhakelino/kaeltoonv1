@@ -1,75 +1,57 @@
-# React + TypeScript + Vite
+# Kaeltoon - Shinigami Manga Reader
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, responsive, mobile-first web application for reading manga, built with React and Vite. This project consumes the Shinigami Comic API to provide a seamless reading experience.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Discover:** Browse Featured, Recommended, Popular, and Latest manga updates.
+- **Manga Details:** View complete manga information, synopsis, and chapter lists with "Load More" pagination support.
+- **Reading Experience:** Full-screen chapter reading mode with infinite vertical scroll, loading states, and quick Prev/Next navigation.
+- **Search:** Real-time search functionality to find your favorite titles.
+- **Taxonomies:** Browse manga by genres and authors.
+- **Responsive Layout:** Mobile-first design featuring a bottom navigation bar for mobile devices and a sticky top navbar for desktop.
+- **Dark Theme:** Native dark mode UI utilizing shadcn/ui and Tailwind CSS.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework:** React 19 + Vite
+- **Language:** TypeScript
+- **Routing:** React Router DOM
+- **Styling:** Tailwind CSS v4
+- **Components:** shadcn/ui (Base UI)
+- **Icons:** Lucide React
+- **Data Fetching:** Axios
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (v18 or higher recommended)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Build for production:
+   ```bash
+   npm run build
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `src/components/layout/` - Core layout wrappers (Navbar, Mobile Bottom Nav)
+- `src/components/ui/` - Reusable UI components (buttons, cards, badges, skeletons)
+- `src/pages/` - Main views (Home, MangaDetail, ReadChapter, Search, TaxonomyList)
+- `src/services/` - Centralized API integration logic (`api.ts`)
 
-```
+## API Reference
+
+This project is powered by the [Shinigami API endpoint](https://www.sankavollerei.web.id/comic).
