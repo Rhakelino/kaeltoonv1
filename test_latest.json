@@ -1,0 +1,1089 @@
+{
+  "status": "success",
+  "creator": "Sanka Vollerei",
+  "source": "Shinigami",
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 50,
+    "total_record": 1000,
+    "page_size": 20
+  },
+  "data": [
+    {
+      "manga_id": "c0f1d049-ff7f-474d-8c6a-3a55e4c44147",
+      "title": "Demonic Emperor",
+      "alternative_title": "Magic Emperor, 魔皇大管家",
+      "description": "Karena dia memiliki warisan Ancient Demonic emperor Demonic Emperor Zhuo Yifan menemui nasib sial karena dikhianati dan dibunuh oleh murid kepercayaannya Setelah terlahir kembali kultivasinya kembali ke nol dan dia terjebak oleh heart demon tidak diberi pilihan selain menjadi pengurus rumah tangga dari satusatunya nona tertua Keluarga Luo Dari menjadi Demonic Emperor menjadi pengurus rumah tangga yang tidak penting bagaimana dia bisa bergaul dengan eart demon eldest miss dan kekuatan apa yang akan dia peroleh untuk memimpin dirinya sendiri dan keluarga yang menurun untuk bangkit kembali ke puncak benuaaa",
+      "cover": "https://assets.shngm.id/thumbnail/image/8c4fdbee-ffb8-427d-ace7-f21fe6b72f77.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/d00e4253-656d-481e-b3ef-701e4c6d451e.jpg",
+      "status": "Ongoing",
+      "release_year": "2019",
+      "country": "CN",
+      "rating": 8.6,
+      "views": 72386616,
+      "bookmarks": 48258,
+      "latest_chapter": 887,
+      "latest_chapter_id": "206daa1c-ee96-426d-a85b-e91b7ad51ee7",
+      "latest_chapter_time": "2026-07-30T22:57:15Z",
+      "is_recommended": true,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Wuer Manhua",
+          "slug": "wuer-manhua"
+        },
+        {
+          "name": "Ye Xiao",
+          "slug": "ye-xiao"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Wuer Manhua",
+          "slug": "wuer-manhua-0"
+        }
+      ],
+      "format": "Manhua",
+      "type": "Project"
+    },
+    {
+      "manga_id": "d3b05787-4c8e-42bb-ba9a-6b2fafd92f3c",
+      "title": "Nano Machine",
+      "alternative_title": "나노마신",
+      "description": "Setelah direndahkan dan menghabiskan hidupnya dalam bahaya seorang yatim piatu dari pemuja iblis YeoWoon mendapatkan kunjungan tak terduga dari keturunannya dari masa depan yang memasukkan sebuah mesin nano ke dalam tubuh CheonWoon yang mengubah hidup Cheon Yeo Woon setelah aktivasi Ikuti Cerita tentang perjalanan Cheon YeoWoon di reaperscansid melewati pemujaan setan dan naik menjadi yang ahli beladiri terbaik baru saja dimulai",
+      "cover": "https://assets.shngm.id/thumbnail/image/27994c6a-415a-41cf-8569-de7e9b6ae7d9.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/38e34bb8-29c2-43f6-a2cc-ec9d4991ff5a.jpg",
+      "status": "Ongoing",
+      "release_year": "2020",
+      "country": "KR",
+      "rating": 9.4,
+      "views": 55853109,
+      "bookmarks": 70386,
+      "latest_chapter": 323,
+      "latest_chapter_id": "4fa9d762-7586-4188-99d2-a0720d9757d0",
+      "latest_chapter_time": "2026-07-29T18:43:50Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Han-Joong-Wueol-Ya",
+          "slug": "han-joong-wueol-ya"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "Guem-Gang-Bul-Gae",
+          "slug": "guem-gang-bul-gae"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "05bbcbc4-56a6-47e6-ac36-1d482339a322",
+      "title": "Eleceed",
+      "alternative_title": "일렉시드",
+      "description": "Kaiden  Pengguna kemampuan misterius yang bersembunyi di dalam tubuh kucing jalanan Dia kemudian dijemput oleh Jiwoo setelah terluka setelah berkelahi dengan pengguna kemampuan lain Ia memiliki kepribadian yang keras kepala dan suka memerintah Jiwoo  anak SMA yang energik dan banyak bicara yang suka kucing Ia sangat baik dan juga tampaknya memiliki kemampuan khusus",
+      "cover": "https://assets.shngm.id/thumbnail/image/08d8cb84-973a-4995-8b3e-bdfd9e305174.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/6c83f3db-948b-426f-a0ad-7074d8118632.jpg",
+      "status": "Ongoing",
+      "release_year": "2020",
+      "country": "KR",
+      "rating": 8.7,
+      "views": 43624275,
+      "bookmarks": 54485,
+      "latest_chapter": 411,
+      "latest_chapter_id": "876ab1c6-3d08-40c9-99be-64d06875795d",
+      "latest_chapter_time": "2026-07-28T16:07:30Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Son Jeho",
+          "slug": "son-jeho"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Naver",
+          "slug": "naver"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "703f6c7a-ad78-4d50-b5cc-c768c0a12fdb",
+      "title": "Revenge Of The Iron-Blooded Sword Hound",
+      "alternative_title": "철혈검가 사냥개의 회귀",
+      "description": "Anjing pemburu dari keluarga Baskerville\nDia dicap sebagai seorang pengkhianat dan dieksekusi lau dia ditinggalkan di saat terakhirnya\nSekarang dia sudah kembali ke 40 tahun yang lalu\nSekarang mereka akan menjadi mangsaku dan aku akan menggigit mereka semua sampai mati",
+      "cover": "https://assets.shngm.id/thumbnail/cover/f99039ce619f.jpeg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/d96303ba-bada-4003-aba8-08192706a941.jpg",
+      "status": "Ongoing",
+      "release_year": "2023",
+      "country": "KR",
+      "rating": 9.7,
+      "views": 39000348,
+      "bookmarks": 78102,
+      "latest_chapter": 173,
+      "latest_chapter_id": "4bb953e8-980f-4d41-b7a1-ddccae777aed",
+      "latest_chapter_time": "2026-07-26T15:18:09Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Step on a lego",
+          "slug": "step-on-a-lego"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "f96af365-8bf3-4b23-ab53-7bb6994a375d",
+      "title": "Pick Me Up",
+      "alternative_title": "Pick Me Up, Infinite Gacha, 픽 미 업!",
+      "description": "Dalam game gacha yang terkenal dengan kesulitannya yang mengerikan Master peringkat ke5 di dunia Loki kehilangan kesadaran saat menyerbu Dungeon\nApa Aku karakter game sekarang\nSetelah bangun Loki menyadari bahwa dia telah berubah menjadi Pahlawan Level 1 Bintang 1Han Yslat Untuk kembali ke Bumi dia harus memimpin para master dan hero pemula dan membersihkan lantai 100 Dungeon\nKau macammacam dengan orang yang salah\nIni adalah kisah perjuangan keras Master Loki yang belum pernah mengalami satu kekalahan pun",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1778080928768_j48q5q.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/97526c67-93d8-48e2-a287-dfd4f21f9674.jpg",
+      "status": "Ongoing",
+      "release_year": "2022",
+      "country": "KR",
+      "rating": 9.2,
+      "views": 38653491,
+      "bookmarks": 75340,
+      "latest_chapter": 212,
+      "latest_chapter_id": "a1ad631d-a72e-46e6-a6eb-1cb370461907",
+      "latest_chapter_time": "2026-07-29T14:55:41Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Hermod (헤르모드)",
+          "slug": "hermod"
+        },
+        {
+          "name": "U-Ne Cho (조우네)",
+          "slug": "u-ne-cho"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "Wasakbasak",
+          "slug": "wasakbasak"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "f70af567-5f45-4859-8222-e41eb10ac169",
+      "title": "Swordmaster’s Youngest Son",
+      "alternative_title": "The Swordmaster's Son; The Youngest Son of a Renowned Family of Swordsmen; 검술명가 막내아들",
+      "description": "Jin Runcandel adalah putra bungsu dari Swordmaster terhebat\nSetelah dia ditendang keluar dari klan dia mengalami nasib yang tragis Tapi sebelum dia mati seorang Dewa memberinya kesempatan kedua\nSekarang dia harus menggunakan kekuatan barunya untuk kebaikan\nAkankah Jin menjadi Swordmaster terkuat di dunia dan memenuhi potensi terbesarnya",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1784378853333_jgl69h.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/9dadcd86-4ee5-4b94-90f3-be19955078a8.jpg",
+      "status": "Ongoing",
+      "release_year": "2022",
+      "country": "KR",
+      "rating": 9.7,
+      "views": 36917492,
+      "bookmarks": 68748,
+      "latest_chapter": 204,
+      "latest_chapter_id": "b4dccf5a-0f1d-434c-8dc2-3d08a2e01f45",
+      "latest_chapter_time": "2026-07-25T15:06:49Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Martial Arts",
+          "slug": "martial-arts"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Emperor Penguin",
+          "slug": "emperor-penguin"
+        },
+        {
+          "name": "황제펭귄",
+          "slug": "d1ba468d-a33d-48e4-ba2b-9229f3fe1fb6"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Lee Je-Won",
+          "slug": "lee-je-won"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "ad6fa0a8-43b5-4dd1-aa89-1a1bbde66f65",
+      "title": "Solo Max-Level Newbie",
+      "alternative_title": "I Am the Top Ranker Newbie, I'm the Only Max-Leveled Newbie, I'm the Max-Leveled Newbie, 나 혼자 만렙 뉴비",
+      "description": "Jinhyuk, satu-satunya pemain game \\[MENARA UJIAN] yang menyelesaikan sampai akhir meski popularitas game telah menurun. Hingga suatu hari \\[MENARA UJIAN] menjadi kenyataan, Jinhyuk harus menyelesaikannya dengan segala elemen yang ia ketahui tentang game ini!!",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1780413923682_yyo9my.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/cover/banner_1771052268526_kne4py.jpg",
+      "status": "Ongoing",
+      "release_year": "2021",
+      "country": "KR",
+      "rating": 8.8,
+      "views": 35358738,
+      "bookmarks": 62210,
+      "latest_chapter": 270,
+      "latest_chapter_id": "075fa572-baa0-4750-806f-c4272f217dca",
+      "latest_chapter_time": "2026-07-31T00:48:15Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Maslow",
+          "slug": "maslow"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Swing Bat",
+          "slug": "swing-bat"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "6193d77a-1470-4365-9663-33027409325f",
+      "title": "The Greatest Estate Developer",
+      "alternative_title": "The World's Best Engineer, 대급 영지 설계사",
+      "description": "Kim SooHo seorang insinyur sipil menjadi bangsawan dari sebuah novel Tapi apa ini Harta saya akan segera dihancurkan Kemudian saya harus mendesain membangun dan menjual",
+      "cover": "https://assets.shngm.id/thumbnail/cover/873573ffed79.jpeg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/1fc811da-99f2-4fe8-9c34-c9d7f12185ec.jpg",
+      "status": "Hiatus",
+      "release_year": "2021",
+      "country": "KR",
+      "rating": 9.5,
+      "views": 34484665,
+      "bookmarks": 56153,
+      "latest_chapter": 222,
+      "latest_chapter_id": "afdbd332-52d2-4ad9-915d-da8b6dcbb08a",
+      "latest_chapter_time": "2026-01-01T16:29:08Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "BK_Moon",
+          "slug": "bk-moon"
+        }
+      ],
+      "artists": [
+        {
+          "name": "KIM Hyun Soo",
+          "slug": "kim-hyun-soo"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "f166beb7-67d8-47ea-9fa2-54aea1df6dd7",
+      "title": "The Villain Of Destiny",
+      "alternative_title": "I Am The Fated Villain",
+      "description": "Begitu Gu Changge menyadari dia telah masuk ke sebuah dunia fantasi protagonis dunia itu yang dengan beruntungnya terpilih bersumpah untuk melakukan balas dendam terhadapnya Semua orang sangat iri pada Protagonis itu karena bukan hanya karakter utama wanita tergilagila padanya tapi dia juga selalu diperlakukan sebagai tamu kehormatan kemanapun dia pergi Untungnya martabat dan kekuatan Gu Changge jauh melebihi milik orang lain sehingga dia tidak dengan mudah jatuh di tangan orang yang hanya terpilih karena keberuntungannya\n \nTunggu dulu ada sistem yang didedikasikan untuk meraup dan mengambil dari apa yang dimiliki protagonis Gu Changge tersenyum Sepertinya takdir pun ingin aku memenuhi takdirku sebagai orang jahat di dunia ini",
+      "cover": "https://assets.shngm.id/thumbnail/image/4629d00c-a3c0-414b-a8bd-b64a53f45723.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/e6ba24d4fbd0.jpeg",
+      "status": "Ongoing",
+      "release_year": "2021",
+      "country": "CN",
+      "rating": 8.7,
+      "views": 33270094,
+      "bookmarks": 35597,
+      "latest_chapter": 347,
+      "latest_chapter_id": "0f4022c5-78a4-4be0-ab0d-903cc831d18e",
+      "latest_chapter_time": "2026-07-28T00:41:27Z",
+      "is_recommended": true,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Martial Arts",
+          "slug": "martial-arts"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Demon",
+          "slug": "demon"
+        }
+      ],
+      "authors": [
+        {
+          "name": "天命反派",
+          "slug": "54fdbb32-238f-490a-8c5a-acb186d11465"
+        }
+      ],
+      "artists": [
+        {
+          "name": "绘术动漫",
+          "slug": "872ae83b-2066-4d95-804c-ee94d71af024"
+        }
+      ],
+      "format": "Manhua",
+      "type": "Project"
+    },
+    {
+      "manga_id": "b80f7a1a-d572-417b-a5e0-9ac6097bf0be",
+      "title": "Mercenary Enrollment",
+      "alternative_title": "High School Mercenary, 입학용병",
+      "description": "Yu Ijin adalah satusatunya yang selamat dari kecelakaan pesawat saat dia masih kecil Setelah menjadi tentara bayaran untuk bertahan hidup selama 10 tahun ia kembali ke keluarganya di kampung halamannya.",
+      "cover": "https://assets.shngm.id/thumbnail/image/3699954e-4c83-4465-99b0-863e924cab42.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/c668834b4847.jpeg",
+      "status": "Completed",
+      "release_year": "2020",
+      "country": "KR",
+      "rating": 8.8,
+      "views": 31113361,
+      "bookmarks": 43323,
+      "latest_chapter": 280,
+      "latest_chapter_id": "48a4eb1b-7f3b-4d82-ac12-0b3d4d129227",
+      "latest_chapter_time": "2026-03-25T15:20:50Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "School Life",
+          "slug": "school-life"
+        }
+      ],
+      "authors": [
+        {
+          "name": "YC",
+          "slug": "cd7bef52-74c8-45d8-95af-45664bad0748"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Rakhyun",
+          "slug": "rakhyun"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "dd8ac0a4-b6ec-4f46-842c-98871ea3dc43",
+      "title": "Infinite Mage",
+      "alternative_title": "무한의 마법사",
+      "description": "Shirone seorang anak yang ditinggalkan di kandang dan dibesarkan sebagai orang biasa\nSeorang anak yang terbangun untuk menulis dengan wawasan bawaan\nSuatu hari ketika dia pergi ke kota dia mengalami keajaiban yang sangat dia ingin tahu\nDi jalan itu Sirone bermimpi menjadi seorang penyihir\nNamun tempat dengan penghalang status yang tebal ini kejam terhadap anakanak\nDia menemukan sisi lain dari dunia ini bahkan sebelum dia menjadi dewasa\nDi dunia ini berputar di suatu tempat\nAkankah dia bisa menjadi penyihir impiannya.",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1768917104855_wzdaur.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/6119463c-3b63-4ec7-bab7-54bd76628000.jpg",
+      "status": "Ongoing",
+      "release_year": "2022",
+      "country": "KR",
+      "rating": 9.4,
+      "views": 30926746,
+      "bookmarks": 65712,
+      "latest_chapter": 179,
+      "latest_chapter_id": "9ae5bf84-697f-4b2a-af65-8a456b0c8bf3",
+      "latest_chapter_time": "2026-07-28T15:43:07Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Isekai",
+          "slug": "isekai"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Kim ChiWoo",
+          "slug": "kim-chiwoo"
+        },
+        {
+          "name": "Kiraz",
+          "slug": "kiraz-0"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "Themis",
+          "slug": "themis"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "1aba726d-fb23-4e05-aafa-f6b5bb67c489",
+      "title": "Return Of The Mount Hua Sect",
+      "alternative_title": "Return of the Blossoming Blade, 화산귀환",
+      "description": "Chung Myung Murid ke- 13 dari Mount hua sect salah satu dari 3 swordsman terkuat Plum Blossom Sword Saint Mengalahkan Cheonn Ma yang membawa kehancuran pada dunia ini.\n\nSetelah pertarungan tersebut ia menghembuskan nafas terakhirnya di atas gunung tempat mount hua sect berada.\n\ndia terlahir kembali 100 tahun kemudian di dalam tubuh seorang anak kecil\n\n> Apa?, Sekte Mount Hua telah hancur?\n> Omong kosong macam apa itu\n\n> \\[!caution]\n> Badass MC",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1776174203775_i71j1y.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/5cb281ec-ee18-4ec1-9df3-08b661c80eea.jpg",
+      "status": "Ongoing",
+      "release_year": "2021",
+      "country": "KR",
+      "rating": 9.8,
+      "views": 29983503,
+      "bookmarks": 53102,
+      "latest_chapter": 173,
+      "latest_chapter_id": "45511bef-6a6b-48b0-b9a5-b9d71c70819a",
+      "latest_chapter_time": "2026-07-29T00:17:11Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Biga",
+          "slug": "biga"
+        }
+      ],
+      "artists": [
+        {
+          "name": "LICO",
+          "slug": "lico"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "799eb33b-c086-47a6-b4e0-4516cb87bc77",
+      "title": "Omniscient Reader’s Viewpoint",
+      "alternative_title": "Prespektif Pembaca Mahatahu | 전지적 독자 시점",
+      "description": "Kim Dokja adalah pekerja kantoran biasa yang minat satusatunya adalah membaca novel web favoritnya Tiga Cara untuk Bertahan dari Kiamat Tetapi ketika novel itu tibatiba menjadi kenyataan dia adalah satusatunya orang yang tahu bagaimana dunia akan berakhir Berbekal hal tersebut Dokja menggunakan pemahamannya untuk mengubah jalannya cerita dan dunia seperti yang dia tahu",
+      "cover": "https://assets.shngm.id/thumbnail/cover/78c7954c72ba.jpeg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/93e85535-1327-49ed-8acd-afaaf4a18978.jpg",
+      "status": "Completed",
+      "release_year": "2020",
+      "country": "KR",
+      "rating": 9.4,
+      "views": 28813127,
+      "bookmarks": 54660,
+      "latest_chapter": 311,
+      "latest_chapter_id": "8f6704eb-999b-484e-b8fd-eef37b662b9f",
+      "latest_chapter_time": "2026-05-20T02:07:28Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Demon",
+          "slug": "demon"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        },
+        {
+          "name": "Psychological",
+          "slug": "psychological"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Sing N Song",
+          "slug": "sing-n-song"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "Sleepy-C",
+          "slug": "sleepy-c"
+        },
+        {
+          "name": "UMI",
+          "slug": "8b7bddfb-5fb1-42ea-ba43-b1e7a5135224"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "fc727dec-d1f5-43e8-a77d-37382f636659",
+      "title": "The Return of The Disaster Class Hero",
+      "alternative_title": "재앙급 영웅님이 귀환하셨다",
+      "description": "Manhwa Action Baru\nPernah ada seorang pahlawan yang dianggap terkuat di Bumi Tapi dia sudah mati Bagaimana mungkin seseorang yang kita bunuh bisa hidup kembali Ya aku juga ingin melihatnya jika dia bisa hidup kembali Namun 20 tahun kemudian dia benarbenar kembali Kenapa kalian begitu terkejut Apakah kalian melakukan sesuatu yang membuat kalian merasa bersalah Bajinganbajingan ini Aku tidak akan membiarkan mereka begitu saja",
+      "cover": "https://assets.shngm.id/thumbnail/image/f7d5221f-e5ef-4e9a-b4b5-a9660e301e99.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/c2ea08e9-c81b-445b-b1c6-edc5daef0adb.jpg",
+      "status": "Ongoing",
+      "release_year": "2022",
+      "country": "KR",
+      "rating": 9.5,
+      "views": 28121050,
+      "bookmarks": 58389,
+      "latest_chapter": 183,
+      "latest_chapter_id": "f88d4064-8798-4c33-a4c5-92616a0dc30a",
+      "latest_chapter_time": "2026-07-29T15:38:00Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Revenge",
+          "slug": "revenge"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        },
+        {
+          "name": "Isekai",
+          "slug": "isekai"
+        }
+      ],
+      "authors": [
+        {
+          "name": "SAN.G (산지직송)",
+          "slug": "sang-0"
+        },
+        {
+          "name": "HEATS",
+          "slug": "heats"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "BGman",
+          "slug": "bgman"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "c1b09df6-001d-4eec-ba58-d74d97ca3a36",
+      "title": "The Heavenly Demon Can’t Live A Normal Life",
+      "alternative_title": "천마는 평범하게 살 수 없다, Descended from Divinity",
+      "description": "Heavenly Demon Baek JoongHyuk membuka matanya sebagai putra tertua keluarga Dimitry\nDia dikenal sebagai anak bodoh dari keluarga DImitry disudutkan oleh putra kedua Pendapat dunia sungguh tidak bisa diandalkan\nHeavenly Demon bukan Roman Dimitry tidak bisa menjalani kehidupan yang normal",
+      "cover": "https://assets.shngm.id/thumbnail/image/6ea352fb-4d54-4700-a8d3-4262c8301977.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/fac73ec4-f5aa-4a5f-b070-d20001e3f21f.jpg",
+      "status": "Ongoing",
+      "release_year": "2021",
+      "country": "KR",
+      "rating": 9.5,
+      "views": 27617057,
+      "bookmarks": 39083,
+      "latest_chapter": 209,
+      "latest_chapter_id": "df6ca3aa-9f1f-4cfc-9293-2a46879627db",
+      "latest_chapter_time": "2026-07-13T17:17:35Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Revenge",
+          "slug": "revenge"
+        },
+        {
+          "name": "Psychological",
+          "slug": "psychological"
+        }
+      ],
+      "authors": [
+        {
+          "name": "San Cheon",
+          "slug": "san-cheon"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Upu",
+          "slug": "b3a1a150-dd1e-4c6c-87f8-5cb80ad50568"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "d15c374a-4b0a-496b-81a3-359980acd081",
+      "title": "Player Who Returned 10,000 Years Later",
+      "alternative_title": "만 년 만에 귀환한 플레이어",
+      "description": "Dari Studio yang sama Dengan Damn Reincarnation\nSuatu Hari Ia Mendapati Dirinya Terjebak di dalam Neraka\nNamun Dia memiliki Tekad yang kuat Dan Kekuatan yang Kuat pula\nSetelah 9999 tahun Berlalu Ia telah Menyerap Jutaan Demon Dalam Dirinya dan Menjadi Penguasa neraka\nMengalahkan Para Monarch yang ada Di nereka\nKenapa Anda ingin Kembali Yang mulia bukankah anda sudah punya Segalanya di sini\nUcap Salah satu Monarch\nApa yang aku punya di sini Tidak ada yang bisa dimakan tidak ada yang bisa dinikmati Sudah Kuputuskan\nAku akan Kembali Ke bumi",
+      "cover": "https://assets.shngm.id/thumbnail/image/74f1f8cc-2e9b-430e-a7f5-fd861240fb8a.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/b8341080-20f2-46cd-ad74-4e467873f2e4.jpg",
+      "status": "Completed",
+      "release_year": "2022",
+      "country": "KR",
+      "rating": 8.8,
+      "views": 26144747,
+      "bookmarks": 55830,
+      "latest_chapter": 154,
+      "latest_chapter_id": "dd752ee4-b6e8-486c-8706-f33a5e89f9c4",
+      "latest_chapter_time": "2026-05-03T16:37:22Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Demon",
+          "slug": "demon"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Butterfly Valley",
+          "slug": "butterfly-valley"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Copin",
+          "slug": "copin-0"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "16778db0-17c0-43c4-aa4a-3a4a0df5ec0b",
+      "title": "Overgeared",
+      "alternative_title": "Overgeared, 템빨",
+      "description": "Shin Youngwoo punya kehidupan yang bernasib sial Ia terpaksa bekerja kasar di sebuah tempat kontruksi untuk membayar biaya sekolah dan uang game yang ia gunakan Bahkan ia juga kerja kasar di VR Game yang bernama Satisfy Namun hidupnya mulai berubah ketika karakternya sebagai Grid di game menemukan Pagmas Rare Book hingga menjadi legendary class player",
+      "cover": "https://assets.shngm.id/thumbnail/cover/f38bf1beaa3b.jpeg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/4cb65129-5d7a-4960-847e-3337391b39f8.jpg",
+      "status": "Ongoing",
+      "release_year": "2020",
+      "country": "KR",
+      "rating": 8.8,
+      "views": 25513312,
+      "bookmarks": 28204,
+      "latest_chapter": 333,
+      "latest_chapter_id": "f4b6c168-082f-46db-af59-4d875d33288d",
+      "latest_chapter_time": "2026-07-31T16:04:32Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Game",
+          "slug": "game"
+        },
+        {
+          "name": "Magic",
+          "slug": "magic"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Monohumbug",
+          "slug": "monohumbug"
+        },
+        {
+          "name": "Saenal",
+          "slug": "saenal"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "Team Argo",
+          "slug": "team-argo"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "eefbdd4d-a794-43da-9725-180c98114d40",
+      "title": "The Regressed Mercenary’s Machinations",
+      "alternative_title": "회귀한 용병은 다 계획이 있다",
+      "description": "Ghislain Perdium sang Mercenary King dan salah satu orang terkuat di benua memulai perang untuk membalaskan dendam keluarganya\nRencana balas dendamnya berjalan dengan lancar sampai dia dihabisi oleh Idun yang tidak disangkasangka malah muncul Ghislain mengira bahwa dia sudah mati namun kembali bangun sebagai dirinya yang masih muda sebelum keluarganya runtuh\nDengan kesempatan kedua ini dia memutuskan untuk memperbaiki semua kepingan puzzle yang salah dan menghindari kesalahankesalahan di kehidupan sebelumnya",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1780414226428_ng198m.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/d0114782-58b8-4fe0-a573-0b4fe7e2d3ea.jpg",
+      "status": "Ongoing",
+      "release_year": "2024",
+      "country": "KR",
+      "rating": 9.7,
+      "views": 24444803,
+      "bookmarks": 69593,
+      "latest_chapter": 99,
+      "latest_chapter_id": "f90ffb6b-1167-4b05-ae05-3f4b870d63e2",
+      "latest_chapter_time": "2026-07-28T03:27:43Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Gold Line",
+          "slug": "gold-line"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Park JinSeok",
+          "slug": "park-jinseok"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "4bf6c017-842e-48a1-8a2a-f6160c1d8d44",
+      "title": "Star-Embracing Swordmaster",
+      "alternative_title": "별을 품은 소드마스터",
+      "description": "Vlad adalah anak gelandangan dari daerah kumuh yang selalu mengagumi kesatria\nSetelah sebuah insiden di mana dia tersambar petir hitam dia mulai mendengar suara\nSuatu hari mendadak kesatria blue moonlight muncul dan kehidupan Vlad di daerah kumuh itu berubah drastis\nBahkan sebuah bintang yang redup yang tidak bersinar di puncak langit malam masih sebuah bintang jika ia ingin bersinar",
+      "cover": "https://assets.shngm.id/thumbnail/image/8e38baef-c9c5-4662-adab-778237de2eb3.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/0be57d68-382d-4cc6-80bc-f72173243ae4.jpg",
+      "status": "Ongoing",
+      "release_year": "2023",
+      "country": "KR",
+      "rating": 8.5,
+      "views": 24383795,
+      "bookmarks": 61364,
+      "latest_chapter": 131,
+      "latest_chapter_id": "998a4855-0fad-403b-b45d-dc810eeb027c",
+      "latest_chapter_time": "2026-07-29T04:09:12Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Hong Dae-Wui",
+          "slug": "hong-dae-wui"
+        },
+        {
+          "name": "Q10",
+          "slug": "057c1b20-db54-42b3-a391-b3041fdcc246"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Juno",
+          "slug": "juno"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "daf22638-d5ef-4060-af9a-f7a0b925fcb9",
+      "title": "The World After The Fall",
+      "alternative_title": "멸망 이후의 세계 | The World After the End | The World After Destruction",
+      "description": "Manusia tibatiba dipanggil untuk menjadi Walkers dan mereka perlu menyelesaikan menara untuk menyelamatkan dunia\nKemudian Regression Stone ditemukan sekarang Walkers bisa kembali ke masa lalu\nDan perlahanlahan semua orang pergi Jika aku pergi ke masa lalu lalu bagaimana dengan nasib orangorang di dunia ini\nSiapa yang akan menyelamatkan mereka\nHarapan terakhir umat manusia kelompok Carpe Diem\ndibentuk oleh orangorang yang menolak untuk meninggalkan dunia\nTapi begitu Walker terakhir mencapai lantai 100 dia tidak tahu lagi apa yg harus dia percayai\nIni adalah kisah tentang satusatunya pria yang pantang mundur untuk meninggalkan dunianya meskipun semua walker yang lain kembali ke masa lalu",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1780414298811_rqgtsj.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/0eb2556c7d9e.jpeg",
+      "status": "Ongoing",
+      "release_year": "2022",
+      "country": "KR",
+      "rating": 8.7,
+      "views": 24048384,
+      "bookmarks": 39834,
+      "latest_chapter": 245,
+      "latest_chapter_id": "4e4d01d6-fee4-42e5-8e4b-924e1c8371a3",
+      "latest_chapter_time": "2026-07-29T04:09:27Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "S-Cynaan",
+          "slug": "s-cynaan"
+        },
+        {
+          "name": "Sing-Shong",
+          "slug": "sing-shong"
+        },
+        {
+          "name": "싱숑",
+          "slug": "6732e0f4-281e-43d8-851a-a8dfd12de4fc"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "S-Cynaan",
+          "slug": "s-cynaan-0"
+        },
+        {
+          "name": "Sing-Shong",
+          "slug": "sing-shong-0"
+        },
+        {
+          "name": "싱숑",
+          "slug": "1c9000b0-4e5d-47a1-ae36-bf3c62727011"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    }
+  ]
+}

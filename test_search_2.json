@@ -1,0 +1,1077 @@
+{
+  "status": "success",
+  "creator": "Sanka Vollerei",
+  "source": "Shinigami",
+  "query": "Revenge Of The Iron-Blooded Sword Hound",
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 2,
+    "total_record": 25,
+    "page_size": 20
+  },
+  "data": [
+    {
+      "manga_id": "703f6c7a-ad78-4d50-b5cc-c768c0a12fdb",
+      "title": "Revenge Of The Iron-Blooded Sword Hound",
+      "alternative_title": "철혈검가 사냥개의 회귀",
+      "description": "Anjing pemburu dari keluarga Baskerville\nDia dicap sebagai seorang pengkhianat dan dieksekusi lau dia ditinggalkan di saat terakhirnya\nSekarang dia sudah kembali ke 40 tahun yang lalu\nSekarang mereka akan menjadi mangsaku dan aku akan menggigit mereka semua sampai mati",
+      "cover": "https://assets.shngm.id/thumbnail/cover/f99039ce619f.jpeg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/d96303ba-bada-4003-aba8-08192706a941.jpg",
+      "status": "Ongoing",
+      "release_year": "2023",
+      "country": "KR",
+      "rating": 9.7,
+      "views": 39000348,
+      "bookmarks": 78102,
+      "latest_chapter": 173,
+      "latest_chapter_id": "4bb953e8-980f-4d41-b7a1-ddccae777aed",
+      "latest_chapter_time": "2026-07-26T15:18:09Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Step on a lego",
+          "slug": "step-on-a-lego"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "cf54ac12-830b-49a7-9d83-bf74c4b27197",
+      "title": "The Wandering Knight’s Survival Manual",
+      "alternative_title": "방랑기사로 살아가는 법",
+      "description": "Dari Redice Studio, yang mengerjakan Solo Leveling, Revenge of the Iron-Blooded Sword Hound, dan banyak lagi!\n\nSetelah meninggal karena kecelakaan yang tak terduga, Kim Yohan bereinkarnasi menjadi Johann Aitz dari keluarga bangsawan terhormat, Keluarga Aitz.\n\nMeskipun terlahir sebagai bangsawan, Johann Aitz menempati posisi paling bawah dalam hierarki keluarganya. Lebih parah lagi, dunia tempat ia hidup kini berputar di sekitar masyarakat abad pertengahan yang kejam.\n\n“Satu-satunya orang yang bisa kau percayai hanyalah dirimu sendiri.”\n\nDi dunia yang dikuasai oleh hukum rimba ini, untuk bertahan hidup hanya dibutuhkan dua hal: uang dan kekuatan.\n\nSambil berlatih tanpa henti menggunakan pengetahuan dari kehidupan modernnya, Johann akhirnya bertemu dengan Kaegal — Master Racun dari guild pembunuh paling terkenal di Kekaisaran, Guild Nesos.\n\nInilah kisah perjuangan sengit Johann, yang menolak untuk menjadi mangsa lain dari zaman brutal ini.",
+      "cover": "https://assets.shngm.id/thumbnail/image/07edde75-7c64-4a0c-adc2-b87d898d652d.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/80ce8ec1-8346-4e01-ae52-009cbf41bf84.jpg",
+      "status": "Ongoing",
+      "release_year": "2025",
+      "country": "KR",
+      "rating": 8.5,
+      "views": 3746055,
+      "bookmarks": 15946,
+      "latest_chapter": 52,
+      "latest_chapter_id": "cbc86a68-c945-4647-ae0d-d96d96288cc3",
+      "latest_chapter_time": "2026-07-29T19:05:34Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Menyusul",
+          "slug": "menyusul"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "b5f07831-f952-4919-af7c-aae4cadeb607",
+      "title": "The Regressed Son Of A Duke Is An Assassin",
+      "alternative_title": "회귀한 공작가의 막내도련님은 암살자",
+      "description": "Dari studio yang membawakan Solo Leveling Revenge of the IronBlooded Sword Hound dan Solo MaxLevel Newbie dan masih banyak lagi\nCyan Vert pembunuh terbaik di benua menemui ajalnya yang menyedihkan setelah dikhianati oleh saudaranya sendiri orang yang paling dia percayai sepanjang hidupnya\nSeandainya aku diberi kesempatan kedua untuk hidup aku pasti akan menjalaninya dengan cara yang berbeda Hanya diri sendiri yang akan kupercayai dan segala hal yang kuinginkan akan kugapai oleh tanganku sendiri\nAjaibnya keinginanku pun dikabulkan Tak ada lagi Cyan Vert bayangan yang hidup demi orang lain Sekarang akan kuukir jalan hidup ini dengan kedua tanganku sendiri",
+      "cover": "https://assets.shngm.id/thumbnail/cover/3f840112370e.jpeg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/068033af-4b17-4a12-9edd-46797feea6d3.jpg",
+      "status": "Ongoing",
+      "release_year": "2024",
+      "country": "KR",
+      "rating": 9,
+      "views": 21190481,
+      "bookmarks": 53930,
+      "latest_chapter": 137,
+      "latest_chapter_id": "c42f80d8-5c4e-40e7-a5b0-32d7ca600abd",
+      "latest_chapter_time": "2026-07-26T21:43:19Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "CoffeeLime",
+          "slug": "coffeelime"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "Swing Bat",
+          "slug": "swing-bat"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "82a64744-d5c9-4cdb-8e5e-895b2aeae50d",
+      "title": "The Last Adventurer",
+      "alternative_title": "최후의 모험가",
+      "description": "Dari studio yang membawakan Solo Leveling dan Revenge of the IronBlooded Sword Hound The World After The End dan masih banyak lagi\nSebuah Gate terbuka dan era petualangan pun dimulai\nEra ketakutan keputusasaan dan kesengsaraan saat di mana semuanya ambruk\nDan era di mana semua orang menyerah untuk melawan\nTetapi ada satu Adventurer yang tidak menyerah hingga akhir\nHanya tersisa kau saja El Plaume Kau lah Adventurer terakhir\nSaat era petualangan berakhir sang Adventurer terakhir membawa keseluruhan cerita kembali ke titik awalnya",
+      "cover": "https://assets.shngm.id/thumbnail/image/4354bb5e-9907-4500-b019-1bf45784c2cc.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/fc490e72-6642-4a4c-9cfb-3367cc0a600c.jpg",
+      "status": "Hiatus",
+      "release_year": "2024",
+      "country": "KR",
+      "rating": 8.2,
+      "views": 14458912,
+      "bookmarks": 36075,
+      "latest_chapter": 120,
+      "latest_chapter_id": "bbd5a9c8-4c1b-42bc-a095-e858eee15cc1",
+      "latest_chapter_time": "2026-04-29T04:33:53Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Blue Lobster",
+          "slug": "blue-lobster"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "Salty Dog",
+          "slug": "salty-dog"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "978d1c2c-a3ca-41aa-ae32-72cb5ea79a02",
+      "title": "The Indomitable Martial King",
+      "alternative_title": "권왕전생",
+      "description": "Dari studio yang membawakanmu Solo Leveling dan Revenge of the IronBlooded Sword Hound\ndan masih banyak lagi dan Penulis yang Sama yang membawakanm Survival Story of a Sword King in a Fantasy World\nDi sebuah dunia tempat manusia menjual dan membeli spesies dunia lain sebagai budak\nRifenhardt sang Great Mage diperlakukan seperti Demon King karena membantu spesies dari dunia lain\nSebuah party Hero datang untuk mengalahkan Demon King Rifenhardt berhasil melukai para Hero dengan parah tetapi dia menemui ajalnya di tangan MARTIAL KING\nTesslon Time and Space Regression Spell\nNamun dia secara ajaib berhasil merapal spell pilihan terakhir dan mundur ke masa lalu\nTapi Aku menjadi Martial King Tesslon salah satu Hero yang mencoba membunuhku dan yang terkuat di benua ini\nSekarang dimulailah petualangan Rifenhardt sebagai Great Mage sekaligus manusia terkuat secara fisik untuk mengubah dunia",
+      "cover": "https://assets.shngm.id/thumbnail/image/68823cea-be10-41a7-a5a9-5e36b3c48196.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/04d71b2a-622b-4d58-a3a0-72ece5472069.jpg",
+      "status": "Ongoing",
+      "release_year": "2024",
+      "country": "KR",
+      "rating": 8.5,
+      "views": 12637255,
+      "bookmarks": 23358,
+      "latest_chapter": 144,
+      "latest_chapter_id": "5f12efa4-3a83-49a2-98d0-59f89dbe1eff",
+      "latest_chapter_time": "2026-07-30T11:51:03Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Martial Arts",
+          "slug": "martial-arts"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio-0"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "YANG Kyung-Il",
+          "slug": "yang-kyung-il"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "68c84e47-3920-4c33-b004-fddf0e34c59f",
+      "title": "Reaper Of The Drifting Moon",
+      "alternative_title": "Death God of the Drifting Moon, 사신표월",
+      "description": "Dia Terjebak di Sisi Gelap Dunia Murim nan kelam dan kejam Sebagai Seorang Assassin\nBukalah Matamu yang lebar dan Teruslah Waspada Jika kau tak ingin Diseret Kedalam Kegelapan Abadi",
+      "cover": "https://assets.shngm.id/thumbnail/image/2488dc39-0274-41eb-a4ee-fb1af8f0aae1.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/68d6a4f8-a316-4864-bdd7-76e1eefd4959.jpg",
+      "status": "Completed",
+      "release_year": "2022",
+      "country": "KR",
+      "rating": 9.5,
+      "views": 17331102,
+      "bookmarks": 29122,
+      "latest_chapter": 135,
+      "latest_chapter_id": "93ba90d7-7bea-455d-b8df-ffa0f12c3f4e",
+      "latest_chapter_time": "2026-04-15T14:09:53Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Martial Arts",
+          "slug": "martial-arts"
+        },
+        {
+          "name": "Murim",
+          "slug": "murim"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Revenge",
+          "slug": "revenge"
+        },
+        {
+          "name": "Psychological",
+          "slug": "psychological"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Mok-In (목인)",
+          "slug": "mok-in"
+        },
+        {
+          "name": "Ugak (우각)",
+          "slug": "ugak"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "INKYO",
+          "slug": "inkyo"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "fc727dec-d1f5-43e8-a77d-37382f636659",
+      "title": "The Return of The Disaster Class Hero",
+      "alternative_title": "재앙급 영웅님이 귀환하셨다",
+      "description": "Manhwa Action Baru\nPernah ada seorang pahlawan yang dianggap terkuat di Bumi Tapi dia sudah mati Bagaimana mungkin seseorang yang kita bunuh bisa hidup kembali Ya aku juga ingin melihatnya jika dia bisa hidup kembali Namun 20 tahun kemudian dia benarbenar kembali Kenapa kalian begitu terkejut Apakah kalian melakukan sesuatu yang membuat kalian merasa bersalah Bajinganbajingan ini Aku tidak akan membiarkan mereka begitu saja",
+      "cover": "https://assets.shngm.id/thumbnail/image/f7d5221f-e5ef-4e9a-b4b5-a9660e301e99.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/c2ea08e9-c81b-445b-b1c6-edc5daef0adb.jpg",
+      "status": "Ongoing",
+      "release_year": "2022",
+      "country": "KR",
+      "rating": 9.5,
+      "views": 28121050,
+      "bookmarks": 58389,
+      "latest_chapter": 183,
+      "latest_chapter_id": "f88d4064-8798-4c33-a4c5-92616a0dc30a",
+      "latest_chapter_time": "2026-07-29T15:38:00Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Revenge",
+          "slug": "revenge"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        },
+        {
+          "name": "Isekai",
+          "slug": "isekai"
+        }
+      ],
+      "authors": [
+        {
+          "name": "SAN.G (산지직송)",
+          "slug": "sang-0"
+        },
+        {
+          "name": "HEATS",
+          "slug": "heats"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Redice Studio",
+          "slug": "redice-studio"
+        },
+        {
+          "name": "BGman",
+          "slug": "bgman"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "ba69f3c8-e68d-4ce1-bc8c-e6eeddc8337a",
+      "title": "Revenge of the Bloom Flower",
+      "alternative_title": "화무십일홍",
+      "description": "Satu kitab legendaris pemicu badai darah. Satu malam yang merenggut segalanya. Demi membalas kematian orang-orang tercintanya akibat perebutan kitab “Wisdom of the Secret Master”, Woonseon mengubur masa lalunya yang suci. Di dunia Jianghu yang kejam—di mana harta, takhta, dan cinta bersifat fana layaknya bunga yang layu dalam sepuluh hari—kini hanya dendamnya yang menolak untuk mati.",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1779261411750_ko864u.webp",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2024",
+      "country": "KR",
+      "rating": 7,
+      "views": 527805,
+      "bookmarks": 2071,
+      "latest_chapter": 63,
+      "latest_chapter_id": "6df9319f-f08b-491a-946a-cbed7ed15873",
+      "latest_chapter_time": "2026-07-31T14:04:49Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Martial Arts",
+          "slug": "martial-arts"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Bluebeard",
+          "slug": "bluebeard-author"
+        },
+        {
+          "name": "Dongryeon",
+          "slug": "dongryeon-author"
+        }
+      ],
+      "artists": [
+        {
+          "name": "404nf",
+          "slug": "404nf-artist"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "506e7ee5-e93c-488f-9ef5-cd711476217b",
+      "title": "Tyrant of the Otherworld: My Shadow Can Evolve Infinitely",
+      "alternative_title": "异狱暴君：我的影子能无限进化",
+      "description": "In the year 2035, rifts to alien realms tore through the world’s defenses. Swarms of insectoids and beastkin ravaged the land, and humanity struggled to survive through the strength of “Evolvers.” Li Yi was betrayed by his teammates during an attack by alien beings and left for dead. On the brink of death, he awakened the “Titan Shadow” System—his shadow could evolve without limits! It could devour ores to enhance defense, tear through enemies to form deadly blades, and even split into an army of shadow soldiers… From insect hives to haunted lands, wherever his shadow passed, enemies were shredded into pulp. This is the revenge of the weak—begun with a shadow that devours all.",
+      "cover": "https://assets.shngm.id/thumbnail/image/effddea0-a476-457f-8653-4340fa3b3173.jpg",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2025",
+      "country": "CN",
+      "rating": 7.5,
+      "views": 846010,
+      "bookmarks": 4334,
+      "latest_chapter": 103,
+      "latest_chapter_id": "e062e140-712d-4657-a69f-76613c55af25",
+      "latest_chapter_time": "2026-08-01T00:49:02Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Meng Yue Culture (萌月文化)",
+          "slug": "meng-yue-culture-1"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Meng Yue Culture (萌月文化)",
+          "slug": "meng-yue-culture-2"
+        }
+      ],
+      "format": "Manhua",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "76d5e1bd-735a-4dd7-aece-f8b459abdaed",
+      "title": "Buta no Fukushuu",
+      "alternative_title": "豚の復讐, Revenge of the Pig, Месть свиней",
+      "description": "Manga balas dendam Isekai tentang seorang pria yang dipindahkan ke dunia lain bersama para pengganggunya & berencana untuk membalas dendam yang mengerikan",
+      "cover": "https://assets.shngm.id/thumbnail/image/28f56c2a-0ccd-4491-a739-4c7f0e06f61f.jpg",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2021",
+      "country": "JP",
+      "rating": 7.5,
+      "views": 210096,
+      "bookmarks": 589,
+      "latest_chapter": 43,
+      "latest_chapter_id": "c1acd055-09a7-497f-87a3-f5b5b74a0870",
+      "latest_chapter_time": "2025-12-16T07:36:52Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Tragedy",
+          "slug": "tragedy"
+        },
+        {
+          "name": "Isekai",
+          "slug": "isekai"
+        },
+        {
+          "name": "Thriller",
+          "slug": "thriller"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Nitou Sau",
+          "slug": "nitou-sau"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Kuroda Takayoshi",
+          "slug": "kuroda-takayoshi"
+        }
+      ],
+      "format": "Manga",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "a6f14516-e806-4184-a823-402e6244a8ad",
+      "title": "Bad Born Blood",
+      "alternative_title": "배드 본 블러드",
+      "description": "Dari Redice Studio yang merngerjakan Solo Leveling and Omniscient Readers Viewpoint and Revenge of the IronBlooded Sword Hound dll\nRumah umat manusia bukan lagi Bumi Perjalanan antar bintang sudah menjadi lumrah dan teknologi telah menggantikan darah dan daging\nLuka yang tumbuh di daerah kumuh telah berumur 15 tahun dan mengikuti ujian seleksi Bakatnya adalah Imperial Guard.",
+      "cover": "https://assets.shngm.id/thumbnail/image/14a3f6b7-063e-4062-94cd-3269b4170d30.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/f76621c5-ce8d-40a7-933b-7ef6f6935f81.jpg",
+      "status": "Ongoing",
+      "release_year": "2024",
+      "country": "KR",
+      "rating": 8.3,
+      "views": 4921135,
+      "bookmarks": 27832,
+      "latest_chapter": 93,
+      "latest_chapter_id": "b04f2fd3-f0a1-41ca-98ab-7ba269d8fe24",
+      "latest_chapter_time": "2026-07-14T11:28:49Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Sci-fi",
+          "slug": "sci-fi"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Baeksu Noble",
+          "slug": "baeksu-noble"
+        },
+        {
+          "name": "Pumpkin Bird",
+          "slug": "pumpkin-bird"
+        }
+      ],
+      "artists": [],
+      "format": "Manhwa",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "8d05a538-1530-40fe-bc90-b1761ddbe98e",
+      "title": "Breakers",
+      "alternative_title": "브레이커즈",
+      "description": "Oleh penulis yang mengerjakan Ending Maker! \nDan dibawa oleh Redice Studio yang menegrjakan Revenge of the Iron-Blooded Sword Hound, Solo Leveling, Reaper of the Drifting Moon, dan banyak lagi!\n\nJoo In-gong terseret masuk ke dalam remake dari game yang sedang ia mainkan, <Knight Saga:Re>.\n\nNamun, ada sesuatu yang janggal. Seharusnya hanya ada dua karakter yang bisa dimainkan—Loch dari pihak manusia, dan Zephyr dari pihak iblis. \n\nTapi entah bagaimana, ia justru terbangun dalam tubuh Shutra—pangeran kesembilan dari Dunia Iblis, sosok yang sebenarnya bahkan tidak pernah ada dalam cerita asli game itu.\n\nDianugerahi dua kekuatan misterius, \"Pengaturan Ulang Karakter Protagonis\" dan \"Kekuatan Penaklukan,\" \nJoo In-gong kini harus mengubah alur cerita game demi bertahan hidup melawan Zephyr.\n\nNamun, setiap kali jalan cerita berubah... perhatian semakin banyak tertuju padanya.",
+      "cover": "https://assets.shngm.id/thumbnail/image/7fcb6804-368c-4bca-a589-665691c2d4d4.jpg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/82f337e4-dc0c-4faf-b4e5-8b9e87c806a5.jpg",
+      "status": "Ongoing",
+      "release_year": "2025",
+      "country": "KR",
+      "rating": 8.5,
+      "views": 1589705,
+      "bookmarks": 11278,
+      "latest_chapter": 76,
+      "latest_chapter_id": "a1a65f2d-6a6c-4bbd-bd24-b051deef6ae5",
+      "latest_chapter_time": "2026-04-29T22:25:21Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Menyusul",
+          "slug": "menyusul"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Menyusul",
+          "slug": "menyusul-0"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "a3b0773b-24dc-4e49-9182-26696a66c916",
+      "title": "Evil Dragon Is Reincarnated! Revenge Begins at the Age of Five!",
+      "alternative_title": "恶龙转生，复仇从五岁开始！",
+      "description": "Raja dunia naga merah yang legendaris Selama ribuan tahun naga yang tak terhitung jumlahnya telah dibunuh oleh manusia Tanpa sadar balas dendam telah menjadi satusatunya misi di dunia ini Namun itu gagal dan pada hari pertempuran yang menentukan dengan manusia naga mati dengan kebencian Jika ada kehidupan setelah kematian dia pasti akan membalaskan dendam spesiesnya sendiri Jika ada akhirat itu akan membuat manusia yang kotor membayar harganya dengan darah Jika ada akhirat hmm",
+      "cover": "https://assets.shngm.id/thumbnail/cover/4a74fa8fe8c6.jpeg",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2023",
+      "country": "CN",
+      "rating": null,
+      "views": 389291,
+      "bookmarks": 819,
+      "latest_chapter": 159,
+      "latest_chapter_id": "89e754c7-77a3-4cc5-b1a8-eba98a9674a6",
+      "latest_chapter_time": "2024-12-02T21:21:53Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Jksmanga",
+          "slug": "jksmanga"
+        },
+        {
+          "name": "艾鲁猫漫画工作室",
+          "slug": "2c76aa3e-09e9-4356-a0e9-734eabdc976e"
+        }
+      ],
+      "artists": [
+        {
+          "name": "艾鲁猫漫画工作室",
+          "slug": "59924aa4-55a5-477f-89e6-0f43203e7c88"
+        }
+      ],
+      "format": "Manhua",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "badacf54-5e5e-4548-9470-7f533e88fc77",
+      "title": "Reincarnation Of Suicidal Battle God",
+      "alternative_title": "Doom Breaker, 투신전생기",
+      "description": "Perjalanan waktu action fantasy dari manusia terkuat bahkan jika ini pemberian dari dewa menjijikan kesempatan tetap lah kesempatan Karena ingin sekali mau menemui kematian akan kubunuh mereka Survivor umat manusia terkuat zephyr pertarungan melawan iblis berakhir dalam kekalahan dan para dewa memberinya kesempatan untuk kembali ke 10 tahun yang lalu Iblis yang meregut segalanya dari manusia dan dewa yang memperlakukan manusia selayaknya tontonan Kali ini akan kubantai mereka semua",
+      "cover": "https://assets.shngm.id/thumbnail/cover/c78dcccbbdff.jpeg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/81099353-f7f0-4de4-87a0-f60bec45e73f.jpg",
+      "status": "Completed",
+      "release_year": "2021",
+      "country": "KR",
+      "rating": 9.5,
+      "views": 10185632,
+      "bookmarks": 22009,
+      "latest_chapter": 101,
+      "latest_chapter_id": "ed3c22f1-7a1e-4561-819f-026752f7fe30",
+      "latest_chapter_time": "2024-11-25T21:44:54Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Revenge",
+          "slug": "revenge"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Blue-Deep",
+          "slug": "blue-deep"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Blue-Deep",
+          "slug": "blue-deep-0"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    },
+    {
+      "manga_id": "8eb4bea5-177b-4273-b618-c72d3f1a249c",
+      "title": "Revenger: Apocalypse of Vengeance",
+      "alternative_title": "リベンジャー：終末の復讐",
+      "description": "Lima tahun lalu, sebuah bencana besar menghancurkan kehidupan damai umat manusia hanya dalam satu hari. Sejak saat itu, muncullah “Zona Khusus” misterius di berbagai penjuru dunia, masing-masing dengan tingkat kesulitannya sendiri.\n\nMaya Ichijo, yang hampir berhasil menaklukkan semua 100 zona untuk meraih gelar “Grand Slam,” dikhianati oleh rekan-rekannya sendiri dan terbunuh di ujian terakhir.\n\nNamun, di napas terakhirnya… ia justru terbangun kembali di dunia sebelum bencana itu terjadi.\n\nKini, berbekal semua ingatan dari kehidupannya yang lalu, ia bersumpah akan menuntut balas—\nkarena di dunia ini, monster sebenarnya bukanlah para zombie… melainkan manusia.",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1771577226681_8lijyx.jpg",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2025",
+      "country": "JP",
+      "rating": 7,
+      "views": 262804,
+      "bookmarks": 1295,
+      "latest_chapter": 34,
+      "latest_chapter_id": "b2a282fe-4194-41a9-817e-b2f257e7b7ac",
+      "latest_chapter_time": "2026-04-18T06:49:58Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        }
+      ],
+      "authors": [
+        {
+          "name": "COBI",
+          "slug": "cobi-author"
+        }
+      ],
+      "artists": [
+        {
+          "name": "HNS Studio",
+          "slug": "hns-studio-artist"
+        },
+        {
+          "name": "COBI",
+          "slug": "cobi-artist"
+        }
+      ],
+      "format": "Manga",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "431a2339-eb2c-4840-82c1-c00529fe9c3a",
+      "title": "About Perfect Revenge",
+      "alternative_title": "완벽한 복수에 대하여",
+      "description": "Cinta pertama seorang wanita, yang diyakini sudah mati, tiba-tiba kembali di hadapannya. Keluarganya dihancurkan oleh rencana ayahnya, dan sekarang dia berdiri di hadapannya untuk membalas dendam. Dengan ejekan dingin dan pisau berlumuran darah di tenggorokannya, dia menjelaskan bahwa dia datang untuk membuatnya membayar. Pada saat itu, dia menyadari bahwa dosa-dosa ayahnya akhirnya kembali untuk merenggut nyawanya.",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1780741412873_31buxm.jpg",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2026",
+      "country": "KR",
+      "rating": 7,
+      "views": 15301,
+      "bookmarks": 374,
+      "latest_chapter": 21,
+      "latest_chapter_id": "ba313697-9a12-4b8a-8ea6-8f11d6fa15ee",
+      "latest_chapter_time": "2026-07-29T15:03:30Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Romance",
+          "slug": "romance"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Josei",
+          "slug": "josei-genre"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Baek Seol-Eun",
+          "slug": "baek-seol-eun-author"
+        },
+        {
+          "name": "Najeong",
+          "slug": "najeong-author"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Yong Sa-Yong",
+          "slug": "yong-sa-yong-artist"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "c1500973-f8c6-4d78-8dd4-ee4004e3c707",
+      "title": "Reincarnated as the Strongest Monster Eater: Revenge on the Tyrant Dragon",
+      "alternative_title": "던전 미식가",
+      "description": "Seorang makhluk terasing yang telah kehilangan segalanya hidup dengan berburu monster di dalam dungeon dan bertahan hidup dari sisa-sisa yang ada. Setelah waktu yang lama, ia kembali ke kampung halamannya—sebagai Maru Grasse, makhluk yang telah kehilangan segalanya. Dihina dan dijauhi oleh semua orang, Maru hanya menemukan makna hidup saat memasak dan menikmati hidangan dari monster dungeon. Dengan pisau dan panci sebagai senjatanya, ia memulai perjalanan bertahan hidup, sekaligus membalas dendam pada naga yang merenggut keluarga, rekan, dan tanah kelahirannya.",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1769268950232_ox7yu1.jpg",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2025",
+      "country": "KR",
+      "rating": null,
+      "views": 1327631,
+      "bookmarks": 7432,
+      "latest_chapter": 52,
+      "latest_chapter_id": "56d48da5-344e-46cd-b443-92024e871675",
+      "latest_chapter_time": "2026-07-30T18:01:55Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Shounen",
+          "slug": "shounen"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Battalion Member",
+          "slug": "battalion-member-author"
+        },
+        {
+          "name": "Kanojyo",
+          "slug": "kanojyo-author"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Na Jungyoung",
+          "slug": "na-jungyoung-artist"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "9adcb81c-eee3-49d1-920d-3779c31c40bd",
+      "title": "Fukushuu o Koinegau Saikyou Yuusha wa, Yami no Chikara de Senmetsu Musou Suru",
+      "alternative_title": "The Hero Who Seeks Revenge Shall Exterminate with Darkness",
+      "description": "Raul yang menjatuhkan iblis sebagai pahlawan terkuat seharusnya menjadi penyelamat dunia\nRaul yang dibunuh oleh temantemannya dan keluarganya karena aristokrat aristokrat dieksekusi karena tuduhan palsu Hanya sebelum hidupnya runtuh akhirnya hatinya jatuh menjadi jahat\n  Aku akan membakar para pengkhianat itu membunuh mereka Tembak dan bunuh Ditusuk dan dibunuh Saya akan membunuh semua orang yang benci tanpa ampun dalam penderitaan seperti neraka     \nRaul yang mendapat kekuatan kegelapan dan memenuhi resusitasi berjanji balas dendam dan itu\nOh aku menantikannya  aku akan bisa mengambil darah mereka mulai sekarang\nBeberapa hari setelah pemulihan berani\nDi ibukota mahkota tempat bunga mekar muslues pembalasan yang mengalami kekejaman dimulai",
+      "cover": "https://assets.shngm.id/thumbnail/cover/985f4a9ea9c8.jpeg",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2019",
+      "country": "JP",
+      "rating": null,
+      "views": 586311,
+      "bookmarks": 2142,
+      "latest_chapter": 137,
+      "latest_chapter_id": "36b1f2a6-b7d4-4211-b1b3-1e6416ad3fe6",
+      "latest_chapter_time": "2026-07-29T15:07:24Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Comedy",
+          "slug": "comedy"
+        },
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Adventure",
+          "slug": "adventure"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Drama",
+          "slug": "drama"
+        },
+        {
+          "name": "Ecchi",
+          "slug": "ecchi"
+        },
+        {
+          "name": "Mature",
+          "slug": "mature"
+        },
+        {
+          "name": "Revenge",
+          "slug": "revenge"
+        },
+        {
+          "name": "Tragedy",
+          "slug": "tragedy"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Ononata Manimani",
+          "slug": "ononata-manimani"
+        }
+      ],
+      "artists": [
+        {
+          "name": "SAKAMOTO Akira",
+          "slug": "sakamoto-akira"
+        }
+      ],
+      "format": "Manga",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "6915ddaf-380a-47d8-aa8a-c48ba8778db5",
+      "title": "Juvenile Prison",
+      "alternative_title": "소년교도소",
+      "description": "Cha Jooyoung dipenjara di sebuah pusat tahanan remaja karena dia menyebabkan ayahnya yang seorang gangster koma\nSelang beberapa saat ayahnya yang diduga tidak akan pernah membuka mata datang untuk mengunjungi dan memberitahunya\nNak aku membunuh teman masa kecilmu\nHanya ada satu cara untuk membalas dendam kepada ayah yang seperti itu Yaitu dengan mengambil alih kendali penjara ini!!!",
+      "cover": "https://assets.shngm.id/thumbnail/cover/2786c805faf2.jpeg",
+      "cover_portrait": "https://assets.shngm.id/thumbnail/image/3a36455b-ebb8-49d4-bba1-cd029bd6bf4a.jpg",
+      "status": "Ongoing",
+      "release_year": "2024",
+      "country": "KR",
+      "rating": 8.1,
+      "views": 4491514,
+      "bookmarks": 14248,
+      "latest_chapter": 101,
+      "latest_chapter_id": "d9838649-03eb-443b-b1ad-17edca192a1a",
+      "latest_chapter_time": "2026-07-24T13:26:52Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Revenge",
+          "slug": "revenge"
+        },
+        {
+          "name": "Violence",
+          "slug": "violence"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Cheongmin",
+          "slug": "cheongmin"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Lee Soo Hyun",
+          "slug": "lee-soo-hyun"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Mirror"
+    },
+    {
+      "manga_id": "59a06700-0107-41b3-84d7-d158e91c91fa",
+      "title": "The Immortal Genius Spearman",
+      "alternative_title": "죽지 않는 천재 창잡이",
+      "description": "\"Dalam hidup ini, aku akan mendominasi medan perang.\"\n\nDamian, seorang centurion dari Unit Hukuman Kerajaan Barok.\n\n\"Sialan.\"\n\nHanya sekali saja.\n\nSeandainya aku diberi satu kesempatan lagi...\n\n\"Aku benar-benar akan mendominasi medan perang bersama orang-orang ini.\"\n\nIa menutup matanya pada usia 30 tahun di medan perang tanpa nama.\n\nNamun ketika ia membuka matanya, ia mendapati dirinya kembali 17 tahun ke masa lalu.\n\nDan bukan sembarang waktu, tetapi dengan Lubang Sihir yang masih utuh dan mampu menguasai sihir.\n\n\"Kali ini.\"\n\nAku akan bangkit lebih tinggi dari siapa pun.\n\nAlih-alih terpengaruh oleh era perang.\n\n\"Aku akan mendominasi.\"\n\nDamian kembali ke masa lalu dan mengayunkan tombaknya ke dunia..",
+      "cover": "https://assets.shngm.id/thumbnail/cover/banner_1781385106108_cdtgno.webp",
+      "cover_portrait": null,
+      "status": "Ongoing",
+      "release_year": "2026",
+      "country": "KR",
+      "rating": 8.5,
+      "views": 1500823,
+      "bookmarks": 7483,
+      "latest_chapter": 26,
+      "latest_chapter_id": "35f71e1c-8317-4867-9196-980740f736c5",
+      "latest_chapter_time": "2026-07-26T15:20:48Z",
+      "is_recommended": false,
+      "genres": [
+        {
+          "name": "Action",
+          "slug": "action"
+        },
+        {
+          "name": "Fantasy",
+          "slug": "fantasy"
+        },
+        {
+          "name": "Revenge",
+          "slug": "revenge"
+        }
+      ],
+      "authors": [
+        {
+          "name": "Wonha",
+          "slug": "wonha-author"
+        },
+        {
+          "name": "Shin Yul (Novel)",
+          "slug": "shin-yul-novel-author"
+        }
+      ],
+      "artists": [
+        {
+          "name": "Choi Bong-geun",
+          "slug": "choi-bong-geun-artist"
+        },
+        {
+          "name": "Akeo Studio",
+          "slug": "akeo-studio-artist"
+        }
+      ],
+      "format": "Manhwa",
+      "type": "Project"
+    }
+  ]
+}
