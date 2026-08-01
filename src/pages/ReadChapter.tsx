@@ -12,7 +12,6 @@ export default function ReadChapter() {
   const scrollRef = useRef<HTMLDivElement>(null)
   
   const [showNav, setShowNav] = useState(true)
-  const [data, setData] = useState<any>(null)
   const [images, setImages] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
   const [chapterList, setChapterList] = useState<any[]>([])
@@ -70,11 +69,10 @@ export default function ReadChapter() {
         // Extract raw array if the inner Sanka format contains images
         const finalImages = Array.isArray(imgArray) ? imgArray : (imgArray?.images || []);
         
-        setData(responseData);
         setImages(finalImages);
         
         // Save to history
-        if (mangaId && responseData) {
+        if (mangaId) {
            const historyStr = localStorage.getItem('manga_history');
            const history = historyStr ? JSON.parse(historyStr) : [];
            
