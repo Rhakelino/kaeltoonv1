@@ -57,8 +57,9 @@ export default function Home() {
                     {/* Background layer */}
                     <img 
                       src={slide.background_image} 
-                      className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700 ease-out" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-60 md:scale-105 md:group-hover:scale-110 md:group-hover:opacity-40 transition-all duration-700 ease-out" 
                       alt={slide.title} 
+                      loading="lazy"
                     />
                     
                     {/* Shadow overlay for contrast */}
@@ -70,7 +71,8 @@ export default function Home() {
                          <img 
                            src={slide.chara_image} 
                            alt="Character" 
-                           className="w-full h-full object-contain object-right-bottom translate-y-4 group-hover:translate-y-0 group-hover:scale-110 transition-transform duration-700 ease-out drop-shadow-2xl"
+                           className="w-full h-full object-contain object-right-bottom md:translate-y-4 md:group-hover:translate-y-0 md:group-hover:scale-110 transition-transform duration-700 ease-out md:drop-shadow-2xl"
+                           loading="lazy"
                          />
                          {/* Optional fade out bottom edge of character to blend */}
                          <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/40 to-transparent" />
@@ -79,15 +81,15 @@ export default function Home() {
                     
                     <div className="absolute inset-0 p-4 md:p-8 flex items-end md:items-center z-30">
                       <div className="w-full md:max-w-xl">
-                        <h3 className="text-white text-2xl md:text-4xl font-bold mb-2 md:mb-3 drop-shadow-lg line-clamp-1 group-hover:-translate-y-1 transition-transform duration-500">{slide.title}</h3>
+                        <h3 className="text-white text-2xl md:text-4xl font-bold mb-2 md:mb-3 drop-shadow-lg line-clamp-1 md:group-hover:-translate-y-1 transition-transform duration-500">{slide.title}</h3>
                         
                         <div className="hidden md:block">
-                           <p className="text-white/80 line-clamp-2 text-sm md:text-base mb-4 drop-shadow-md group-hover:-translate-y-1 transition-transform duration-500 delay-75">
+                           <p className="text-white/80 line-clamp-2 text-sm md:text-base mb-4 drop-shadow-md md:group-hover:-translate-y-1 transition-transform duration-500 delay-75">
                              {slide.description}
                            </p>
                         </div>
 
-                        <div className="flex gap-2 group-hover:-translate-y-1 transition-transform duration-500 delay-100">
+                        <div className="flex gap-2 md:group-hover:-translate-y-1 transition-transform duration-500 delay-100">
                            {slide.badges?.map((badge: any, i: number) => (
                               <Badge key={i} className="text-[10px] md:text-xs font-semibold px-2 py-0.5 border-none" style={{ backgroundColor: badge.color, color: 'white' }}>
                                  {badge.name}
