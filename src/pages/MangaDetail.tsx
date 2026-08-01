@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { BookOpen, Star, Info, ListOrdered, Loader2, ChevronDown, ChevronLeft } from "lucide-react"
+import { BookOpen, Loader2, ChevronLeft } from "lucide-react"
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { comicApi } from "@/services/api"
@@ -18,14 +16,11 @@ export default function MangaDetail() {
   
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const [loadingMore, setLoadingMore] = useState(false)
 
   const [firstChapterId, setFirstChapterId] = useState<string | null>(null);
 
   // Generate range tabs
   const pageSize = 50; // Assuming 50 per page based on generic logic or API
-  
-  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const fetchDetail = async () => {
@@ -113,64 +108,64 @@ export default function MangaDetail() {
     <div className="max-w-5xl mx-auto p-4 md:p-6">
       
       {/* Back Button */}
-      <Button variant="outline" size="sm" className="mb-6 rounded-lg bg-transparent border-white/20 hover:bg-white/10" render={<Link to="/" />}>
+      <Button variant="outline" size="sm" className="mb-6 rounded-lg bg-background hover:bg-muted dark:bg-transparent dark:border-white/20 dark:hover:bg-white/10" render={<Link to="/" />}>
         <ChevronLeft className="w-4 h-4 mr-2" /> Back to Home
       </Button>
 
       {/* Header Info - Card Style */}
-      <div className="relative rounded-2xl overflow-hidden bg-card/40 border border-white/5 backdrop-blur-xl shadow-2xl mb-8">
-        {/* Blurred Background */}
-        <div className="absolute inset-0 z-0">
+      <div className="relative rounded-2xl overflow-hidden bg-card border shadow-lg mb-8 dark:bg-card/40 dark:border-white/5 dark:backdrop-blur-xl">
+        {/* Blurred Background - Only visible in dark mode for the cool effect */}
+        <div className="absolute inset-0 z-0 hidden dark:block">
            <img src={data.cover || data.thumbnail} className="w-full h-full object-cover opacity-[0.15] blur-2xl" alt="background" />
            <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/20" />
         </div>
 
         <div className="relative z-10 p-6 md:p-8 flex flex-col md:flex-row gap-8">
-          <div className="w-48 md:w-56 shrink-0 mx-auto md:mx-0 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+          <div className="w-48 md:w-56 shrink-0 mx-auto md:mx-0 rounded-xl overflow-hidden shadow-xl ring-1 ring-border dark:ring-white/10">
             <img src={data.cover || data.thumbnail} alt={data.title} className="w-full h-auto aspect-[2/3] object-cover" />
           </div>
           
           <div className="flex-1 flex flex-col justify-center">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-center md:text-left">{data.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-center md:text-left text-foreground">{data.title}</h1>
             
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-6">
-              {data.status && <Badge variant="outline" className="text-xs bg-black/40 border-white/10 text-white/90 px-3 py-1">{String(data.status)}</Badge>}
+              {data.status && <Badge variant="outline" className="text-xs px-3 py-1 bg-muted dark:bg-black/40 dark:border-white/10 dark:text-white/90">{String(data.status)}</Badge>}
               
               {data.genres && Array.isArray(data.genres) && data.genres.slice(0, 4).map((genre: any, i) => (
-                <Badge key={i} variant="outline" className="text-xs bg-black/40 border-white/10 text-white/90 px-3 py-1">
+                <Badge key={i} variant="outline" className="text-xs px-3 py-1 bg-muted dark:bg-black/40 dark:border-white/10 dark:text-white/90">
                   {typeof genre === 'object' ? genre.name || genre.id : genre}
                 </Badge>
               ))}
             </div>
 
             {firstChapterId && (
-               <Button className="w-full md:w-auto font-semibold h-11 bg-white text-black hover:bg-gray-200 rounded-lg mb-8" render={<Link to={`/read/${firstChapterId}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex items-center w-full justify-center px-6" />}>
+               <Button className="w-full md:w-auto font-semibold h-11 bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 rounded-lg mb-8" render={<Link to={`/read/${firstChapterId}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex items-center w-full justify-center px-6" />}>
                   <BookOpen className="w-4 h-4 mr-2" /> Read First Chapter
                </Button>
             )}
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-black/40 rounded-xl p-5 border border-white/5">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-muted/50 dark:bg-black/40 rounded-xl p-5 border border-border dark:border-white/5">
               <div>
-                <p className="text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">AUTHOR</p>
-                <p className="font-medium text-sm text-white/90">
+                <p className="text-muted-foreground dark:text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">AUTHOR</p>
+                <p className="font-medium text-sm text-foreground dark:text-white/90">
                   {data.authors && data.authors.length > 0 
                     ? data.authors.map((a: any) => a.name).join(', ') 
                     : data.author || 'Unknown'}
                 </p>
               </div>
               <div>
-                <p className="text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">TYPE</p>
-                <p className="font-medium text-sm text-white/90">
+                <p className="text-muted-foreground dark:text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">TYPE</p>
+                <p className="font-medium text-sm text-foreground dark:text-white/90">
                    {data.type && Array.isArray(data.type) ? data.type[0]?.name || data.type[0] : data.type || 'Unknown'}
                 </p>
               </div>
               <div>
-                <p className="text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">STATUS</p>
-                <p className="font-medium text-sm text-white/90">{data.status || 'Unknown'}</p>
+                <p className="text-muted-foreground dark:text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">STATUS</p>
+                <p className="font-medium text-sm text-foreground dark:text-white/90">{data.status || 'Unknown'}</p>
               </div>
               <div>
-                <p className="text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">CHAPTERS</p>
-                <p className="font-medium text-sm text-white/90">{chapters.length > 0 ? chapters[0]?.chapter_number || chapters.length : 'N/A'}</p>
+                <p className="text-muted-foreground dark:text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">CHAPTERS</p>
+                <p className="font-medium text-sm text-foreground dark:text-white/90">{chapters.length > 0 ? chapters[0]?.chapter_number || chapters.length : 'N/A'}</p>
               </div>
             </div>
           </div>
