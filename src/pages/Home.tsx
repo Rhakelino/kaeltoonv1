@@ -53,7 +53,7 @@ export default function Home() {
             <div className="flex touch-pan-y">
               {data.slider.map((slide) => (
                 <div key={slide.id} className="min-w-0 flex-[0_0_100%] relative aspect-[21/9] md:aspect-[21/7] max-h-80 group cursor-pointer overflow-hidden bg-black">
-                  <Link to={`/manga/${slide.manga_id}`} className="block w-full h-full">
+                  <Link to={`/manga/${slide.manga_id || slide.id}`} className="block w-full h-full">
                     {/* Background layer */}
                     <img 
                       src={slide.background_image} 
@@ -121,7 +121,7 @@ export default function Home() {
               </Card>
             ))
           ) : data?.recommended?.slice(0, 5).map((manga) => (
-            <Link to={`/manga/${manga.manga_id}`} key={`rec-${manga.manga_id}`}>
+            <Link to={`/manga/${manga.id || manga.manga_id}`} key={`rec-${manga.id || manga.manga_id}`}>
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
                   <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
@@ -151,7 +151,7 @@ export default function Home() {
               </Card>
             ))
           ) : data?.popular?.slice(1, 6).map((manga) => (
-            <Link to={`/manga/${manga.manga_id}`} key={`pop-${manga.manga_id}`}>
+            <Link to={`/manga/${manga.id || manga.manga_id}`} key={`pop-${manga.id || manga.manga_id}`}>
                <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
                   <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
@@ -184,7 +184,7 @@ export default function Home() {
               </Card>
             ))
           ) : data?.latest?.slice(0, 10).map((manga) => (
-            <Link to={`/manga/${manga.manga_id}`} key={`lat-${manga.manga_id}`}>
+            <Link to={`/manga/${manga.id || manga.manga_id}`} key={`lat-${manga.id || manga.manga_id}`}>
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
                   <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />

@@ -23,25 +23,30 @@ export default function ReadChapter() {
       if (scrollRef.current) scrollRef.current.scrollTo(0, 0);
       try {
         const responseData = await comicApi.readChapter(chapterId);
+        // The API returns the images array directly or inside the data wrapper
+        const imgArray = Array.isArray(responseData) ? responseData : responseData?.data || responseData?.images || [];
+        // Extract raw array if the inner Sanka format contains images
+        const finalImages = Array.isArray(imgArray) ? imgArray : (imgArray?.images || []);
+        
         setData(responseData);
-        setImages(responseData?.images || []);
+        setImages(finalImages);
         
         // Save to history
         if (mangaId && responseData) {
            const historyStr = localStorage.getItem('manga_history');
            const history = historyStr ? JSON.parse(historyStr) : [];
            
-           const state = location.state as { mangaTitle?: string, mangaCover?: string } | null;
-           
-           const newHistory = history.filter((h: any) => h.manga_id !== mangaId);
-           newHistory.unshift({
-              manga_id: mangaId,
-              title: state?.mangaTitle || responseData.chapter_title || `Chapter ${chapterId}`,
-              cover: state?.mangaCover || responseData.images?.[0] || '',
-              chapter_id: chapterId,
-              chapter_title: responseData.chapter_title,
-              read_at: Date.now()
-           });
+            const state = location.state as { mangaTitle?: string, mangaCover?: string } | null;
+            
+            const newHistory = history.filter((h: any) => h.manga_id !== mangaId);
+            newHistory.unshift({
+               manga_id: mangaId,
+               title: state?.mangaTitle || `Chapter ${chapterId}`,
+               cover: state?.mangaCover || imgArray[0] || '',
+               chapter_id: chapterId,
+               chapter_title: `Chapter ${chapterId}`, // The new API doesn't seem to return chapter title in the /read endpoint
+               read_at: Date.now()
+            });
            localStorage.setItem('manga_history', JSON.stringify(newHistory.slice(0, 50))); // Keep last 50
         }
       } catch (error) {
@@ -60,8 +65,10 @@ export default function ReadChapter() {
         className={`bg-card/95 backdrop-blur border-b h-14 flex items-center justify-between px-2 md:px-4 shrink-0 transition-transform duration-300 ${showNav ? 'translate-y-0' : '-translate-y-full'}`}
       >
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" render={<Link to={mangaId ? `/manga/${mangaId}` : "/"} />}>
-            <ChevronLeft className="h-5 w-5" />
+          <Button variant="ghost" size="icon" asChild>
+            <Link to={mangaId ? `/manga/${mangaId}` : "/"} className="flex items-center justify-center">
+              <ChevronLeft className="h-5 w-5" />
+            </Link>
           </Button>
           <div className="flex flex-col">
             <span className="text-sm font-bold truncate max-w-[200px] md:max-w-md">{chapterId?.replace(/-/g, ' ')}</span>
@@ -69,12 +76,16 @@ export default function ReadChapter() {
         </div>
 
         <div className="flex items-center gap-1 md:gap-2">
-          <Button variant="ghost" size="icon" render={<Link to="/" />}>
-            <Home className="h-4 w-4" />
+          <Button variant="ghost" size="icon" asChild>
+            <Link to="/" className="flex items-center justify-center">
+              <Home className="h-4 w-4" />
+            </Link>
           </Button>
           {mangaId && (
-             <Button variant="outline" size="sm" className="hidden sm:flex" render={<Link to={`/manga/${mangaId}`} />}>
-                <Menu className="h-4 w-4 mr-2" /> Chapter List
+             <Button variant="outline" size="sm" className="hidden sm:flex" asChild>
+               <Link to={`/manga/${mangaId}`} className="flex items-center">
+                  <Menu className="h-4 w-4 mr-2" /> Chapter List
+               </Link>
              </Button>
           )}
         </div>
@@ -113,11 +124,15 @@ export default function ReadChapter() {
           {/* Bottom Navigation inside scroll */}
           {!loading && images.length > 0 && (
              <div className="w-full p-4 flex gap-4 justify-between items-center mt-8" onClick={(e) => e.stopPropagation()}>
-               <Button variant="secondary" className="flex-1 max-w-xs" disabled={!data?.prev_chapter?.chapter_id} render={<Link to={data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#"} state={location.state} />}>
+               <Button variant="secondary" className="flex-1 max-w-xs" disabled={!data?.prev_chapter?.id && !data?.prev_chapter?.chapter_id} asChild>
+                 <Link to={data?.prev_chapter?.id ? `/read/${data.prev_chapter.id}?manga=${mangaId}` : (data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#")} state={location.state} className="flex items-center justify-center">
                   <ChevronLeft className="h-4 w-4 mr-2" /> Prev Chapter
+                 </Link>
                </Button>
-               <Button className="flex-1 max-w-xs" disabled={!data?.next_chapter?.chapter_id} render={<Link to={data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#"} state={location.state} />}>
+               <Button className="flex-1 max-w-xs" disabled={!data?.next_chapter?.id && !data?.next_chapter?.chapter_id} asChild>
+                 <Link to={data?.next_chapter?.id ? `/read/${data.next_chapter.id}?manga=${mangaId}` : (data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#")} state={location.state} className="flex items-center justify-center">
                   Next Chapter <ChevronRight className="h-4 w-4 ml-2" />
+                 </Link>
                </Button>
             </div>
           )}
@@ -128,20 +143,26 @@ export default function ReadChapter() {
       <div 
         className={`md:hidden fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur border-t p-2 flex justify-between gap-2 transition-transform duration-300 ${showNav ? 'translate-y-0' : 'translate-y-full'}`}
       >
-        <Button variant="outline" className="flex-1 h-12" disabled={!data?.prev_chapter?.chapter_id} render={<Link to={data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#"} state={location.state} />}>
-          <ChevronLeft className="h-4 w-4 mr-1" /> Prev
+        <Button variant="outline" className="flex-1 h-12" disabled={!data?.prev_chapter?.id && !data?.prev_chapter?.chapter_id} asChild>
+          <Link to={data?.prev_chapter?.id ? `/read/${data.prev_chapter.id}?manga=${mangaId}` : (data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#")} state={location.state} className="flex items-center justify-center">
+            <ChevronLeft className="h-4 w-4 mr-1" /> Prev
+          </Link>
         </Button>
         {mangaId ? (
-          <Button variant="secondary" className="flex-none w-12 h-12 p-0" render={<Link to={`/manga/${mangaId}`} />}>
-            <Menu className="h-5 w-5" />
+          <Button variant="secondary" className="flex-none w-12 h-12 p-0" asChild>
+            <Link to={`/manga/${mangaId}`} className="flex items-center justify-center">
+              <Menu className="h-5 w-5" />
+            </Link>
           </Button>
         ) : (
            <Button variant="secondary" className="flex-none w-12 h-12 p-0" disabled>
             <Menu className="h-5 w-5" />
           </Button>
         )}
-        <Button className="flex-1 h-12" disabled={!data?.next_chapter?.chapter_id} render={<Link to={data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#"} state={location.state} />}>
-          Next <ChevronRight className="h-4 w-4 ml-1" />
+        <Button className="flex-1 h-12" disabled={!data?.next_chapter?.id && !data?.next_chapter?.chapter_id} asChild>
+          <Link to={data?.next_chapter?.id ? `/read/${data.next_chapter.id}?manga=${mangaId}` : (data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#")} state={location.state} className="flex items-center justify-center">
+            Next <ChevronRight className="h-4 w-4 ml-1" />
+          </Link>
         </Button>
       </div>
     </div>

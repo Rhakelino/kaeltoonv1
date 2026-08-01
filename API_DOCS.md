@@ -1,192 +1,212 @@
-# Shinigami API Configuration
+# Kaeltoon API Documentation
 
-Dokumentasi dan konfigurasi API Shinigami untuk digunakan di project frontend React / TypeScript.
+**Base URL:** `https://kaeltoon-api.instanclay.workers.dev`
 
-## Base URL
-```text
-https://www.sankavollerei.web.id/comic/shinigami
-```
-
-## TypeScript Interfaces
-
-Gunakan interface ini untuk tipe data balikan dari API.
-
-```typescript
-export interface MangaItem {
-  manga_id: string;
-  title: string;
-  alternative_title?: string;
-  description?: string;
-  cover?: string;
-  thumbnail?: string;
-  type?: string;
-  rating?: string;
-  status?: string;
-  latest_chapter?: string;
-}
-
-export interface DetailManga {
-  title: string;
-  alternative_title: string;
-  description: string;
-  cover: string;
-  thumbnail: string;
-  type: string;
-  status: string;
-  author: string;
-  artist: string;
-  rating: string;
-  genres: { id: number, name: string, slug: string }[];
-  // Note: API getDetail tidak mereturn list chapters. Gunakan getChapterList.
-}
-
-export interface Chapter {
-  chapter_id: string;
-  manga_id: string;
-  chapter_number: number;
-  chapter_title: string | null;
-  thumbnail: string;
-  views: number;
-  release_date: string;
-}
-
-export interface ReadChapterData {
-  chapter_id: string;
-  manga_id: string;
-  chapter_number: number;
-  chapter_title: string | null;
-  thumbnail: string;
-  views: number;
-  release_date: string;
-  prev_chapter: { chapter_id: string, chapter_number: number } | null;
-  next_chapter: { chapter_id: string, chapter_number: number } | null;
-  images: string[];
-  total_images: number;
+All endpoints return a standardized JSON wrapper:
+```json
+{
+  "status": "success", // or "error"
+  "data": { ... }, // The requested payload
+  "pagination": { ... } // (Optional) Pagination details
 }
 ```
 
-## Axios Service Setup
+---
 
-Install axios terlebih dahulu:
-```bash
-npm install axios
-```
+## 1. GET `/home`
+Returns a combined payload of recommended, popular, and latest manga for the homepage slider/sections.
 
-Buat file service (misal: `src/services/api.ts`) dan copy kode di bawah ini:
-
-```typescript
-import axios from 'axios';
-
-// 1. Setup Axios Instance
-const api = axios.create({
-  baseURL: 'https://www.sankavollerei.web.id/comic/shinigami',
-});
-
-// 2. API Methods
-export const comicApi = {
-  // Homepage (Latest, Recommended, Popular)
-  getHome: async () => {
-    const { data } = await api.get('/home');
-    return data; // Returns { status, data: { latest: [], recommended: [], popular: [] } }
-  },
-  
-  // Pagination Lists
-  getLatest: async (page = 1) => {
-    const { data } = await api.get(`/latest?page=${page}`);
-    return data;
-  },
-  getPopular: async (page = 1) => {
-    const { data } = await api.get(`/popular?page=${page}`);
-    return data;
-  },
-  getRecommended: async (page = 1) => {
-    const { data } = await api.get(`/recommended?page=${page}`);
-    return data;
-  },
-  
-  // Explore by Category
-  getExplore: async (category = 'explore list', page = 1) => {
-    const { data } = await api.get(`/explore/${encodeURIComponent(category)}?page=${page}`);
-    return data;
-  },
-  
-  // Manga Detail (Info, Cover, Synopsis, dll)
-  getDetail: async (manga_id: string) => {
-    const { data } = await api.get(`/detail/${manga_id}`);
-    return data.data; // Returns DetailManga object
-  },
-  
-  // Manga Chapters Pagination
-  getChapterList: async (manga_id: string, page = 1) => {
-    const { data } = await api.get(`/chapters/${manga_id}?page=${page}`);
-    return data; // Returns { data: Chapter[], pagination: { current_page, total_pages, total_record, page_size } }
-  },
-  
-  // Read Chapter (Daftar gambar halaman, prev/next chapter)
-  readChapter: async (chapter_id: string) => {
-    const { data } = await api.get(`/read/${chapter_id}`);
-    return data.data; // Returns ReadChapterData object
-  },
-  
-  // Search
-  search: async (query: string) => {
-    const { data } = await api.get(`/search/${encodeURIComponent(query)}`);
-    return data;
-  },
-  
-  // Taxonomies
-  getGenres: async () => {
-    const { data } = await api.get('/genres');
-    return data.data;
-  },
-  getAuthors: async (page = 1) => {
-    const { data } = await api.get(`/authors?page=${page}`);
-    return data.data;
+**Response:**
+```json
+{
+  "status": "success",
+  "data": {
+    "recommended": [ { "id": "uuid", "title": "...", "cover": "...", ... } ],
+    "popular": [ { "id": "uuid", "title": "...", "views": 1000, ... } ],
+    "latest": [ { "id": "uuid", "title": "...", "updated_at": "...", ... } ]
   }
-};
+}
 ```
 
-## Cara Penggunaan Endpoint Chapters dengan Pagination (Load More)
+---
 
-```tsx
-import { useEffect, useState } from 'react';
-import { comicApi, Chapter } from './services/api';
+## 2. GET `/popular`
+Returns a paginated list of manga ordered by views (descending).
 
-export default function DetailComponent({ mangaId }: { mangaId: string }) {
-  const [chapters, setChapters] = useState<Chapter[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+**Query Parameters:**
+- `page` (optional): Page number, defaults to 1. (Page size is fixed at 20).
 
-  useEffect(() => {
-    const fetchChapters = async () => {
-      const response = await comicApi.getChapterList(mangaId, 1);
-      setChapters(response.data);
-      if (response.pagination) {
-        setHasMore(1 < response.pagination.total_pages);
-      }
+**Response:**
+```json
+{
+  "status": "success",
+  "data": [
+    { "id": "uuid", "title": "...", "views": 99999, ... }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 50,
+    "page_size": 20
+  }
+}
+```
+
+---
+
+## 3. GET `/latest`
+Returns a paginated list of manga ordered by `updated_at` (descending) representing the latest releases.
+
+**Query Parameters:**
+- `page` (optional): Page number, defaults to 1. (Page size is fixed at 20).
+
+**Response:**
+```json
+{
+  "status": "success",
+  "data": [
+    { "id": "uuid", "title": "...", "updated_at": "...", ... }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 50,
+    "page_size": 20
+  }
+}
+```
+
+---
+
+## 4. GET `/recommended`
+Returns a paginated list of recommended manga (currently standard ordered, limited to 20 per page).
+
+**Query Parameters:**
+- `page` (optional): Page number, defaults to 1.
+
+**Response:**
+```json
+{
+  "status": "success",
+  "data": [
+    { "id": "uuid", "title": "...", ... }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 50,
+    "page_size": 20
+  }
+}
+```
+
+---
+
+## 5. GET `/manga/:id`
+Retrieves detailed information for a specific manga, including joined relationships for genres and authors.
+
+**Path Parameters:**
+- `id`: The UUID of the manga in Supabase.
+
+**Response:**
+```json
+{
+  "status": "success",
+  "data": {
+    "id": "uuid",
+    "title": "...",
+    "description": "...",
+    "cover": "...",
+    "manga_genres": [ { "genres": { "id": 1, "name": "Action" } } ],
+    "manga_authors": [ { "authors": { "id": 1, "name": "Author Name" } } ]
+  }
+}
+```
+
+---
+
+## 6. GET `/chapters/:manga_id`
+Returns a paginated list of chapters for a specific manga, ordered by `chapter_number` descending.
+
+**Path Parameters:**
+- `manga_id`: The UUID of the manga.
+
+**Query Parameters:**
+- `page` (optional): Page number, defaults to 1. (Page size is fixed at 50).
+
+**Response:**
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "id": "uuid",
+      "manga_id": "uuid",
+      "chapter_number": 100,
+      "source_chapter_id": "...",
+      ...
     }
-    fetchChapters();
-  }, [mangaId]);
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 5,
+    "page_size": 50
+  }
+}
+```
 
-  const loadMore = async () => {
-    if (!hasMore) return;
-    const nextPage = page + 1;
-    const response = await comicApi.getChapterList(mangaId, nextPage);
-    
-    setChapters(prev => [...prev, ...response.data]);
-    setPage(nextPage);
-    if (response.pagination) {
-      setHasMore(nextPage < response.pagination.total_pages);
-    }
-  };
+---
 
-  return (
-    <div>
-      {chapters.map(ch => (
-        <div key={ch.chapter_id}>Chapter {ch.chapter_number}</div>
-      ))}
-      {hasMore && <button onClick={loadMore}>Load More</button>}
-    </div>
-  )
+## 7. GET `/search`
+Searches for manga by title or alternative title using case-insensitive partial matching (`ilike`).
+
+**Query Parameters:**
+- `q` (required): The search keyword.
+- `page` (optional): Page number, defaults to 1. (Page size is fixed at 20).
+
+**Response:**
+```json
+{
+  "status": "success",
+  "data": [
+    { "id": "uuid", "title": "Solo Leveling", "alternative_title": "...", ... }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 1,
+    "page_size": 20
+  }
+}
+```
+
+---
+
+## 8. GET `/genres`
+Returns a list of all available genres sorted alphabetically.
+
+**Response:**
+```json
+{
+  "status": "success",
+  "data": [
+    { "id": 1, "name": "Action", "slug": "action" },
+    { "id": 2, "name": "Adventure", "slug": "adventure" }
+  ]
+}
+```
+
+---
+
+## 9. GET `/read/:chapter_id`
+A proxy endpoint that dynamically fetches the array of image URLs for a specific chapter from the external source (Sanka/Shinigami API).
+
+**Path Parameters:**
+- `chapter_id`: The UUID of the chapter in Supabase (NOT the `source_chapter_id`).
+
+**Response:**
+```json
+{
+  "status": "success",
+  "data": [
+    "https://assets.shngm.id/chapter/.../1.jpg",
+    "https://assets.shngm.id/chapter/.../2.jpg"
+  ]
 }
 ```

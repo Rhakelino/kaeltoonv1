@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://www.sankavollerei.web.id/comic/shinigami',
+  baseURL: 'https://kaeltoon-api.instanclay.workers.dev',
 });
 
 // Types based on the API response structure observed
 export interface MangaItem {
-  manga_id: string;
+  id: string;
+  manga_id?: string;
   title: string;
   alternative_title?: string;
   description?: string;
@@ -31,15 +32,16 @@ export interface DetailManga {
   artist?: string;
   authors?: any[];
   artists?: any[];
+  manga_authors?: any[];
   rating?: string | number;
   views?: number;
   bookmarks?: number;
   release_year?: string;
-  genres: any[];
+  manga_genres?: any[];
   chapters?: {
-    chapter_id: string;
+    id: string;
     chapter_number: number;
-    chapter_title: string | null;
+    title: string | null;
     thumbnail: string;
     release_date: string;
   }[];
@@ -71,7 +73,7 @@ export const comicApi = {
     return data;
   },
   getDetail: async (manga_id: string) => {
-    const { data } = await api.get(`/detail/${manga_id}`);
+    const { data } = await api.get(`/manga/${manga_id}`);
     return data.data;
   },
   getChapterList: async (manga_id: string, page = 1) => {
@@ -79,11 +81,16 @@ export const comicApi = {
     return data;
   },
   readChapter: async (chapter_id: string) => {
-    const { data } = await api.get(`/read/${chapter_id}`);
-    return data.data; // API returns an object containing images array inside data
+    // 1. Ambil URL Sanka dari backend kita
+    const { data: honoData } = await api.get(`/read/${chapter_id}`);
+    const sankaUrl = honoData.data; 
+
+    // 2. Fetch data aslinya (Bypass Anti-Bot karena dari browser user)
+    const { data: sankaData } = await axios.get(sankaUrl);
+    return sankaData.data; 
   },
   search: async (query: string) => {
-    const { data } = await api.get(`/search/${encodeURIComponent(query)}`);
+    const { data } = await api.get(`/search?q=${encodeURIComponent(query)}`);
     return data;
   },
   getGenres: async () => {

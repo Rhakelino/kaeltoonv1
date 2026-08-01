@@ -51,11 +51,11 @@ export default function MangaDetail() {
           if (page === 1 && response.pagination.total_pages > 1) {
              const lastPageRes = await comicApi.getChapterList(id, response.pagination.total_pages);
              if (lastPageRes.data && lastPageRes.data.length > 0) {
-               setFirstChapterId(lastPageRes.data[lastPageRes.data.length - 1].chapter_id);
+               setFirstChapterId(lastPageRes.data[lastPageRes.data.length - 1].id);
              }
           } else if (response.data && response.data.length > 0) {
              // If only 1 page, the last item is the first chapter
-             setFirstChapterId(response.data[response.data.length - 1].chapter_id);
+             setFirstChapterId(response.data[response.data.length - 1].id);
           }
         }
       } catch (error) {
@@ -108,8 +108,10 @@ export default function MangaDetail() {
     <div className="max-w-5xl mx-auto p-4 md:p-6">
       
       {/* Back Button */}
-      <Button variant="outline" size="sm" className="mb-6 rounded-lg bg-background hover:bg-muted dark:bg-transparent dark:border-white/20 dark:hover:bg-white/10" render={<Link to="/" />}>
-        <ChevronLeft className="w-4 h-4 mr-2" /> Back to Home
+      <Button variant="outline" size="sm" className="mb-6 rounded-lg bg-background hover:bg-muted dark:bg-transparent dark:border-white/20 dark:hover:bg-white/10" asChild>
+        <Link to="/" className="flex items-center">
+          <ChevronLeft className="w-4 h-4 mr-2" /> Back to Home
+        </Link>
       </Button>
 
       {/* Header Info - Card Style */}
@@ -131,16 +133,18 @@ export default function MangaDetail() {
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-6">
               {data.status && <Badge variant="outline" className="text-xs px-3 py-1 bg-background dark:bg-black/40 border-border dark:border-white/10 text-foreground dark:text-white/90">{String(data.status)}</Badge>}
               
-              {data.genres && Array.isArray(data.genres) && data.genres.slice(0, 4).map((genre: any, i) => (
+              {data.manga_genres && Array.isArray(data.manga_genres) && data.manga_genres.slice(0, 4).map((mg: any, i) => (
                 <Badge key={i} variant="outline" className="text-xs px-3 py-1 bg-background dark:bg-black/40 border-border dark:border-white/10 text-foreground dark:text-white/90">
-                  {typeof genre === 'object' ? genre.name || genre.id : genre}
+                  {typeof mg.genres === 'object' ? mg.genres.name || mg.genres.id : mg.genres}
                 </Badge>
               ))}
             </div>
 
             {firstChapterId && (
-               <Button className="w-full md:w-auto font-semibold h-11 bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 rounded-lg mb-8 border border-border dark:border-none" render={<Link to={`/read/${firstChapterId}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex items-center w-full justify-center px-6" />}>
+               <Button className="w-full md:w-auto font-semibold h-11 bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 rounded-lg mb-8 border border-border dark:border-none" asChild>
+                 <Link to={`/read/${firstChapterId}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex items-center w-full justify-center px-6">
                   <BookOpen className="w-4 h-4 mr-2" /> Read First Chapter
+                 </Link>
                </Button>
             )}
 
@@ -148,8 +152,8 @@ export default function MangaDetail() {
               <div>
                 <p className="text-muted-foreground dark:text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">AUTHOR</p>
                 <p className="font-medium text-sm text-foreground dark:text-white/90">
-                  {data.authors && data.authors.length > 0 
-                    ? data.authors.map((a: any) => a.name).join(', ') 
+                  {data.manga_authors && data.manga_authors.length > 0 
+                    ? data.manga_authors.map((a: any) => a.authors?.name).join(', ') 
                     : data.author || 'Unknown'}
                 </p>
               </div>
@@ -211,10 +215,10 @@ export default function MangaDetail() {
         
         <div className="grid gap-2 grid-cols-1">
           {chapters.map(chapter => (
-            <Link key={chapter.chapter_id} to={`/read/${chapter.chapter_id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }}>
+            <Link key={chapter.id} to={`/read/${chapter.id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }}>
               <div className="hover:bg-muted/50 transition-colors bg-card shadow-sm border rounded-lg p-4 flex justify-between items-center">
                 <span className="font-semibold text-sm md:text-base line-clamp-1 mr-2">
-                  {chapter.chapter_title || `Chapter ${chapter.chapter_number}`}
+                  {chapter.title || `Chapter ${chapter.chapter_number}`}
                 </span>
                 <span className="text-xs text-muted-foreground shrink-0">
                   {new Date(chapter.release_date).toLocaleDateString()}

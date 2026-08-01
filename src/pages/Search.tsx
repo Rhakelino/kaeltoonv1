@@ -67,7 +67,7 @@ export default function SearchPage() {
           <div className="col-span-full text-center py-10 text-muted-foreground"><Loader2 className="h-6 w-6 animate-spin mx-auto" /></div>
         ) : results.length > 0 ? (
           results.map(result => (
-            <Link to={`/manga/${result.manga_id}`} key={result.manga_id}>
+            <Link to={`/manga/${result.id || result.manga_id}`} key={result.id || result.manga_id}>
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
                    <img src={result.cover || result.thumbnail} alt={result.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />

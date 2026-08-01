@@ -1,6 +1,6 @@
 # Kaeltoon - Shinigami Manga Reader
 
-A sleek, responsive, mobile-first web application for reading manga, built with React and Vite. This project consumes the Shinigami Comic API to provide a seamless reading experience.
+A sleek, responsive, mobile-first web application for reading manga, built with React and Vite. This project consumes a custom Cloudflare Worker API to provide a seamless reading experience.
 
 ## Features
 
@@ -56,5 +56,18 @@ A sleek, responsive, mobile-first web application for reading manga, built with 
 - `src/services/` - Centralized API integration logic (`api.ts`)
 
 ## API Reference
+This project is powered by a custom Hono worker endpoint (`https://kaeltoon-api.instanclay.workers.dev`) wrapping the Shinigami source.
 
-This project is powered by the [Shinigami API endpoint](https://www.sankavollerei.web.id/comic).
+### Available Endpoints
+- `GET /slider` - Fetch featured manga for hero carousel
+- `GET /home` - Fetch mixed home feed (latest, popular, recommended)
+- `GET /latest?page=1` - Fetch latest updates
+- `GET /popular?page=1` - Fetch popular manga
+- `GET /recommended?page=1` - Fetch recommended manga
+- `GET /explore/:category?page=1` - Fetch explore lists
+- `GET /manga/:id` - Fetch manga details and metadata
+- `GET /chapters/:id?page=1` - Fetch chapter list for a manga
+- `GET /read/:chapter_id` - Fetch image URLs for reading a chapter
+- `GET /search?q=query` - Search manga by title
+- `GET /genres` - Fetch available genres
+- `GET /authors?page=1` - Fetch available authors
