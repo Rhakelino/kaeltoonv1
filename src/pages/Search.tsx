@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search as SearchIcon, Loader2 } from "lucide-react"
+import { Search as SearchIcon, Loader2, Star } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Link, useSearchParams } from "react-router-dom"
@@ -62,37 +62,34 @@ export default function SearchPage() {
         </Button>
       </form>
 
-      <div className="space-y-3 md:space-y-4 mt-6 md:mt-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6 mt-6 md:mt-8">
         {loading ? (
-          <div className="text-center py-10 text-muted-foreground"><Loader2 className="h-6 w-6 animate-spin mx-auto" /></div>
+          <div className="col-span-full text-center py-10 text-muted-foreground"><Loader2 className="h-6 w-6 animate-spin mx-auto" /></div>
         ) : results.length > 0 ? (
           results.map(result => (
             <Link to={`/manga/${result.manga_id}`} key={result.manga_id}>
-              <Card className="flex overflow-hidden bg-card border-none shadow-none hover:bg-muted/50 transition-colors h-[120px] md:h-auto rounded-xl">
-                <div className="w-[80px] md:w-32 sm:w-48 shrink-0 bg-muted">
-                   <img src={result.thumbnail || result.cover} alt={result.title} className="w-full h-full object-cover" />
+              <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
+                <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
+                   <img src={result.cover || result.thumbnail} alt={result.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                   {result.rating && (
+                      <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-1 font-semibold text-xs pointer-events-none z-10 bg-background/80 backdrop-blur">
+                        <Star className="w-3 h-3 text-yellow-500 fill-current" /> {result.rating}
+                      </Badge>
+                    )}
+                    {result.latest_chapter && (
+                      <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[70%] z-10">Ch {result.latest_chapter}</Badge>
+                    )}
                 </div>
-                <CardContent className="p-3 md:p-4 sm:p-6 flex flex-col justify-between flex-1 min-w-0">
-                  <div>
-                    <div className="flex items-start justify-between gap-2 md:gap-4 mb-1 md:mb-2">
-                      <h3 className="text-sm md:text-xl font-bold line-clamp-1 md:line-clamp-2">{result.title}</h3>
-                      {result.status && (
-                        <Badge variant={result.status === 'Ongoing' ? 'default' : 'secondary'} className="shrink-0 text-[10px] md:text-xs">
-                          {result.status}
-                        </Badge>
-                      )}
-                    </div>
-                    {result.type && <p className="text-xs md:text-sm text-muted-foreground mb-1 md:mb-4">{result.type}</p>}
-                    <p className="text-xs md:text-sm line-clamp-2 md:line-clamp-3 text-muted-foreground hidden md:block">{result.description || 'No description available.'}</p>
-                  </div>
+                <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
+                  <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={result.title}>{result.title}</h3>
                 </CardContent>
               </Card>
             </Link>
           ))
         ) : searchParams.has('q') ? (
-           <div className="text-center py-10 text-muted-foreground">No results found for "{searchParams.get('q')}".</div>
+           <div className="col-span-full text-center py-10 text-muted-foreground">No results found for "{searchParams.get('q')}".</div>
         ) : (
-           <div className="text-center py-10 text-muted-foreground">Enter a keyword to search.</div>
+           <div className="col-span-full text-center py-10 text-muted-foreground">Enter a keyword to search.</div>
         )}
       </div>
     </div>

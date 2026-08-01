@@ -73,7 +73,7 @@ export default function Home() {
                 </div>
                 <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
                   <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={manga.title}>{manga.title}</h3>
-                  {manga.latest_chapter && <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">{manga.latest_chapter}</p>}
+                  {manga.latest_chapter && <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">Ch {manga.latest_chapter}</p>}
                 </CardContent>
               </Card>
             </Link>
@@ -103,7 +103,7 @@ export default function Home() {
                 </div>
                 <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
                   <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={manga.title}>{manga.title}</h3>
-                  {manga.latest_chapter && <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">{manga.latest_chapter}</p>}
+                  {manga.latest_chapter && <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">Ch {manga.latest_chapter}</p>}
                 </CardContent>
               </Card>
             </Link>
@@ -136,7 +136,7 @@ export default function Home() {
                 </div>
                 <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
                   <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={manga.title}>{manga.title}</h3>
-                  {manga.latest_chapter && <p className="text-[10px] md:text-xs text-primary font-medium mt-auto">{manga.latest_chapter}</p>}
+                  {manga.latest_chapter && <p className="text-[10px] md:text-xs text-primary font-medium mt-auto">Ch {manga.latest_chapter}</p>}
                 </CardContent>
               </Card>
             </Link>
