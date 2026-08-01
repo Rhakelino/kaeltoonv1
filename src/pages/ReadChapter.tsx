@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Menu, Home, Loader2 } from "lucide-react"
-import { Link, useParams, useSearchParams } from "react-router-dom"
+import { Link, useParams, useSearchParams, useLocation } from "react-router-dom"
 import { useEffect, useState, useRef } from "react"
 import { comicApi } from "@/services/api"
 
 export default function ReadChapter() {
   const { chapterId } = useParams()
   const [searchParams] = useSearchParams()
+  const location = useLocation()
   const mangaId = searchParams.get('manga')
   const scrollRef = useRef<HTMLDivElement>(null)
   
@@ -24,6 +25,25 @@ export default function ReadChapter() {
         const responseData = await comicApi.readChapter(chapterId);
         setData(responseData);
         setImages(responseData?.images || []);
+        
+        // Save to history
+        if (mangaId && responseData) {
+           const historyStr = localStorage.getItem('manga_history');
+           const history = historyStr ? JSON.parse(historyStr) : [];
+           
+           const state = location.state as { mangaTitle?: string, mangaCover?: string } | null;
+           
+           const newHistory = history.filter((h: any) => h.manga_id !== mangaId);
+           newHistory.unshift({
+              manga_id: mangaId,
+              title: state?.mangaTitle || responseData.chapter_title || `Chapter ${chapterId}`,
+              cover: state?.mangaCover || responseData.images?.[0] || '',
+              chapter_id: chapterId,
+              chapter_title: responseData.chapter_title,
+              read_at: Date.now()
+           });
+           localStorage.setItem('manga_history', JSON.stringify(newHistory.slice(0, 50))); // Keep last 50
+        }
       } catch (error) {
         console.error("Failed to fetch chapter images:", error);
       } finally {
@@ -31,7 +51,7 @@ export default function ReadChapter() {
       }
     };
     fetchChapter();
-  }, [chapterId]);
+  }, [chapterId, mangaId, location.state]);
 
   return (
     <div className="fixed inset-0 z-[100] bg-background flex flex-col">
@@ -93,10 +113,10 @@ export default function ReadChapter() {
           {/* Bottom Navigation inside scroll */}
           {!loading && images.length > 0 && (
              <div className="w-full p-4 flex gap-4 justify-between items-center mt-8" onClick={(e) => e.stopPropagation()}>
-               <Button variant="secondary" className="flex-1 max-w-xs" disabled={!data?.prev_chapter?.chapter_id} render={<Link to={data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#"} />}>
+               <Button variant="secondary" className="flex-1 max-w-xs" disabled={!data?.prev_chapter?.chapter_id} render={<Link to={data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#"} state={location.state} />}>
                   <ChevronLeft className="h-4 w-4 mr-2" /> Prev Chapter
                </Button>
-               <Button className="flex-1 max-w-xs" disabled={!data?.next_chapter?.chapter_id} render={<Link to={data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#"} />}>
+               <Button className="flex-1 max-w-xs" disabled={!data?.next_chapter?.chapter_id} render={<Link to={data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#"} state={location.state} />}>
                   Next Chapter <ChevronRight className="h-4 w-4 ml-2" />
                </Button>
             </div>
@@ -108,7 +128,7 @@ export default function ReadChapter() {
       <div 
         className={`md:hidden fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur border-t p-2 flex justify-between gap-2 transition-transform duration-300 ${showNav ? 'translate-y-0' : 'translate-y-full'}`}
       >
-        <Button variant="outline" className="flex-1 h-12" disabled={!data?.prev_chapter?.chapter_id} render={<Link to={data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#"} />}>
+        <Button variant="outline" className="flex-1 h-12" disabled={!data?.prev_chapter?.chapter_id} render={<Link to={data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#"} state={location.state} />}>
           <ChevronLeft className="h-4 w-4 mr-1" /> Prev
         </Button>
         {mangaId ? (
@@ -120,7 +140,7 @@ export default function ReadChapter() {
             <Menu className="h-5 w-5" />
           </Button>
         )}
-        <Button className="flex-1 h-12" disabled={!data?.next_chapter?.chapter_id} render={<Link to={data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#"} />}>
+        <Button className="flex-1 h-12" disabled={!data?.next_chapter?.chapter_id} render={<Link to={data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#"} state={location.state} />}>
           Next <ChevronRight className="h-4 w-4 ml-1" />
         </Button>
       </div>

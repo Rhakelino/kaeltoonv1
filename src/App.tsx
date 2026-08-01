@@ -6,6 +6,7 @@ import SearchPage from "./pages/Search"
 import TaxonomyList from "./pages/TaxonomyList"
 import MangaDetail from "./pages/MangaDetail"
 import ReadChapter from "./pages/ReadChapter"
+import History from "./pages/History"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="popular" element={<LatestManga />} />
         <Route path="recommended" element={<LatestManga />} />
         <Route path="search" element={<SearchPage />} />
+        <Route path="history" element={<History />} />
         
         <Route path="genres" element={<TaxonomyList title="Genres" />} />
         <Route path="authors" element={<TaxonomyList title="Authors" />} />

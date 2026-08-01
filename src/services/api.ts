@@ -20,17 +20,23 @@ export interface MangaItem {
 
 export interface DetailManga {
   title: string;
-  alternative_title: string;
+  alternative_title?: string;
   description: string;
   cover: string;
-  thumbnail: string;
-  type: string;
+  thumbnail?: string;
+  type?: string | any[];
+  format?: string | any[];
   status: string;
-  author: string;
-  artist: string;
-  rating: string;
+  author?: string;
+  artist?: string;
+  authors?: any[];
+  artists?: any[];
+  rating?: string | number;
+  views?: number;
+  bookmarks?: number;
+  release_year?: string;
   genres: any[];
-  chapters: {
+  chapters?: {
     chapter_id: string;
     chapter_number: number;
     chapter_title: string | null;

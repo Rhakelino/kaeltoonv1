@@ -125,21 +125,47 @@ export default function MangaDetail() {
             <h1 className="text-2xl md:text-4xl font-bold tracking-tight mb-2 text-center md:text-left">{data.title}</h1>
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-4">
               {data.status && <Badge variant={data.status === 'Ongoing' ? 'default' : 'secondary'} className="text-xs">{String(data.status)}</Badge>}
-              {data.type && <Badge variant="outline" className="text-xs">{String(data.type)}</Badge>}
+              
+              {data.type && Array.isArray(data.type) ? data.type.map((t: any, i: number) => (
+                <Badge key={i} variant="outline" className="text-xs">{t.name || t}</Badge>
+              )) : data.type && <Badge variant="outline" className="text-xs">{String(data.type)}</Badge>}
+              
+              {data.format && Array.isArray(data.format) ? data.format.map((f: any, i: number) => (
+                <Badge key={i} variant="outline" className="text-xs">{f.name || f}</Badge>
+              )) : data.format && <Badge variant="outline" className="text-xs">{String(data.format)}</Badge>}
+              
+              {data.release_year && <Badge variant="secondary" className="text-xs">{data.release_year}</Badge>}
+              
               <span className="flex items-center text-sm font-medium text-yellow-500 bg-yellow-500/10 px-2 py-0.5 rounded-full">
                 <Star className="w-3.5 h-3.5 mr-1 fill-current" /> {data.rating || 'N/A'}
               </span>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 text-sm bg-card p-4 rounded-lg border shadow-sm">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm bg-card p-4 rounded-lg border shadow-sm">
             <div>
               <p className="text-muted-foreground mb-1 text-xs uppercase tracking-wider">Author</p>
-              <p className="font-medium">{data.author || 'Unknown'}</p>
+              <p className="font-medium">
+                {data.authors && data.authors.length > 0 
+                  ? data.authors.map((a: any) => a.name).join(', ') 
+                  : data.author || 'Unknown'}
+              </p>
             </div>
             <div>
               <p className="text-muted-foreground mb-1 text-xs uppercase tracking-wider">Artist</p>
-              <p className="font-medium">{data.artist || 'Unknown'}</p>
+              <p className="font-medium">
+                {data.artists && data.artists.length > 0 
+                  ? data.artists.map((a: any) => a.name).join(', ') 
+                  : data.artist || 'Unknown'}
+              </p>
+            </div>
+            <div>
+              <p className="text-muted-foreground mb-1 text-xs uppercase tracking-wider">Views</p>
+              <p className="font-medium">{data.views?.toLocaleString() || 'N/A'}</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground mb-1 text-xs uppercase tracking-wider">Bookmarks</p>
+              <p className="font-medium">{data.bookmarks?.toLocaleString() || 'N/A'}</p>
             </div>
           </div>
 
@@ -153,12 +179,12 @@ export default function MangaDetail() {
 
           <div className="flex gap-3 pt-2">
             {chapters.length > 0 && (
-               <Button className="flex-1 md:flex-none w-full md:w-auto font-bold h-12" render={<Link to={`/read/${chapters[chapters.length - 1]?.chapter_id}?manga=${id}`} className="flex items-center w-full justify-center" />}>
+               <Button className="flex-1 md:flex-none w-full md:w-auto font-bold h-12" render={<Link to={`/read/${chapters[chapters.length - 1]?.chapter_id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex items-center w-full justify-center" />}>
                   <BookOpen className="w-4 h-4 mr-2" /> Read First Chapter
                </Button>
             )}
             {chapters.length > 0 && (
-              <Button variant="outline" className="flex-1 md:flex-none w-full md:w-auto font-bold h-12" render={<Link to={`/read/${chapters[0]?.chapter_id}?manga=${id}`} className="flex items-center w-full justify-center" />}>
+              <Button variant="outline" className="flex-1 md:flex-none w-full md:w-auto font-bold h-12" render={<Link to={`/read/${chapters[0]?.chapter_id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex items-center w-full justify-center" />}>
                 Latest Chapter
               </Button>
             )}
@@ -173,6 +199,9 @@ export default function MangaDetail() {
         <h3 className="text-lg font-semibold flex items-center gap-2">
           <Info className="w-5 h-5 text-primary" /> Synopsis
         </h3>
+        {data.alternative_title && (
+          <p className="text-sm text-muted-foreground mb-2 italic">Alt: {data.alternative_title}</p>
+        )}
         <p className="text-muted-foreground leading-relaxed text-sm md:text-base whitespace-pre-wrap">
           {data.description || 'No synopsis available.'}
         </p>
@@ -188,7 +217,7 @@ export default function MangaDetail() {
         
         <div className="grid gap-2 grid-cols-1">
           {chapters.map(chapter => (
-            <Link key={chapter.chapter_id} to={`/read/${chapter.chapter_id}?manga=${id}`}>
+            <Link key={chapter.chapter_id} to={`/read/${chapter.chapter_id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }}>
               <Card className="hover:border-primary transition-colors bg-card shadow-sm h-full rounded-md">
                 <CardContent className="p-4 flex justify-between items-center h-full">
                   <span className="font-semibold text-sm md:text-base line-clamp-1 mr-2">
