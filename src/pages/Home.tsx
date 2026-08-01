@@ -40,8 +40,6 @@ export default function Home() {
     fetchHomeData();
   }, []);
 
-  const featured = data?.popular?.[0] || null; // Kept for reference but unused now
-
   return (
     <div>
       <h2 className="text-2xl font-bold mb-6">Kaeltoon</h2>
