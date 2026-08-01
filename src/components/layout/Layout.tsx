@@ -6,14 +6,20 @@ import { Input } from "../ui/input"
 
 export default function Layout() {
   const location = useLocation()
-  const [theme, setTheme] = useState<"light" | "dark">("dark")
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    const saved = localStorage.getItem("kaeltoon-theme")
+    return (saved as "light" | "dark") || "dark"
+  })
 
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark")
+      document.documentElement.style.colorScheme = "dark"
     } else {
       document.documentElement.classList.remove("dark")
+      document.documentElement.style.colorScheme = "light"
     }
+    localStorage.setItem("kaeltoon-theme", theme)
   }, [theme])
 
   const toggleTheme = () => {

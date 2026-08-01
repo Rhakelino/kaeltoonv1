@@ -1,25 +1,36 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useEffect, useState } from "react"
 import { comicApi } from "@/services/api"
 import type { MangaItem } from "@/services/api"
+import useEmblaCarousel from "embla-carousel-react"
+import Autoplay from "embla-carousel-autoplay"
 
 export default function Home() {
+  const [sliderRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000 })])
+  
   const [data, setData] = useState<{
     latest: MangaItem[];
     recommended: MangaItem[];
     popular: MangaItem[];
+    slider: any[];
   } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
-        const response = await comicApi.getHome();
-        if (response.status === 'success') {
-          setData(response.data);
-        }
+        const [homeRes, sliderRes] = await Promise.all([
+          comicApi.getHome(),
+          comicApi.getSlider()
+        ]);
+        
+        setData({
+          ...homeRes.data,
+          slider: sliderRes.data || []
+        });
       } catch (error) {
         console.error("Failed to fetch home data:", error);
       } finally {
@@ -29,25 +40,69 @@ export default function Home() {
     fetchHomeData();
   }, []);
 
-  const featured = data?.popular?.[0] || null;
+  const featured = data?.popular?.[0] || null; // Kept for reference but unused now
 
   return (
     <div>
-      {/* Featured */}
+      <h2 className="text-2xl font-bold mb-6">Kaeltoon</h2>
+      
+      {/* Featured Slider */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Featured</h2>
         {loading ? (
-          <Skeleton className="w-full h-64 sm:h-80 md:h-96 rounded-xl bg-muted" />
-        ) : featured ? (
-          <Link to={`/manga/${featured.manga_id}`}>
-            <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden bg-muted group cursor-pointer border shadow-sm">
-               <img src={featured.cover || featured.thumbnail} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt={featured.title} />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-4 md:p-6">
-                  <h3 className="text-white text-xl md:text-3xl font-bold mb-2">{featured.title}</h3>
-                  <p className="text-white/80 line-clamp-2 max-w-2xl text-xs md:text-sm" dangerouslySetInnerHTML={{ __html: featured.description || '' }}></p>
-               </div>
+          <Skeleton className="w-full h-48 md:h-64 lg:h-80 rounded-2xl bg-muted" />
+        ) : data?.slider && data.slider.length > 0 ? (
+          <div className="overflow-hidden rounded-2xl" ref={sliderRef}>
+            <div className="flex touch-pan-y">
+              {data.slider.map((slide) => (
+                <div key={slide.id} className="min-w-0 flex-[0_0_100%] relative aspect-[21/9] md:aspect-[21/7] max-h-80 group cursor-pointer overflow-hidden bg-black">
+                  <Link to={`/manga/${slide.manga_id}`} className="block w-full h-full">
+                    {/* Background layer */}
+                    <img 
+                      src={slide.background_image} 
+                      className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700 ease-out" 
+                      alt={slide.title} 
+                    />
+                    
+                    {/* Shadow overlay for contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/90 via-black/50 md:via-black/70 to-transparent z-10" />
+                    
+                    {/* Character layer floating on top right */}
+                    {slide.chara_image && (
+                      <div className="absolute top-0 right-0 bottom-0 w-[50%] md:w-[40%] overflow-hidden z-20 pointer-events-none">
+                         <img 
+                           src={slide.chara_image} 
+                           alt="Character" 
+                           className="w-full h-full object-contain object-right-bottom translate-y-4 group-hover:translate-y-0 group-hover:scale-110 transition-transform duration-700 ease-out drop-shadow-2xl"
+                         />
+                         {/* Optional fade out bottom edge of character to blend */}
+                         <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/40 to-transparent" />
+                      </div>
+                    )}
+                    
+                    <div className="absolute inset-0 p-4 md:p-8 flex items-end md:items-center z-30">
+                      <div className="w-full md:max-w-xl">
+                        <h3 className="text-white text-2xl md:text-4xl font-bold mb-2 md:mb-3 drop-shadow-lg line-clamp-1 group-hover:-translate-y-1 transition-transform duration-500">{slide.title}</h3>
+                        
+                        <div className="hidden md:block">
+                           <p className="text-white/80 line-clamp-2 text-sm md:text-base mb-4 drop-shadow-md group-hover:-translate-y-1 transition-transform duration-500 delay-75">
+                             {slide.description}
+                           </p>
+                        </div>
+
+                        <div className="flex gap-2 group-hover:-translate-y-1 transition-transform duration-500 delay-100">
+                           {slide.badges?.map((badge: any, i: number) => (
+                              <Badge key={i} className="text-[10px] md:text-xs font-semibold px-2 py-0.5 border-none" style={{ backgroundColor: badge.color, color: 'white' }}>
+                                 {badge.name}
+                              </Badge>
+                           ))}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
-          </Link>
+          </div>
         ) : null}
       </div>
 

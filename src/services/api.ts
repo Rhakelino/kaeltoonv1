@@ -46,6 +46,10 @@ export interface DetailManga {
 }
 
 export const comicApi = {
+  getSlider: async () => {
+    const { data } = await api.get('/slider');
+    return data;
+  },
   getHome: async () => {
     const { data } = await api.get('/home');
     return data;

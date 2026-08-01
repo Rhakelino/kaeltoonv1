@@ -1,0 +1,70 @@
+{
+  "status": "success",
+  "creator": "Sanka Vollerei",
+  "source": "Shinigami",
+  "data": [
+    {
+      "id": 11,
+      "title": "Solo Leveling: Ragnarok",
+      "rating": "9.4",
+      "background_image": "https://storage.shngm.id/thumbnail/image/6854dd69-5e2a-4b53-96ce-18d524f8d76e.jpg",
+      "chara_image": "https://storage.shngm.id/thumbnail/image/93d655e4-2a39-4807-b7d2-3f6cd6195dbe.jpg",
+      "manga_id": "935b0a6e-1fcb-4ea4-b9ae-dcf6540a9f10",
+      "blur_color": "#000000",
+      "category": "explore-1",
+      "description": "Keberadaan Bumi sekali lagi mendapatkan ancaman ketika Itarim gods dari universe lain ingin mengisi kekosongan yang ditinggalkan oleh Absolute Being Sung Jinwoo tidak memiliki pilihan selain mengirimkan Beru sang Shadow Ant King untuk membangkitkan kekuatan anaknya dan membawanya menuju jalan yang dulu pernah dia tempuh Suho harus menaklukkan Shadow Dungeon dan mendapatkan posisinya di dunia Hunter selagi dia menjalani dunia yang baru melawan kejahatan baru yang berusaha melahap seisi dunia",
+      "badges": [
+        {
+          "name": "New",
+          "color": "#F79F1F"
+        },
+        {
+          "name": "Popular",
+          "color": "#e84118"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Pick Me Up!",
+      "rating": "9.2",
+      "background_image": "https://storage.shngm.id/thumbnail/image/c5000464-9ed1-4435-9fe8-dbe7ad947f7f.jpg",
+      "chara_image": "https://storage.shngm.id/thumbnail/image/78ce6a0e-7b22-4964-b547-5f3b98ee8eb4.jpg",
+      "manga_id": "f96af365-8bf3-4b23-ab53-7bb6994a375d",
+      "blur_color": "#000000",
+      "category": "explore-1",
+      "description": "Dalam game gacha yang terkenal dengan kesulitannya yang mengerikan Master peringkat ke5 di dunia Loki kehilangan kesadaran saat menyerbu Dungeon\nApa Aku karakter game sekarang\nSetelah bangun Loki menyadari bahwa dia telah berubah menjadi Pahlawan Level 1 Bintang 1Han Yslat Untuk kembali ke Bumi dia harus memimpin para master dan hero pemula dan membersihkan lantai 100 Dungeon\nKau macammacam dengan orang yang salah\nIni adalah kisah perjuangan keras Master Loki yang belum pernah mengalami satu kekalahan pun",
+      "badges": [
+        {
+          "name": "Thrill",
+          "color": "#222f3e"
+        },
+        {
+          "name": "Action",
+          "color": "#b91c1c"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Chronicles Of The Martial God’s Return",
+      "rating": "8.3",
+      "background_image": "https://storage.shngm.id/thumbnail/image/7503eeec-f4f0-42be-a06d-f16562c251ac.jpg",
+      "chara_image": "https://storage.shngm.id/thumbnail/image/1c31a9a8-2da9-4a63-88d5-fe2fe619f336.jpg",
+      "manga_id": "724e04ff-14cd-4172-9ebf-980eaf6b8510",
+      "blur_color": "#000000",
+      "category": "explore-1",
+      "description": "Manhwa Baru dari Studio DC Webtoon yang juga mengerjakan Leveling With God\nUltimate Martial Divine Demon Dan Woohyun disegel karena dia terlalu kuat untuk ditangani dunia Setelah satu milenium berlalu dia dilepaskan dari segelnya dan merasa semuanya tidak ada artinya saat dia berkeliaran di ganggang belakang Tepat saat dia jatuh karena dia muak dengan dunia sebuah tangan kecil muncul di depannya Apa ini tanya Dan Woohyun Sebuah pangsit jawabnya Ini adalah pertama kalinya dalam hidupnya ada seseorang yang bersikap baik padanya tanpa niat tersembunyi dan itu mengubah nasibnya Chronicle dari seorang Martial God yang melintasi ribuan tahun ruang dan waktu",
+      "badges": [
+        {
+          "name": "Murim",
+          "color": "#273c75"
+        },
+        {
+          "name": "Daddy",
+          "color": "#22c55e"
+        }
+      ]
+    }
+  ]
+}

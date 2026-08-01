@@ -113,7 +113,7 @@ export default function MangaDetail() {
       </Button>
 
       {/* Header Info - Card Style */}
-      <div className="relative rounded-2xl overflow-hidden bg-card border shadow-lg mb-8 dark:bg-card/40 dark:border-white/5 dark:backdrop-blur-xl">
+      <div className="relative rounded-2xl overflow-hidden bg-card border border-border shadow-lg mb-8 dark:bg-card/40 dark:border-white/5 dark:backdrop-blur-xl">
         {/* Blurred Background - Only visible in dark mode for the cool effect */}
         <div className="absolute inset-0 z-0 hidden dark:block">
            <img src={data.cover || data.thumbnail} className="w-full h-full object-cover opacity-[0.15] blur-2xl" alt="background" />
@@ -129,22 +129,22 @@ export default function MangaDetail() {
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-center md:text-left text-foreground">{data.title}</h1>
             
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-6">
-              {data.status && <Badge variant="outline" className="text-xs px-3 py-1 bg-muted dark:bg-black/40 dark:border-white/10 dark:text-white/90">{String(data.status)}</Badge>}
+              {data.status && <Badge variant="outline" className="text-xs px-3 py-1 bg-background dark:bg-black/40 border-border dark:border-white/10 text-foreground dark:text-white/90">{String(data.status)}</Badge>}
               
               {data.genres && Array.isArray(data.genres) && data.genres.slice(0, 4).map((genre: any, i) => (
-                <Badge key={i} variant="outline" className="text-xs px-3 py-1 bg-muted dark:bg-black/40 dark:border-white/10 dark:text-white/90">
+                <Badge key={i} variant="outline" className="text-xs px-3 py-1 bg-background dark:bg-black/40 border-border dark:border-white/10 text-foreground dark:text-white/90">
                   {typeof genre === 'object' ? genre.name || genre.id : genre}
                 </Badge>
               ))}
             </div>
 
             {firstChapterId && (
-               <Button className="w-full md:w-auto font-semibold h-11 bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 rounded-lg mb-8" render={<Link to={`/read/${firstChapterId}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex items-center w-full justify-center px-6" />}>
+               <Button className="w-full md:w-auto font-semibold h-11 bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 rounded-lg mb-8 border border-border dark:border-none" render={<Link to={`/read/${firstChapterId}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex items-center w-full justify-center px-6" />}>
                   <BookOpen className="w-4 h-4 mr-2" /> Read First Chapter
                </Button>
             )}
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-muted/50 dark:bg-black/40 rounded-xl p-5 border border-border dark:border-white/5">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-background dark:bg-black/40 rounded-xl p-5 border border-border dark:border-white/5">
               <div>
                 <p className="text-muted-foreground dark:text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">AUTHOR</p>
                 <p className="font-medium text-sm text-foreground dark:text-white/90">
