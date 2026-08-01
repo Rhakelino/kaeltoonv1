@@ -4,13 +4,15 @@ A sleek, responsive, mobile-first web application for reading manga, built with 
 
 ## Features
 
-- **Discover:** Browse Featured, Recommended, Popular, and Latest manga updates.
-- **Manga Details:** View complete manga information, synopsis, and chapter lists with "Load More" pagination support.
+- **Discover:** Browse Featured (Carousel Slider), Recommended, Popular, and Latest manga updates.
+- **Manga Details:** View complete manga information, synopsis, and chapter lists with "Range Tabs" pagination support.
 - **Reading Experience:** Full-screen chapter reading mode with infinite vertical scroll, loading states, and quick Prev/Next navigation.
-- **Search:** Real-time search functionality to find your favorite titles.
+- **Search:** Real-time search functionality to find your favorite titles with grid layout.
 - **Taxonomies:** Browse manga by genres and authors.
+- **History:** Automatically tracks your recently read manga with timestamp and quick-resume functionality (stored locally).
 - **Responsive Layout:** Mobile-first design featuring a bottom navigation bar for mobile devices and a sticky top navbar for desktop.
-- **Dark Theme:** Native dark mode UI utilizing shadcn/ui and Tailwind CSS.
+- **Dark Theme:** Native dark mode UI utilizing shadcn/ui and Tailwind CSS. Toggleable between crisp white Light Mode and translucent blurred Dark Mode.
+- **Animations:** Embla carousel for Hero section with parallax and staggered text animations (optimized for desktop performance).
 
 ## Tech Stack
 
@@ -21,6 +23,7 @@ A sleek, responsive, mobile-first web application for reading manga, built with 
 - **Components:** shadcn/ui (Base UI)
 - **Icons:** Lucide React
 - **Data Fetching:** Axios
+- **Carousel:** Embla Carousel React & Autoplay
 
 ## Getting Started
 
@@ -49,7 +52,7 @@ A sleek, responsive, mobile-first web application for reading manga, built with 
 
 - `src/components/layout/` - Core layout wrappers (Navbar, Mobile Bottom Nav)
 - `src/components/ui/` - Reusable UI components (buttons, cards, badges, skeletons)
-- `src/pages/` - Main views (Home, MangaDetail, ReadChapter, Search, TaxonomyList)
+- `src/pages/` - Main views (Home, MangaDetail, ReadChapter, Search, TaxonomyList, History)
 - `src/services/` - Centralized API integration logic (`api.ts`)
 
 ## API Reference
