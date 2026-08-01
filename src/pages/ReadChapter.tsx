@@ -15,6 +15,48 @@ export default function ReadChapter() {
   const [data, setData] = useState<any>(null)
   const [images, setImages] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
+  const [chapterList, setChapterList] = useState<any[]>([])
+  const [navChapters, setNavChapters] = useState<{prev: string | null, next: string | null}>({prev: null, next: null})
+
+  useEffect(() => {
+    const fetchChapters = async () => {
+      if (!mangaId) return;
+      try {
+        // Fetch page 1 to get total pages
+        const res = await comicApi.getChapterList(mangaId, 1);
+        if (res.data) {
+          let allChapters = [...res.data];
+          const totalPages = res.pagination?.total_pages || 1;
+          
+          if (totalPages > 1) {
+            // Fetch remaining pages in parallel
+            const promises = [];
+            for (let i = 2; i <= totalPages; i++) {
+              promises.push(comicApi.getChapterList(mangaId, i));
+            }
+            const results = await Promise.all(promises);
+            results.forEach(r => {
+              if (r.data) allChapters = allChapters.concat(r.data);
+            });
+          }
+          setChapterList(allChapters);
+        }
+      } catch (err) {}
+    };
+    fetchChapters();
+  }, [mangaId]);
+
+  useEffect(() => {
+    if (chapterList.length > 0 && chapterId) {
+      const idx = chapterList.findIndex(c => c.id === chapterId);
+      if (idx !== -1) {
+        setNavChapters({
+          next: idx > 0 ? chapterList[idx - 1].id : null, // index 0 is latest
+          prev: idx < chapterList.length - 1 ? chapterList[idx + 1].id : null
+        });
+      }
+    }
+  }, [chapterList, chapterId]);
 
   useEffect(() => {
     const fetchChapter = async () => {
@@ -107,13 +149,21 @@ export default function ReadChapter() {
           
           {!loading && images.length > 0 ? (
              images.map((src, i) => (
-                <img 
-                  key={i} 
-                  src={src} 
-                  alt={`Page ${i + 1}`} 
-                  loading="lazy"
-                  className="w-full h-auto block select-none pointer-events-none" 
-                />
+               <div key={i} className="w-full relative min-h-[300px] flex items-center justify-center bg-muted/20">
+                  <div className="absolute inset-0 flex items-center justify-center -z-10">
+                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground/50" />
+                  </div>
+                  <img 
+                    src={src} 
+                    alt={`Page ${i + 1}`} 
+                    loading="lazy"
+                    onLoad={(e) => {
+                      (e.target as HTMLImageElement).parentElement?.classList.remove('min-h-[300px]', 'bg-muted/20');
+                      (e.target as HTMLImageElement).previousElementSibling?.remove();
+                    }}
+                    className="w-full h-auto block select-none pointer-events-none" 
+                  />
+               </div>
              ))
           ) : !loading ? (
              <div className="flex items-center justify-center flex-1 h-[80vh] text-muted-foreground">
@@ -124,13 +174,13 @@ export default function ReadChapter() {
           {/* Bottom Navigation inside scroll */}
           {!loading && images.length > 0 && (
              <div className="w-full p-4 flex gap-4 justify-between items-center mt-8" onClick={(e) => e.stopPropagation()}>
-               <Button variant="secondary" className="flex-1 max-w-xs" disabled={!data?.prev_chapter?.id && !data?.prev_chapter?.chapter_id} asChild>
-                 <Link to={data?.prev_chapter?.id ? `/read/${data.prev_chapter.id}?manga=${mangaId}` : (data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#")} state={location.state} className="flex items-center justify-center">
+               <Button variant="secondary" className="flex-1 max-w-xs" disabled={!navChapters.prev} asChild>
+                 <Link to={navChapters.prev ? `/read/${navChapters.prev}?manga=${mangaId}` : "#"} state={location.state} className="flex items-center justify-center">
                   <ChevronLeft className="h-4 w-4 mr-2" /> Prev Chapter
                  </Link>
                </Button>
-               <Button className="flex-1 max-w-xs" disabled={!data?.next_chapter?.id && !data?.next_chapter?.chapter_id} asChild>
-                 <Link to={data?.next_chapter?.id ? `/read/${data.next_chapter.id}?manga=${mangaId}` : (data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#")} state={location.state} className="flex items-center justify-center">
+               <Button className="flex-1 max-w-xs" disabled={!navChapters.next} asChild>
+                 <Link to={navChapters.next ? `/read/${navChapters.next}?manga=${mangaId}` : "#"} state={location.state} className="flex items-center justify-center">
                   Next Chapter <ChevronRight className="h-4 w-4 ml-2" />
                  </Link>
                </Button>
@@ -139,28 +189,28 @@ export default function ReadChapter() {
         </div>
       </div>
 
-      {/* Bottom Mobile Navigation */}
+      {/* Bottom Mobile & Desktop Navigation (Sticky) */}
       <div 
-        className={`md:hidden fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur border-t p-2 flex justify-between gap-2 transition-transform duration-300 ${showNav ? 'translate-y-0' : 'translate-y-full'}`}
+        className={`fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur border-t p-2 md:px-6 flex justify-between md:justify-center gap-2 md:gap-4 transition-transform duration-300 z-50 ${showNav ? 'translate-y-0' : 'translate-y-full'}`}
       >
-        <Button variant="outline" className="flex-1 h-12" disabled={!data?.prev_chapter?.id && !data?.prev_chapter?.chapter_id} asChild>
-          <Link to={data?.prev_chapter?.id ? `/read/${data.prev_chapter.id}?manga=${mangaId}` : (data?.prev_chapter?.chapter_id ? `/read/${data.prev_chapter.chapter_id}?manga=${mangaId}` : "#")} state={location.state} className="flex items-center justify-center">
+        <Button variant="outline" className="flex-1 md:flex-none md:w-48 h-12" disabled={!navChapters.prev} asChild>
+          <Link to={navChapters.prev ? `/read/${navChapters.prev}?manga=${mangaId}` : "#"} state={location.state} className="flex items-center justify-center">
             <ChevronLeft className="h-4 w-4 mr-1" /> Prev
           </Link>
         </Button>
         {mangaId ? (
-          <Button variant="secondary" className="flex-none w-12 h-12 p-0" asChild>
+          <Button variant="secondary" className="md:hidden flex-none w-12 h-12 p-0" asChild>
             <Link to={`/manga/${mangaId}`} className="flex items-center justify-center">
               <Menu className="h-5 w-5" />
             </Link>
           </Button>
         ) : (
-           <Button variant="secondary" className="flex-none w-12 h-12 p-0" disabled>
+           <Button variant="secondary" className="md:hidden flex-none w-12 h-12 p-0" disabled>
             <Menu className="h-5 w-5" />
           </Button>
         )}
-        <Button className="flex-1 h-12" disabled={!data?.next_chapter?.id && !data?.next_chapter?.chapter_id} asChild>
-          <Link to={data?.next_chapter?.id ? `/read/${data.next_chapter.id}?manga=${mangaId}` : (data?.next_chapter?.chapter_id ? `/read/${data.next_chapter.chapter_id}?manga=${mangaId}` : "#")} state={location.state} className="flex items-center justify-center">
+        <Button className="flex-1 md:flex-none md:w-48 h-12" disabled={!navChapters.next} asChild>
+          <Link to={navChapters.next ? `/read/${navChapters.next}?manga=${mangaId}` : "#"} state={location.state} className="flex items-center justify-center">
             Next <ChevronRight className="h-4 w-4 ml-1" />
           </Link>
         </Button>
