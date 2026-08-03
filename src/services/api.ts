@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://kaeltoon-api.instanclay.workers.dev',
+  baseURL: 'https://kaeltoon-api.kaeldev.my.id',
 });
 
 // Types based on the API response structure observed
