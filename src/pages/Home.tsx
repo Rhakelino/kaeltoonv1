@@ -57,7 +57,7 @@ export default function Home() {
                     {/* Background layer */}
                     <img 
                       src={slide.background_image} 
-                      className="absolute inset-0 w-full h-full object-cover opacity-60 md:scale-105 md:group-hover:scale-110 md:group-hover:opacity-40 transition-all duration-700 ease-out" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-80" 
                       alt={slide.title} 
                       loading="lazy"
                     />
@@ -120,7 +120,7 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))
-          ) : data?.recommended?.slice(0, 5).map((manga) => (
+          ) : data?.recommended?.map((manga) => (
             <Link to={`/manga/${manga.id || manga.manga_id}`} key={`rec-${manga.id || manga.manga_id}`}>
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
@@ -150,7 +150,7 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))
-          ) : data?.popular?.slice(1, 6).map((manga) => (
+          ) : data?.popular?.map((manga) => (
             <Link to={`/manga/${manga.id || manga.manga_id}`} key={`pop-${manga.id || manga.manga_id}`}>
                <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
@@ -174,7 +174,7 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6">
           {loading ? (
-            Array(10).fill(0).map((_, i) => (
+            Array(5).fill(0).map((_, i) => (
               <Card key={`lat-skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border pb-2 shadow-sm overflow-hidden">
                 <Skeleton className="w-full aspect-[2/3] rounded-md" />
                 <CardContent className="p-0 pt-2 px-2 flex flex-col gap-1">
@@ -183,7 +183,7 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))
-          ) : data?.latest?.slice(0, 10).map((manga) => (
+          ) : data?.latest?.map((manga) => (
             <Link to={`/manga/${manga.id || manga.manga_id}`} key={`lat-${manga.id || manga.manga_id}`}>
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
