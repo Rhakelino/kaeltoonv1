@@ -43,7 +43,7 @@ export default function Layout() {
             {/* Logo */}
             <div className="flex items-center space-x-2">
               <BookOpen className="h-8 w-8 text-primary" />
-              <Link to="/" className="text-2xl font-bold">Kael-manhwa</Link>
+              <Link to="/" className="text-2xl font-bold">Kaeltoon</Link>
             </div>
 
             {/* Search Bar */}
