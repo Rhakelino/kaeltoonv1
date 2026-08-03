@@ -134,7 +134,7 @@ async function scrapeChapters(mangaId: string, supabaseMangaId: string) {
 
 async function scrapePopular() {
   let page = 1;
-  let totalPages = 1; // Will update after first request
+  let totalPages = 1;
 
   console.log("Starting scrape on /popular...");
 
@@ -151,56 +151,156 @@ async function scrapePopular() {
       totalPages = res.pagination.total_pages;
     }
 
-    const mangas = res.data;
+    await processMangaList(res.data);
+    page++;
+  }
 
-    for (const manga of mangas) {
-      console.log(`Processing: ${manga.title}`);
+  console.log("Popular scraping finished.");
+}
 
-      // Upsert Manga basic info
-      const typeStr = Array.isArray(manga.type) ? manga.type[0]?.name || manga.type[0] : manga.type;
-      const formatStr = Array.isArray(manga.format) ? manga.format[0]?.name || manga.format[0] : manga.format;
+async function scrapeLatest() {
+  let page = 1;
+  let totalPages = 1;
 
-      const { data: insertedManga, error: mangaErr } = await supabase
+  console.log("Starting scrape on /latest...");
+
+  while (page <= totalPages) {
+    console.log(`\\\\n--- Scraping Latest Page ${page}/${totalPages} ---`);
+    const res = await fetchWithDelay(`/latest?page=${page}`);
+
+    if (!res || !res.data) {
+      console.log("No data returned, stopping.");
+      break;
+    }
+
+    if (res.pagination) {
+      totalPages = res.pagination.total_pages;
+    }
+
+    await processMangaList(res.data);
+    page++;
+  }
+
+  console.log("Latest scraping finished.");
+}
+
+async function updateNewChapters() {
+  let page = 1;
+  let totalPages = 1;
+  let updatedCount = 0;
+  let skippedCount = 0;
+  let newMangaCount = 0;
+  let consecutiveFullyUpToDatePages = 0;
+
+  console.log("Starting chapter update from /latest...");
+
+  while (page <= totalPages) {
+    console.log(`\n--- Checking Latest Page ${page}/${totalPages} ---`);
+    const res = await fetchWithDelay(`/latest?page=${page}`);
+
+    if (!res || !res.data) {
+      console.log("No data returned, stopping.");
+      break;
+    }
+
+    if (res.pagination) {
+      totalPages = res.pagination.total_pages;
+    }
+
+    let pageHasUpdates = false;
+
+    for (const manga of res.data) {
+      const { data: existingManga } = await supabase
         .from('mangas')
-        .upsert({
-          source_id: manga.manga_id,
-          title: manga.title,
-          alternative_title: manga.alternative_title,
-          description: manga.description,
-          cover: manga.cover,
-          thumbnail: manga.thumbnail || manga.cover_portrait,
-          status: manga.status,
-          rating: parseFloat(manga.rating) || 0,
-          views: manga.views || 0,
-          bookmarks: manga.bookmarks || 0,
-          release_year: manga.release_year,
-          type: typeStr,
-          format: formatStr,
-        }, { onConflict: 'source_id' })
         .select('id')
+        .eq('source_id', manga.manga_id)
         .single();
 
-      if (mangaErr) {
-        console.error(`Error upserting ${manga.title}:`, mangaErr.message);
+      if (!existingManga) {
+        console.log(`  [NEW] ${manga.title} — inserting...`);
+        newMangaCount++;
+        pageHasUpdates = true;
+        await processMangaList([manga]);
         continue;
       }
 
-      const supabaseMangaId = insertedManga.id;
+      const { count } = await supabase
+        .from('chapters')
+        .select('*', { count: 'exact', head: true })
+        .eq('manga_id', existingManga.id);
 
-      // Scrape details (for relations) and chapters
-      await scrapeMangaDetails(manga.manga_id, supabaseMangaId);
-      await scrapeChapters(manga.manga_id, supabaseMangaId);
+      const dbChapterCount = count || 0;
+      const apiLatestChapter = manga.latest_chapter || 0;
+
+      if (apiLatestChapter > dbChapterCount) {
+        console.log(`  [UPDATE] ${manga.title} — DB: ${dbChapterCount} chapters, API: ${apiLatestChapter}`);
+        updatedCount++;
+        pageHasUpdates = true;
+        await scrapeChapters(manga.manga_id, existingManga.id);
+      } else {
+        skippedCount++;
+      }
+    }
+
+    if (!pageHasUpdates) {
+      consecutiveFullyUpToDatePages++;
+      console.log(`  Page ${page} fully up-to-date (${consecutiveFullyUpToDatePages} consecutive)`);
+      if (consecutiveFullyUpToDatePages >= 3) {
+        console.log("3 consecutive pages with no updates — stopping early.");
+        break;
+      }
+    } else {
+      consecutiveFullyUpToDatePages = 0;
     }
 
     page++;
   }
 
-  console.log("Scraping finished.");
+  console.log(`\nUpdate complete: ${updatedCount} updated, ${newMangaCount} new, ${skippedCount} skipped.`);
+}
+
+async function processMangaList(mangas: any[]) {
+  for (const manga of mangas) {
+    console.log(`Processing: ${manga.title}`);
+
+    const typeStr = Array.isArray(manga.type) ? manga.type[0]?.name || manga.type[0] : manga.type;
+    const formatStr = Array.isArray(manga.format) ? manga.format[0]?.name || manga.format[0] : manga.format;
+
+    const { data: insertedManga, error: mangaErr } = await supabase
+      .from('mangas')
+      .upsert({
+        source_id: manga.manga_id,
+        title: manga.title,
+        alternative_title: manga.alternative_title,
+        description: manga.description,
+        cover: manga.cover,
+        thumbnail: manga.thumbnail || manga.cover_portrait,
+        status: manga.status,
+        rating: parseFloat(manga.rating) || 0,
+        views: manga.views || 0,
+        bookmarks: manga.bookmarks || 0,
+        release_year: manga.release_year,
+        type: typeStr,
+        format: formatStr,
+      }, { onConflict: 'source_id' })
+      .select('id')
+      .single();
+
+    if (mangaErr) {
+      console.error(`Error upserting ${manga.title}:`, mangaErr.message);
+      continue;
+    }
+
+    const supabaseMangaId = insertedManga.id;
+
+    await scrapeMangaDetails(manga.manga_id, supabaseMangaId);
+    await scrapeChapters(manga.manga_id, supabaseMangaId);
+  }
 }
 
 async function run() {
   await scrapeGenres();
-  await scrapePopular();
+  await updateNewChapters();
 }
 
 run();
