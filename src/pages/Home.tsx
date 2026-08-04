@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Link } from "react-router-dom"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useEffect, useState } from "react"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 import { comicApi } from "@/services/api"
 import type { MangaItem } from "@/services/api"
 import useEmblaCarousel from "embla-carousel-react"
@@ -10,6 +11,7 @@ import Autoplay from "embla-carousel-autoplay"
 
 export default function Home() {
   const [sliderRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000 })])
+  const isMobile = useMediaQuery("(max-width: 767px)")
   
   const [data, setData] = useState<{
     latest: MangaItem[];
@@ -123,7 +125,7 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))
-          ) : data?.latest?.map((manga) => (
+          ) : data?.latest?.slice(0, isMobile ? 24 : 25)?.map((manga) => (
             <Link to={`/manga/${manga.id || manga.manga_id}`} key={`lat-${manga.id || manga.manga_id}`}>
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
@@ -153,7 +155,7 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))
-          ) : data?.recommended?.map((manga) => (
+          ) : data?.recommended?.slice(0, isMobile ? 24 : 25)?.map((manga) => (
             <Link to={`/manga/${manga.id || manga.manga_id}`} key={`rec-${manga.id || manga.manga_id}`}>
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
@@ -183,7 +185,7 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))
-          ) : data?.popular?.map((manga) => (
+          ) : data?.popular?.slice(0, isMobile ? 24 : 25)?.map((manga) => (
             <Link to={`/manga/${manga.id || manga.manga_id}`} key={`pop-${manga.id || manga.manga_id}`}>
                <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
