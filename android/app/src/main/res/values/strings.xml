@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Kaeltoon</string>
+    <string name="title_activity_main">Kaeltoon</string>
+    <string name="package_name">id.kaeldev.kaeltoon</string>
+    <string name="custom_url_scheme">id.kaeldev.kaeltoon</string>
+</resources>

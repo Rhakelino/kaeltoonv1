@@ -3,6 +3,7 @@ import { BookOpen, Search, Home, LayoutGrid, Compass, History, Sun, Moon } from 
 import { Button } from "../ui/button"
 import { useEffect, useState } from "react"
 import { Input } from "../ui/input"
+import DownloadBanner from "../DownloadBanner"
 
 export default function Layout() {
   const location = useLocation()
@@ -102,6 +103,8 @@ export default function Layout() {
           )
         })}
       </div>
+
+      <DownloadBanner />
     </div>
   )
 }
