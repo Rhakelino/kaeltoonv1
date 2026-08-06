@@ -100,13 +100,5 @@ export const comicApi = {
   search: async (query: string) => {
     const { data } = await api.get(`/search?q=${encodeURIComponent(query)}`);
     return data;
-  },
-  getGenres: async () => {
-    const { data } = await api.get('/genres');
-    return data.data;
-  },
-  getAuthors: async (page = 1) => {
-    const { data } = await api.get(`/authors?page=${page}`);
-    return data.data;
   }
 };

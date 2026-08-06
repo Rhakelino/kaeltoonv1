@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from "react-router-dom"
-import { BookOpen, Search, Home, LayoutGrid, Compass, History, Sun, Moon } from "lucide-react"
+import { BookOpen, Search, Home, Compass, History, Sun, Moon } from "lucide-react"
 import { Button } from "../ui/button"
 import { useEffect, useState } from "react"
 import { Input } from "../ui/input"
@@ -29,7 +29,6 @@ export default function Layout() {
 
   const navItems = [
     { name: "Home", path: "/", icon: Home },
-    { name: "Explore", path: "/genres", icon: LayoutGrid },
     { name: "Popular", path: "/popular", icon: Compass },
     { name: "Search", path: "/search", icon: Search },
     { name: "History", path: "/history", icon: History },
@@ -58,9 +57,6 @@ export default function Layout() {
             {/* Actions */}
             <div className="flex items-center space-x-2">
               <div className="hidden md:flex gap-1 mr-2">
-                <Button variant="ghost" render={<Link to="/genres" />}>
-                  Explore
-                </Button>
                 <Button variant="ghost" render={<Link to="/popular" />}>
                   Popular
                 </Button>
