@@ -16,6 +16,23 @@ export default function ReadChapter() {
   const [loading, setLoading] = useState(true)
   const [chapterList, setChapterList] = useState<any[]>([])
   const [navChapters, setNavChapters] = useState<{prev: string | null, next: string | null}>({prev: null, next: null})
+  const [mangaTitle, setMangaTitle] = useState<string>((location.state as { mangaTitle?: string })?.mangaTitle || "")
+  const [currentChapterTitle, setCurrentChapterTitle] = useState<string>("")
+
+  useEffect(() => {
+    const fetchMangaDetail = async () => {
+      if (!mangaId) return;
+      if (!mangaTitle) {
+        try {
+          const detail = await comicApi.getDetail(mangaId);
+          if (detail?.title) {
+            setMangaTitle(detail.title);
+          }
+        } catch (err) {}
+      }
+    };
+    fetchMangaDetail();
+  }, [mangaId, mangaTitle]);
 
   useEffect(() => {
     const fetchChapters = async () => {
@@ -49,6 +66,9 @@ export default function ReadChapter() {
     if (chapterList.length > 0 && chapterId) {
       const idx = chapterList.findIndex(c => c.id === chapterId);
       if (idx !== -1) {
+        const cur = chapterList[idx];
+        const titleText = cur.title || (cur.chapter_number ? `Chapter ${cur.chapter_number}` : "");
+        setCurrentChapterTitle(titleText);
         setNavChapters({
           next: idx > 0 ? chapterList[idx - 1].id : null, // index 0 is latest
           prev: idx < chapterList.length - 1 ? chapterList[idx + 1].id : null
@@ -111,7 +131,10 @@ export default function ReadChapter() {
             </Link>
           </Button>
           <div className="flex flex-col">
-            <span className="text-sm font-bold truncate max-w-[200px] md:max-w-md">{chapterId?.replace(/-/g, ' ')}</span>
+            <span className="text-sm font-bold truncate max-w-[200px] md:max-w-md">{mangaTitle || "Manga Reader"}</span>
+            {currentChapterTitle && (
+              <span className="text-xs text-muted-foreground truncate max-w-[200px] md:max-w-md">{currentChapterTitle}</span>
+            )}
           </div>
         </div>
 
