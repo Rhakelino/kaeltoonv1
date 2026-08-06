@@ -19,6 +19,12 @@ export interface MangaItem {
   status?: string;
   release_year?: string;
   latest_chapter?: string;
+  chapters?: {
+    id: string;
+    chapter_number: number | string;
+    title?: string | null;
+    release_date?: string;
+  }[];
 }
 
 export interface DetailManga {

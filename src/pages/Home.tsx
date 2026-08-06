@@ -10,6 +10,7 @@ import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
 import PullToRefresh from "@/components/PullToRefresh"
 import { Star } from "lucide-react"
+import { formatTimeAgo } from "@/lib/utils"
 
 export default function Home() {
   const [sliderRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000 })])
@@ -121,32 +122,52 @@ export default function Home() {
                 </Card>
               ))
             ) : data?.latest?.slice(0, isMobile ? 24 : 25)?.map((manga) => (
-              <Link to={`/manga/${manga.id || manga.manga_id}`} key={`lat-${manga.id || manga.manga_id}`}>
-                <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
-                  <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
-                    <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                    {manga.latest_chapter && (
-                      <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[70%] z-10 text-[10px] md:text-xs">Ch {manga.latest_chapter}</Badge>
-                    )}
-                    {manga.rating && (
-                      <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
-                        <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {manga.rating}
-                      </Badge>
-                    )}
-                    {manga.format && (
-                      <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
-                        {typeof manga.format === 'string' ? manga.format : manga.format[0]}
-                      </Badge>
-                    )}
-                  </div>
+              <div key={`lat-${manga.id || manga.manga_id}`} className="flex flex-col h-full">
+                <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 flex-1">
+                  <Link to={`/manga/${manga.id || manga.manga_id}`} className="block relative">
+                    <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
+                      <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      {manga.rating && (
+                        <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
+                          <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {manga.rating}
+                        </Badge>
+                      )}
+                      {manga.format && (
+                        <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
+                          {typeof manga.format === 'string' ? manga.format : manga.format[0]}
+                        </Badge>
+                      )}
+                    </div>
+                  </Link>
                   <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
-                    <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={manga.title}>{manga.title}</h3>
-                    <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">
-                      {manga.status || (manga.release_year ? `Year ${manga.release_year}` : '')}
-                    </p>
+                    <Link to={`/manga/${manga.id || manga.manga_id}`}>
+                      <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1 hover:text-primary transition-colors" title={manga.title}>{manga.title}</h3>
+                    </Link>
+                    
+                    {manga.chapters && manga.chapters.length > 0 ? (
+                      <div className="flex flex-col gap-1 mt-auto pt-2">
+                        {manga.chapters.slice(0, 2).map((ch) => (
+                          <Link
+                            key={ch.id}
+                            to={`/read/${ch.id}?manga=${manga.id || manga.manga_id}`}
+                            state={{ mangaTitle: manga.title, mangaCover: manga.cover || manga.thumbnail }}
+                            className="flex items-center justify-between bg-muted/70 hover:bg-primary/15 hover:text-primary px-2 py-1 rounded-md text-[11px] font-medium transition-colors border border-border/40"
+                          >
+                            <span className="truncate">Ch. {ch.chapter_number}</span>
+                            {ch.release_date && (
+                              <span className="text-[9px] text-muted-foreground shrink-0 ml-1">{formatTimeAgo(ch.release_date)}</span>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">
+                        {manga.status || (manga.release_year ? `Year ${manga.release_year}` : '')}
+                      </p>
+                    )}
                   </CardContent>
                 </Card>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
@@ -166,32 +187,52 @@ export default function Home() {
                 </Card>
               ))
             ) : data?.recommended?.slice(0, isMobile ? 24 : 25)?.map((manga) => (
-              <Link to={`/manga/${manga.id || manga.manga_id}`} key={`rec-${manga.id || manga.manga_id}`}>
-                <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
-                  <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
-                    <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                    {manga.latest_chapter && (
-                      <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[70%] z-10 text-[10px] md:text-xs">Ch {manga.latest_chapter}</Badge>
-                    )}
-                    {manga.rating && (
-                      <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
-                        <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {manga.rating}
-                      </Badge>
-                    )}
-                    {manga.format && (
-                      <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
-                        {typeof manga.format === 'string' ? manga.format : manga.format[0]}
-                      </Badge>
-                    )}
-                  </div>
+              <div key={`rec-${manga.id || manga.manga_id}`} className="flex flex-col h-full">
+                <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 flex-1">
+                  <Link to={`/manga/${manga.id || manga.manga_id}`} className="block relative">
+                    <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
+                      <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      {manga.rating && (
+                        <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
+                          <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {manga.rating}
+                        </Badge>
+                      )}
+                      {manga.format && (
+                        <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
+                          {typeof manga.format === 'string' ? manga.format : manga.format[0]}
+                        </Badge>
+                      )}
+                    </div>
+                  </Link>
                   <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
-                    <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={manga.title}>{manga.title}</h3>
-                    <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">
-                      {manga.status || (manga.release_year ? `Year ${manga.release_year}` : '')}
-                    </p>
+                    <Link to={`/manga/${manga.id || manga.manga_id}`}>
+                      <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1 hover:text-primary transition-colors" title={manga.title}>{manga.title}</h3>
+                    </Link>
+                    
+                    {manga.chapters && manga.chapters.length > 0 ? (
+                      <div className="flex flex-col gap-1 mt-auto pt-2">
+                        {manga.chapters.slice(0, 2).map((ch) => (
+                          <Link
+                            key={ch.id}
+                            to={`/read/${ch.id}?manga=${manga.id || manga.manga_id}`}
+                            state={{ mangaTitle: manga.title, mangaCover: manga.cover || manga.thumbnail }}
+                            className="flex items-center justify-between bg-muted/70 hover:bg-primary/15 hover:text-primary px-2 py-1 rounded-md text-[11px] font-medium transition-colors border border-border/40"
+                          >
+                            <span className="truncate">Ch. {ch.chapter_number}</span>
+                            {ch.release_date && (
+                              <span className="text-[9px] text-muted-foreground shrink-0 ml-1">{formatTimeAgo(ch.release_date)}</span>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">
+                        {manga.status || (manga.release_year ? `Year ${manga.release_year}` : '')}
+                      </p>
+                    )}
                   </CardContent>
                 </Card>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
@@ -211,32 +252,52 @@ export default function Home() {
                 </Card>
               ))
             ) : data?.popular?.slice(0, isMobile ? 24 : 25)?.map((manga) => (
-              <Link to={`/manga/${manga.id || manga.manga_id}`} key={`pop-${manga.id || manga.manga_id}`}>
-                 <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
-                  <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
-                    <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                    {manga.latest_chapter && (
-                      <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[70%] z-10 text-[10px] md:text-xs">Ch {manga.latest_chapter}</Badge>
-                    )}
-                    {manga.rating && (
-                      <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
-                        <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {manga.rating}
-                      </Badge>
-                    )}
-                    {manga.format && (
-                      <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
-                        {typeof manga.format === 'string' ? manga.format : manga.format[0]}
-                      </Badge>
-                    )}
-                  </div>
+              <div key={`pop-${manga.id || manga.manga_id}`} className="flex flex-col h-full">
+                 <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 flex-1">
+                  <Link to={`/manga/${manga.id || manga.manga_id}`} className="block relative">
+                    <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
+                      <img src={manga.thumbnail || manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                      {manga.rating && (
+                        <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
+                          <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {manga.rating}
+                        </Badge>
+                      )}
+                      {manga.format && (
+                        <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
+                          {typeof manga.format === 'string' ? manga.format : manga.format[0]}
+                        </Badge>
+                      )}
+                    </div>
+                  </Link>
                   <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
-                    <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={manga.title}>{manga.title}</h3>
-                    <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">
-                      {manga.status || (manga.release_year ? `Year ${manga.release_year}` : '')}
-                    </p>
+                    <Link to={`/manga/${manga.id || manga.manga_id}`}>
+                      <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1 hover:text-primary transition-colors" title={manga.title}>{manga.title}</h3>
+                    </Link>
+
+                    {manga.chapters && manga.chapters.length > 0 ? (
+                      <div className="flex flex-col gap-1 mt-auto pt-2">
+                        {manga.chapters.slice(0, 2).map((ch) => (
+                          <Link
+                            key={ch.id}
+                            to={`/read/${ch.id}?manga=${manga.id || manga.manga_id}`}
+                            state={{ mangaTitle: manga.title, mangaCover: manga.cover || manga.thumbnail }}
+                            className="flex items-center justify-between bg-muted/70 hover:bg-primary/15 hover:text-primary px-2 py-1 rounded-md text-[11px] font-medium transition-colors border border-border/40"
+                          >
+                            <span className="truncate">Ch. {ch.chapter_number}</span>
+                            {ch.release_date && (
+                              <span className="text-[9px] text-muted-foreground shrink-0 ml-1">{formatTimeAgo(ch.release_date)}</span>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">
+                        {manga.status || (manga.release_year ? `Year ${manga.release_year}` : '')}
+                      </p>
+                    )}
                   </CardContent>
                 </Card>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
