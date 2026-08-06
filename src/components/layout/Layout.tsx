@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from "react-router-dom"
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { BookOpen, Search, Home, Compass, History, Sun, Moon } from "lucide-react"
 import { Button } from "../ui/button"
 import { useEffect, useState } from "react"
@@ -7,6 +7,7 @@ import DownloadBanner from "../DownloadBanner"
 
 export default function Layout() {
   const location = useLocation()
+  const navigate = useNavigate()
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     const saved = localStorage.getItem("kaeltoon-theme")
     return (saved as "light" | "dark") || "dark"
@@ -48,7 +49,16 @@ export default function Layout() {
 
             {/* Search Bar */}
             <div className="hidden md:flex flex-1 max-w-xl mx-8">
-              <form action="/search" className="relative w-full">
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const target = e.currentTarget.elements.namedItem('q') as HTMLInputElement;
+                  if (target?.value.trim()) {
+                    navigate(`/search?q=${encodeURIComponent(target.value.trim())}`);
+                  }
+                }} 
+                className="relative w-full"
+              >
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input name="q" placeholder="Search manga..." className="w-full pl-9 bg-muted border-none h-10" />
               </form>

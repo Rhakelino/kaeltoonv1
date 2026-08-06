@@ -34,15 +34,24 @@ export default function SearchPage() {
     }
   }
 
-  // Run search on mount if query exists in URL
+  // Run search when searchParams changes
   useEffect(() => {
-    if (initialQuery) {
-      handleSearch()
+    const qParam = searchParams.get('q') || ""
+    setQuery(qParam)
+    if (qParam) {
+      setLoading(true)
+      comicApi.search(qParam)
+        .then(data => setResults(data.data || []))
+        .catch(err => {
+          console.error("Search failed:", err)
+          setResults([])
+        })
+        .finally(() => setLoading(false))
     }
-  }, [initialQuery]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchParams])
 
   return (
-    <div className="space-y-4 md:space-y-6 max-w-5xl mx-auto">
+    <div className="space-y-4 md:space-y-6">
       <div>
         <h1 className="text-2xl md:text-3xl font-bold">Search</h1>
       </div>
@@ -63,52 +72,62 @@ export default function SearchPage() {
         </Button>
       </form>
 
-      <div className="space-y-3 md:space-y-4 mt-6 md:mt-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6 mt-6 md:mt-8">
         {loading ? (
-          <div className="text-center py-10 text-muted-foreground"><Loader2 className="h-6 w-6 animate-spin mx-auto" /></div>
+          <div className="col-span-full text-center py-10 text-muted-foreground"><Loader2 className="h-6 w-6 animate-spin mx-auto" /></div>
         ) : results.length > 0 ? (
           results.map(result => (
-            <Link to={`/manga/${result.id || result.manga_id}`} key={result.id || result.manga_id}>
-              <Card className="flex overflow-hidden bg-card border border-border/50 hover:border-primary transition-colors h-[120px] md:h-36 rounded-xl group">
-                <div className="w-24 md:w-28 shrink-0 bg-muted relative overflow-hidden">
-                   <img src={result.thumbnail || result.cover} alt={result.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                   {result.rating && (
-                     <Badge variant="secondary" className="absolute top-1.5 left-1.5 flex items-center gap-0.5 font-semibold text-[10px] pointer-events-none z-10 bg-background/80 backdrop-blur px-1 py-0">
-                       <Star className="w-2.5 h-2.5 text-yellow-500 fill-current shrink-0" /> {result.rating}
-                     </Badge>
-                   )}
-                </div>
-                <CardContent className="p-3 md:p-4 flex flex-col justify-between flex-1 min-w-0">
-                  <div>
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <h3 className="text-sm md:text-base font-bold line-clamp-1 group-hover:text-primary transition-colors">{result.title}</h3>
-                      {result.status && (
-                        <Badge variant={result.status === 'Ongoing' ? 'default' : 'secondary'} className="shrink-0 text-[10px]">
-                          {result.status}
-                        </Badge>
-                      )}
-                    </div>
-                    {result.format && <p className="text-xs text-muted-foreground mb-1 font-medium">{result.format}</p>}
-                    <p className="text-xs line-clamp-2 text-muted-foreground hidden md:block">{result.description || 'No description available.'}</p>
+            <div key={result.id || result.manga_id} className="flex flex-col h-full">
+              <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 flex-1">
+                <Link to={`/manga/${result.id || result.manga_id}`} className="block relative">
+                  <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
+                     <img src={result.cover || result.thumbnail} alt={result.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                     {result.rating && (
+                       <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
+                         <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {result.rating}
+                       </Badge>
+                     )}
+                     {result.format && (
+                       <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
+                         {typeof result.format === 'string' ? result.format : result.format[0]}
+                       </Badge>
+                     )}
                   </div>
+                </Link>
+                <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
+                  <Link to={`/manga/${result.id || result.manga_id}`}>
+                    <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1 hover:text-primary transition-colors" title={result.title}>{result.title}</h3>
+                  </Link>
 
-                  {result.chapters && result.chapters.length > 0 && (
-                    <div className="flex gap-2 mt-2 pt-1 border-t border-border/40 overflow-x-auto">
+                  {result.chapters && result.chapters.length > 0 ? (
+                    <div className="flex flex-col gap-1 mt-auto pt-2">
                       {result.chapters.slice(0, 2).map((ch) => (
-                        <span key={ch.id} className="text-[11px] font-medium text-primary bg-primary/10 px-2 py-0.5 rounded">
-                          Ch. {ch.chapter_number} {ch.release_date ? `(${formatTimeAgo(ch.release_date)})` : ''}
-                        </span>
+                        <Link
+                          key={ch.id}
+                          to={`/read/${ch.id}?manga=${result.id || result.manga_id}`}
+                          state={{ mangaTitle: result.title, mangaCover: result.cover || result.thumbnail }}
+                          className="flex items-center justify-between bg-muted/70 hover:bg-primary/15 hover:text-primary px-2 py-1 rounded-md text-[11px] font-medium transition-colors border border-border/40"
+                        >
+                          <span className="truncate">Ch. {ch.chapter_number}</span>
+                          {ch.release_date && (
+                            <span className="text-[9px] text-muted-foreground shrink-0 ml-1">{formatTimeAgo(ch.release_date)}</span>
+                          )}
+                        </Link>
                       ))}
                     </div>
+                  ) : (
+                    <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">
+                      {result.status || (result.release_year ? `Year ${result.release_year}` : '')}
+                    </p>
                   )}
                 </CardContent>
               </Card>
-            </Link>
+            </div>
           ))
         ) : searchParams.has('q') ? (
-           <div className="text-center py-10 text-muted-foreground">No results found for "{searchParams.get('q')}".</div>
+           <div className="col-span-full text-center py-10 text-muted-foreground">No results found for "{searchParams.get('q')}".</div>
         ) : (
-           <div className="text-center py-10 text-muted-foreground">Enter a keyword to search.</div>
+           <div className="col-span-full text-center py-10 text-muted-foreground">Enter a keyword to search.</div>
         )}
       </div>
     </div>
