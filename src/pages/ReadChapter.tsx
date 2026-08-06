@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Menu, Home, Loader2 } from "lucide-react"
 import { Link, useParams, useSearchParams, useLocation } from "react-router-dom"
 import { useEffect, useState, useRef } from "react"
 import { comicApi } from "@/services/api"
+import ChapterComments from "@/components/ChapterComments"
 
 export default function ReadChapter() {
   const { chapterId } = useParams()
@@ -224,6 +225,9 @@ export default function ReadChapter() {
                </Button>
             </div>
           )}
+
+          {/* Section Komentar Anonim */}
+          {!loading && chapterId && <ChapterComments chapterId={chapterId} />}
         </div>
       </div>
 

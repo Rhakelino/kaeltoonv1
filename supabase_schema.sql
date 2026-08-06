@@ -53,6 +53,16 @@ create table if not exists public.authors (
     slug varchar not null unique
 );
 
+-- Table: comments
+create table if not exists public.comments (
+    id uuid default uuid_generate_v4() primary key,
+    chapter_id varchar not null,
+    user_name varchar(50) not null,
+    content text not null,
+    created_at timestamp with time zone default timezone('utc'::text, now())
+);
+create index if not exists idx_comments_chapter_id on public.comments(chapter_id);
+
 -- Table: manga_authors
 create table if not exists public.manga_authors (
     manga_id uuid references public.mangas(id) on delete cascade not null,
@@ -68,6 +78,7 @@ create index if not exists idx_chapters_source_chapter_id on public.chapters(sou
 -- Disable RLS temporarily for scraping (or create policies if you use anon key)
 alter table public.mangas disable row level security;
 alter table public.chapters disable row level security;
+alter table public.comments disable row level security;
 alter table public.genres disable row level security;
 alter table public.manga_genres disable row level security;
 alter table public.authors disable row level security;

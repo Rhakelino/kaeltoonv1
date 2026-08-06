@@ -6,8 +6,8 @@ import path from 'path';
 // Load env vars
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY; // Using anon key since RLS is disabled in schema
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY; // Using anon key since RLS is disabled in schema
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
   console.error("Missing Supabase credentials in .env");
