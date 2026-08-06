@@ -71,17 +71,23 @@ export default function SearchPage() {
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
                    <img src={result.cover || result.thumbnail} alt={result.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                   {result.latest_chapter && (
+                     <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[70%] z-10 text-[10px] md:text-xs">Ch {result.latest_chapter}</Badge>
+                   )}
                    {result.rating && (
-                      <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-1 font-semibold text-xs pointer-events-none z-10 bg-background/80 backdrop-blur">
-                        <Star className="w-3 h-3 text-yellow-500 fill-current" /> {result.rating}
-                      </Badge>
-                    )}
-                    {result.latest_chapter && (
-                      <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[70%] z-10">Ch {result.latest_chapter}</Badge>
-                    )}
+                     <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
+                       <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {result.rating}
+                     </Badge>
+                   )}
+                   {result.type && (
+                     <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
+                       {typeof result.type === 'string' ? result.type : result.type[0]}
+                     </Badge>
+                   )}
                 </div>
                 <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
                   <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={result.title}>{result.title}</h3>
+                  {result.latest_chapter && <p className="text-[10px] md:text-xs text-primary font-medium mt-auto">Ch {result.latest_chapter}</p>}
                 </CardContent>
               </Card>
             </Link>

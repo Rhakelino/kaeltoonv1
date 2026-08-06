@@ -84,20 +84,26 @@ export default function LatestManga() {
               <Link to={`/manga/${manga.id || manga.manga_id}`} key={manga.id || manga.manga_id}>
                 <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
                   <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
-                    <img src={manga.cover} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    <img src={manga.cover || manga.thumbnail} alt={manga.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                    {manga.latest_chapter && (
+                      <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[70%] z-10 text-[10px] md:text-xs">Ch {manga.latest_chapter}</Badge>
+                    )}
                     {manga.rating && (
-                      <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-1 font-semibold text-xs pointer-events-none z-10 bg-background/80 backdrop-blur">
-                        <Star className="w-3 h-3 text-yellow-500 fill-current" /> {manga.rating}
+                      <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
+                        <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {manga.rating}
                       </Badge>
                     )}
-                    {manga.latest_chapter && (
-                      <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[70%] z-10">Ch {manga.latest_chapter}</Badge>
+                    {manga.type && (
+                      <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
+                        {typeof manga.type === 'string' ? manga.type : manga.type[0]}
+                      </Badge>
                     )}
                   </div>
                   <div className="px-2 pt-1 flex flex-col justify-between flex-1">
                     <h3 className="font-semibold text-sm line-clamp-2 leading-tight group-hover:text-primary transition-colors">
                       {manga.title}
                     </h3>
+                    {manga.latest_chapter && <p className="text-[10px] md:text-xs text-primary font-medium mt-1">Ch {manga.latest_chapter}</p>}
                   </div>
                 </Card>
               </Link>
