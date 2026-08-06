@@ -87,8 +87,8 @@ export default function History() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6">
           {history.map((item) => (
             <Link to={`/read/${item.chapter_id}?manga=${item.manga_id}`} key={item.manga_id} className="group relative" state={{ mangaTitle: item.title, mangaCover: item.cover }}>
-              <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group-hover:border-primary transition-colors pb-2 h-full">
-                <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
+              <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border-none shadow-sm overflow-hidden group-hover:border-primary transition-colors pb-2 h-full">
+                <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0">
                   <img src={item.cover} alt={item.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
                   <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[85%] z-10">
                     {item.chapter_title && !item.chapter_title.includes(item.chapter_id) 

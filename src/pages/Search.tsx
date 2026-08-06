@@ -78,9 +78,9 @@ export default function SearchPage() {
         ) : results.length > 0 ? (
           results.map(result => (
             <div key={result.id || result.manga_id} className="flex flex-col h-full">
-              <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 flex-1">
+              <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border-none shadow-sm overflow-hidden group pb-2 flex-1">
                 <Link to={`/manga/${result.id || result.manga_id}`} className="block relative">
-                  <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
+                  <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0">
                      <img src={result.cover || result.thumbnail} alt={result.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
                      {result.rating && (
                        <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-0.5 font-semibold text-[10px] md:text-xs pointer-events-none z-10 bg-background/80 backdrop-blur px-1.5 py-0.5">
