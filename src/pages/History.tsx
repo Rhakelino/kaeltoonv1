@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { comicApi } from "@/services/api"
 
 export interface HistoryItem {
   manga_id: string;
@@ -21,9 +22,24 @@ export default function History() {
     const saved = localStorage.getItem('manga_history')
     if (saved) {
       try {
-        const parsed = JSON.parse(saved)
-        // Sort by most recent
-        setHistory(parsed.sort((a: HistoryItem, b: HistoryItem) => b.read_at - a.read_at))
+        const parsed: HistoryItem[] = JSON.parse(saved)
+        // Auto-fix existing history items where title was saved as chapter UUID & fetch real title if missing
+        const promises = parsed.map(async (item) => {
+          if (!item.title || (item.title.startsWith('Chapter ') && item.title.length > 20) || item.title === 'Manga') {
+            try {
+              const detail = await comicApi.getDetail(item.manga_id);
+              if (detail?.title) {
+                return { ...item, title: detail.title };
+              }
+            } catch (err) {}
+          }
+          return item;
+        });
+
+        Promise.all(promises).then((fixed) => {
+          setHistory(fixed.sort((a: HistoryItem, b: HistoryItem) => b.read_at - a.read_at));
+          localStorage.setItem('manga_history', JSON.stringify(fixed));
+        });
       } catch (e) {
         console.error("Failed to parse history", e)
       }
@@ -70,11 +86,15 @@ export default function History() {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6">
           {history.map((item) => (
-            <Link to={`/read/${item.chapter_id}?manga=${item.manga_id}`} key={item.manga_id} className="group relative">
+            <Link to={`/read/${item.chapter_id}?manga=${item.manga_id}`} key={item.manga_id} className="group relative" state={{ mangaTitle: item.title, mangaCover: item.cover }}>
               <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group-hover:border-primary transition-colors pb-2 h-full">
                 <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
                   <img src={item.cover} alt={item.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                  <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[85%] z-10">{item.chapter_title || 'Continue'}</Badge>
+                  <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[85%] z-10">
+                    {item.chapter_title && !item.chapter_title.includes(item.chapter_id) 
+                      ? item.chapter_title 
+                      : 'Continue'}
+                  </Badge>
                 </div>
                 <div className="px-2 pt-1 flex flex-col justify-between flex-1 relative">
                   <h3 className="font-semibold text-sm line-clamp-2 leading-tight group-hover:text-primary transition-colors pr-6">

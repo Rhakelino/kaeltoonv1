@@ -98,13 +98,30 @@ export default function ReadChapter() {
            
             const state = location.state as { mangaTitle?: string, mangaCover?: string } | null;
             
+            // Try to get title from state, fetched detail, or fallback
+            let titleToSave = state?.mangaTitle || mangaTitle;
+            let coverToSave = state?.mangaCover || imgArray[0] || '';
+
+            // If title still empty/fallback, fetch detail to get actual title
+            if (!titleToSave || titleToSave.startsWith('Chapter ')) {
+              try {
+                const detail = await comicApi.getDetail(mangaId);
+                if (detail?.title) titleToSave = detail.title;
+                if (!coverToSave && (detail?.cover || detail?.thumbnail)) {
+                  coverToSave = detail.cover || detail.thumbnail;
+                }
+              } catch (err) {}
+            }
+
+            const chapterTitleToSave = currentChapterTitle || `Chapter ${chapterId}`;
+            
             const newHistory = history.filter((h: any) => h.manga_id !== mangaId);
             newHistory.unshift({
                manga_id: mangaId,
-               title: state?.mangaTitle || `Chapter ${chapterId}`,
-               cover: state?.mangaCover || imgArray[0] || '',
+               title: titleToSave || `Manga ${mangaId}`,
+               cover: coverToSave,
                chapter_id: chapterId,
-               chapter_title: `Chapter ${chapterId}`, // The new API doesn't seem to return chapter title in the /read endpoint
+               chapter_title: chapterTitleToSave,
                read_at: Date.now()
             });
            localStorage.setItem('manga_history', JSON.stringify(newHistory.slice(0, 50))); // Keep last 50
