@@ -16,8 +16,8 @@ const MangaCard = memo(function MangaCard({ manga }: { manga: MangaItem }) {
 
   return (
     <Link to={`/manga/${mangaId}`} className="block h-full">
-      <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden group pb-2 h-full">
-        <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 border-b">
+      <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border-none shadow-sm overflow-hidden group pb-2 h-full">
+        <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0">
           <img 
             src={coverUrl} 
             alt={manga.title} 
