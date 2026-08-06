@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Download, X } from "lucide-react";
+import { Capacitor } from "@capacitor/core";
 
 const DISMISS_KEY = "kaeltoon-apk-dismissed";
 
@@ -7,16 +8,13 @@ function isAndroid(): boolean {
   return /Android/i.test(navigator.userAgent);
 }
 
-function isWebView(): boolean {
-  return /wv|Capacitor|WebView/i.test(navigator.userAgent);
-}
-
 export default function DownloadBanner() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const dismissed = localStorage.getItem(DISMISS_KEY);
-    if (isAndroid() && !isWebView() && !dismissed) {
+    const isNative = Capacitor.isNativePlatform();
+    const dismissed = sessionStorage.getItem(DISMISS_KEY);
+    if (isAndroid() && !isNative && !dismissed) {
       setShow(true);
     }
   }, []);
@@ -24,7 +22,7 @@ export default function DownloadBanner() {
   if (!show) return null;
 
   const dismiss = () => {
-    localStorage.setItem(DISMISS_KEY, "1");
+    sessionStorage.setItem(DISMISS_KEY, "1");
     setShow(false);
   };
 
