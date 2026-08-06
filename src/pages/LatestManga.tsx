@@ -93,9 +93,9 @@ export default function LatestManga() {
                         <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {manga.rating}
                       </Badge>
                     )}
-                    {manga.type && (
+                    {manga.format && (
                       <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
-                        {typeof manga.type === 'string' ? manga.type : manga.type[0]}
+                        {typeof manga.format === 'string' ? manga.format : manga.format[0]}
                       </Badge>
                     )}
                   </div>
@@ -103,7 +103,9 @@ export default function LatestManga() {
                     <h3 className="font-semibold text-sm line-clamp-2 leading-tight group-hover:text-primary transition-colors">
                       {manga.title}
                     </h3>
-                    {manga.latest_chapter && <p className="text-[10px] md:text-xs text-primary font-medium mt-1">Ch {manga.latest_chapter}</p>}
+                    <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-1">
+                      {manga.status || (manga.release_year ? `Year ${manga.release_year}` : '')}
+                    </p>
                   </div>
                 </Card>
               </Link>

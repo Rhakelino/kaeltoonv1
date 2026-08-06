@@ -14,8 +14,10 @@ export interface MangaItem {
   cover?: string;
   thumbnail?: string;
   type?: string;
-  rating?: string;
+  format?: string;
+  rating?: string | number;
   status?: string;
+  release_year?: string;
   latest_chapter?: string;
 }
 

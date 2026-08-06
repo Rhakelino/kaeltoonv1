@@ -79,15 +79,17 @@ export default function SearchPage() {
                        <Star className="w-3 h-3 text-yellow-500 fill-current shrink-0" /> {result.rating}
                      </Badge>
                    )}
-                   {result.type && (
+                   {result.format && (
                      <Badge variant="outline" className="absolute bottom-2 left-2 pointer-events-none z-10 bg-background/80 backdrop-blur text-[9px] uppercase font-bold tracking-wider px-1.5 py-0">
-                       {typeof result.type === 'string' ? result.type : result.type[0]}
+                       {typeof result.format === 'string' ? result.format : result.format[0]}
                      </Badge>
                    )}
                 </div>
                 <CardContent className="p-2 pt-1 flex flex-col gap-1 flex-1">
                   <h3 className="font-semibold line-clamp-2 text-sm leading-tight flex-1" title={result.title}>{result.title}</h3>
-                  {result.latest_chapter && <p className="text-[10px] md:text-xs text-primary font-medium mt-auto">Ch {result.latest_chapter}</p>}
+                  <p className="text-[10px] md:text-xs text-muted-foreground line-clamp-1 mt-auto">
+                    {result.status || (result.release_year ? `Year ${result.release_year}` : '')}
+                  </p>
                 </CardContent>
               </Card>
             </Link>
