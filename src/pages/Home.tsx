@@ -8,7 +8,6 @@ import { comicApi } from "@/services/api"
 import type { MangaItem } from "@/services/api"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import PullToRefresh from "@/components/PullToRefresh"
 import { Star } from "lucide-react"
 
 const MangaCard = memo(function MangaCard({ manga }: { manga: MangaItem }) {
@@ -89,9 +88,8 @@ export default function Home() {
   }, [fetchHomeData]);
 
   return (
-    <PullToRefresh onRefresh={fetchHomeData}>
-      <div>
-        <h2 className="text-2xl font-bold mb-6">Kaeltoon</h2>
+    <div>
+      <h2 className="text-2xl font-bold mb-6">Kaeltoon</h2>
         
         {/* Featured Slider */}
         <div className="mb-12">
@@ -215,6 +213,5 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </PullToRefresh>
   )
 }
