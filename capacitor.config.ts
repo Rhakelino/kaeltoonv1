@@ -5,6 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Kaeltoon',
   webDir: 'dist',
   server: {
+    url: 'https://kaeltoon.kaeldev.my.id',
     androidScheme: 'https'
   },
   android: {
