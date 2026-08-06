@@ -7,7 +7,7 @@
 - React Router v7
 - Axios
 - Embla Carousel
-- Capacitor v8 (`@capacitor/core`, `@capacitor/android`, `@capacitor/app`)
+- Capacitor v8 (`@capacitor/core`, `@capacitor/android`, `@capacitor/app`, `@capacitor/splash-screen`)
 
 ## Commands
 - Dev: `npm run dev`
