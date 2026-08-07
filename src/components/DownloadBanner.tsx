@@ -35,8 +35,9 @@ export default function DownloadBanner() {
           <p className="text-xs text-muted-foreground">Lebih ringan, lebih cepat!</p>
         </div>
         <a
-          href="/download/kaeltoon.apk"
-          download="Kaeltoon.apk"
+          href="https://drive.google.com/drive/u/4/folders/1WY2QRmWKh-XC87EYtb5CkTwVn9ZFKITS"
+          target="_blank"
+          rel="noopener noreferrer"
           className="shrink-0 bg-primary text-primary-foreground text-xs font-semibold px-4 py-2 rounded-xl hover:opacity-90 transition-opacity"
         >
           Install
