@@ -1,10 +1,11 @@
 import { Card } from "@/components/ui/card"
-import { History as HistoryIcon, Trash2 } from "lucide-react"
+import { History as HistoryIcon, Trash2, Download, BookOpen } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { comicApi } from "@/services/api"
+import { getAllOfflineChapters, deleteOfflineChapter, type OfflineChapter } from "@/services/offlineStorage"
 
 export interface HistoryItem {
   manga_id: string;
@@ -16,7 +17,9 @@ export interface HistoryItem {
 }
 
 export default function History() {
+  const [activeTab, setActiveTab] = useState<"history" | "downloads">("history")
   const [history, setHistory] = useState<HistoryItem[]>([])
+  const [downloads, setDownloads] = useState<OfflineChapter[]>([])
 
   useEffect(() => {
     const saved = localStorage.getItem('manga_history')
@@ -46,6 +49,10 @@ export default function History() {
     }
   }, [])
 
+  useEffect(() => {
+    getAllOfflineChapters().then(setDownloads).catch(console.error);
+  }, [activeTab]);
+
   const clearHistory = () => {
     if (confirm("Apakah kamu yakin ingin menghapus semua histori bacaan?")) {
       localStorage.removeItem('manga_history')
@@ -63,65 +70,159 @@ export default function History() {
     }
   }
 
+  const handleDeleteDownload = async (chapterId: string, chapterTitle: string, e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (confirm(`Hapus unduhan "${chapterTitle}" dari offline storage?`)) {
+      await deleteOfflineChapter(chapterId);
+      setDownloads(prev => prev.filter(d => d.chapterId !== chapterId));
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight flex items-center gap-2">
-            <HistoryIcon className="h-6 w-6 text-primary" /> History
+            {activeTab === "history" ? (
+              <>
+                <HistoryIcon className="h-6 w-6 text-primary" /> History
+              </>
+            ) : (
+              <>
+                <Download className="h-6 w-6 text-primary" /> Offline Downloads
+              </>
+            )}
           </h1>
-          <p className="text-muted-foreground mt-1 text-sm">Pick up where you left off</p>
+          <p className="text-muted-foreground mt-1 text-sm">
+            {activeTab === "history" ? "Pick up where you left off" : "Chapters saved for offline reading"}
+          </p>
         </div>
-        {history.length > 0 && (
-          <Button variant="destructive" size="sm" onClick={clearHistory}>
-            <Trash2 className="h-4 w-4 mr-2" /> Clear All
-          </Button>
-        )}
+
+        <div className="flex items-center gap-2">
+          {activeTab === "history" && history.length > 0 && (
+            <Button variant="destructive" size="sm" onClick={clearHistory}>
+              <Trash2 className="h-4 w-4 mr-2" /> Clear All
+            </Button>
+          )}
+        </div>
       </div>
 
-      {history.length === 0 ? (
-        <div className="text-center py-20 flex flex-col items-center justify-center opacity-50">
-          <HistoryIcon className="h-16 w-16 mb-4" />
-          <p className="text-lg font-medium">No reading history</p>
-          <p className="text-sm">Start reading some manga to see them here.</p>
-        </div>
-      ) : (
-        <div className="flex flex-col sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6">
-          {history.map((item) => (
-            <Link to={`/read/${item.chapter_id}?manga=${item.manga_id}`} key={item.manga_id} className="group relative" state={{ mangaTitle: item.title, mangaCover: item.cover }}>
-              <Card className="bg-card text-card-foreground flex flex-row sm:flex-col gap-3 sm:gap-2 rounded-xl border-none shadow-sm overflow-hidden group-hover:border-primary transition-colors p-2 sm:p-0 sm:pb-2 h-auto sm:h-full items-center sm:items-stretch">
-                <div className="w-16 sm:w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 rounded-lg sm:rounded-none">
-                  <img src={item.cover} alt={item.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                </div>
-                <div className="px-0 sm:px-2 pt-0 sm:pt-1 flex flex-col justify-between flex-1 relative w-full min-w-0 pr-8 sm:pr-0">
-                  <div>
-                    <h3 className="font-semibold text-sm line-clamp-2 leading-tight group-hover:text-primary transition-colors pr-0 sm:pr-6">
-                      {item.title}
-                    </h3>
-                    <div className="mt-1 flex items-center gap-2">
-                      <Badge variant="secondary" className="text-[10px] px-1.5 py-0.5">
-                        {item.chapter_title && !item.chapter_title.includes(item.chapter_id) 
-                          ? item.chapter_title 
-                          : 'Continue'}
-                      </Badge>
-                      <span className="text-[10px] text-muted-foreground">
-                        {new Date(item.read_at).toLocaleDateString()}
-                      </span>
-                    </div>
+      {/* Tabs */}
+      <div className="flex gap-2 border-b pb-2">
+        <Button
+          variant={activeTab === "history" ? "default" : "ghost"}
+          size="sm"
+          onClick={() => setActiveTab("history")}
+          className="flex items-center gap-2"
+        >
+          <HistoryIcon className="h-4 w-4" />
+          <span>History ({history.length})</span>
+        </Button>
+        <Button
+          variant={activeTab === "downloads" ? "default" : "ghost"}
+          size="sm"
+          onClick={() => setActiveTab("downloads")}
+          className="flex items-center gap-2"
+        >
+          <Download className="h-4 w-4" />
+          <span>Downloads ({downloads.length})</span>
+        </Button>
+      </div>
+
+      {activeTab === "history" ? (
+        history.length === 0 ? (
+          <div className="text-center py-20 flex flex-col items-center justify-center opacity-50">
+            <HistoryIcon className="h-16 w-16 mb-4" />
+            <p className="text-lg font-medium">No reading history</p>
+            <p className="text-sm">Start reading some manga to see them here.</p>
+          </div>
+        ) : (
+          <div className="flex flex-col sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6">
+            {history.map((item) => (
+              <Link to={`/read/${item.chapter_id}?manga=${item.manga_id}`} key={item.manga_id} className="group relative" state={{ mangaTitle: item.title, mangaCover: item.cover }}>
+                <Card className="bg-card text-card-foreground flex flex-row sm:flex-col gap-3 sm:gap-2 rounded-xl border-none shadow-sm overflow-hidden group-hover:border-primary transition-colors p-2 sm:p-0 sm:pb-2 h-auto sm:h-full items-center sm:items-stretch">
+                  <div className="w-16 sm:w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 rounded-lg sm:rounded-none">
+                    <img src={item.cover} alt={item.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
                   </div>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="absolute top-0 sm:top-1 right-0 sm:right-1 h-8 w-8 sm:h-6 sm:w-6 text-muted-foreground hover:text-destructive opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
-                    onClick={(e) => removeHistoryItem(item.manga_id, item.title, e)}
-                  >
-                    <Trash2 className="h-4 w-4 sm:h-3 sm:w-3" />
-                  </Button>
-                </div>
-              </Card>
-            </Link>
-          ))}
-        </div>
+                  <div className="px-0 sm:px-2 pt-0 sm:pt-1 flex flex-col justify-between flex-1 relative w-full min-w-0 pr-8 sm:pr-0">
+                    <div>
+                      <h3 className="font-semibold text-sm line-clamp-2 leading-tight group-hover:text-primary transition-colors pr-0 sm:pr-6">
+                        {item.title}
+                      </h3>
+                      <div className="mt-1 flex items-center gap-2">
+                        <Badge variant="secondary" className="text-[10px] px-1.5 py-0.5">
+                          {item.chapter_title && !item.chapter_title.includes(item.chapter_id) 
+                            ? item.chapter_title 
+                            : 'Continue'}
+                        </Badge>
+                        <span className="text-[10px] text-muted-foreground">
+                          {new Date(item.read_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="absolute top-0 sm:top-1 right-0 sm:right-1 h-8 w-8 sm:h-6 sm:w-6 text-muted-foreground hover:text-destructive opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+                      onClick={(e) => removeHistoryItem(item.manga_id, item.title, e)}
+                    >
+                      <Trash2 className="h-4 w-4 sm:h-3 sm:w-3" />
+                    </Button>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )
+      ) : (
+        downloads.length === 0 ? (
+          <div className="text-center py-20 flex flex-col items-center justify-center opacity-50">
+            <Download className="h-16 w-16 mb-4" />
+            <p className="text-lg font-medium">Belum ada chapter tersimpan</p>
+            <p className="text-sm">Klik tombol Offline saat membaca chapter untuk menyimpannya.</p>
+          </div>
+        ) : (
+          <div className="flex flex-col sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6">
+            {downloads.map((item) => (
+              <Link to={`/read/${item.chapterId}?manga=${item.mangaId}`} key={item.chapterId} className="group relative" state={{ mangaTitle: item.mangaTitle, mangaCover: item.cover }}>
+                <Card className="bg-card text-card-foreground flex flex-row sm:flex-col gap-3 sm:gap-2 rounded-xl border-none shadow-sm overflow-hidden group-hover:border-primary transition-colors p-2 sm:p-0 sm:pb-2 h-auto sm:h-full items-center sm:items-stretch">
+                  <div className="w-16 sm:w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 rounded-lg sm:rounded-none flex items-center justify-center">
+                    {item.cover ? (
+                      <img src={item.cover} alt={item.mangaTitle} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
+                    ) : (
+                      <BookOpen className="h-8 w-8 text-muted-foreground" />
+                    )}
+                  </div>
+                  <div className="px-0 sm:px-2 pt-0 sm:pt-1 flex flex-col justify-between flex-1 relative w-full min-w-0 pr-8 sm:pr-0">
+                    <div>
+                      <h3 className="font-semibold text-sm line-clamp-1 leading-tight group-hover:text-primary transition-colors pr-0 sm:pr-6">
+                        {item.mangaTitle}
+                      </h3>
+                      <p className="text-xs text-primary font-medium mt-0.5">{item.chapterTitle}</p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <Badge variant="outline" className="text-[10px] px-1.5 py-0.5 text-green-500 border-green-500/30">
+                          {item.images.length} Pages
+                        </Badge>
+                        <span className="text-[10px] text-muted-foreground">
+                          {new Date(item.savedAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="absolute top-0 sm:top-1 right-0 sm:right-1 h-8 w-8 sm:h-6 sm:w-6 text-muted-foreground hover:text-destructive opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+                      onClick={(e) => handleDeleteDownload(item.chapterId, item.chapterTitle, e)}
+                    >
+                      <Trash2 className="h-4 w-4 sm:h-3 sm:w-3" />
+                    </Button>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )
       )}
     </div>
   )

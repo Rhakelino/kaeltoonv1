@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Menu, Home, Loader2, Play, Pause, ArrowDown, ArrowUp } from "lucide-react"
+import { ChevronLeft, ChevronRight, Menu, Home, Loader2, Play, Pause, ArrowDown, ArrowUp, Download, Check } from "lucide-react"
 import { Link, useParams, useSearchParams, useLocation } from "react-router-dom"
 import { useEffect, useState, useRef, useMemo } from "react"
 import { comicApi } from "@/services/api"
 import ChapterComments from "@/components/ChapterComments"
+import { getOfflineChapter, saveChapterOffline, isChapterDownloaded } from "@/services/offlineStorage"
 
 export default function ReadChapter() {
   const { chapterId } = useParams()
@@ -20,6 +21,9 @@ export default function ReadChapter() {
   const [isAutoScrolling, setIsAutoScrolling] = useState(false)
   const [scrollSpeed, setScrollSpeed] = useState<number>(2) // 1: slow, 2: normal, 3: fast
   const autoScrollRef = useRef<number | null>(null)
+  const [isDownloaded, setIsDownloaded] = useState(false)
+  const [downloading, setDownloading] = useState(false)
+  const [downloadProgress, setDownloadProgress] = useState<string>("")
 
   const { currentChapterTitle, navChapters } = useMemo(() => {
     if (chapterList.length > 0 && chapterId) {
@@ -105,6 +109,18 @@ export default function ReadChapter() {
       if (!chapterId) return;
       setLoading(true);
       if (scrollRef.current) scrollRef.current.scrollTo(0, 0);
+
+      // Check IndexedDB first for offline data
+      try {
+        const offlineData = await getOfflineChapter(chapterId);
+        if (offlineData && offlineData.images.length > 0) {
+          setImages(offlineData.images);
+          setIsDownloaded(true);
+          setLoading(false);
+          return;
+        }
+      } catch { /* fallback to API */ }
+
       try {
         const responseData = await comicApi.readChapter(chapterId);
         // The API returns the images array directly or inside the data wrapper
@@ -156,8 +172,33 @@ export default function ReadChapter() {
       }
     };
     fetchChapter();
+    isChapterDownloaded(chapterId || '').then(setIsDownloaded).catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapterId, mangaId, location.state]);
+
+  const handleDownload = async () => {
+    if (!chapterId || images.length === 0 || downloading || isDownloaded) return;
+    setDownloading(true);
+    setDownloadProgress(`0/${images.length}`);
+    try {
+      const state = location.state as { mangaCover?: string } | null;
+      await saveChapterOffline(
+        chapterId,
+        mangaId || '',
+        mangaTitle || 'Manga',
+        currentChapterTitle || `Chapter ${chapterId}`,
+        images,
+        (curr, total) => setDownloadProgress(`${curr}/${total}`),
+        state?.mangaCover
+      );
+      setIsDownloaded(true);
+    } catch (e) {
+      console.error('Failed to download chapter offline:', e);
+    } finally {
+      setDownloading(false);
+      setDownloadProgress("");
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-[100] bg-background flex flex-col">
@@ -180,6 +221,35 @@ export default function ReadChapter() {
         </div>
 
         <div className="flex items-center gap-1 md:gap-2">
+          <Button
+            variant={isDownloaded ? "ghost" : "outline"}
+            size="sm"
+            disabled={downloading || isDownloaded || images.length === 0}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDownload();
+            }}
+            className="flex items-center gap-1.5 text-xs h-8 px-2 md:px-3"
+            title={isDownloaded ? "Chapter tersimpan offline" : "Download chapter offline"}
+          >
+            {downloading ? (
+              <>
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                <span className="text-[10px]">{downloadProgress}</span>
+              </>
+            ) : isDownloaded ? (
+              <>
+                <Check className="h-3.5 w-3.5 text-green-500" />
+                <span className="hidden sm:inline text-green-500 font-medium">Saved</span>
+              </>
+            ) : (
+              <>
+                <Download className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">Offline</span>
+              </>
+            )}
+          </Button>
+
           <Button 
             variant={isAutoScrolling ? "default" : "outline"} 
             size="sm" 

@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { BookOpen, Loader2, ChevronLeft } from "lucide-react"
+import { BookOpen, Loader2, ChevronLeft, Check } from "lucide-react"
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { comicApi } from "@/services/api"
 import type { DetailManga } from "@/services/api"
 import { Skeleton } from "@/components/ui/skeleton"
+import { getAllOfflineChapters } from "@/services/offlineStorage"
 
 export default function MangaDetail() {
   const { id } = useParams()
@@ -16,8 +17,14 @@ export default function MangaDetail() {
   
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-
   const [firstChapterId, setFirstChapterId] = useState<string | null>(null);
+  const [downloadedIds, setDownloadedIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    getAllOfflineChapters()
+      .then(items => setDownloadedIds(new Set(items.map(i => i.chapterId))))
+      .catch(() => {});
+  }, []);
 
   // Generate range tabs
   const pageSize = 50; // Assuming 50 per page based on generic logic or API
@@ -214,18 +221,28 @@ export default function MangaDetail() {
         )}
         
         <div className="grid gap-2 grid-cols-1">
-          {chapters.map(chapter => (
-            <Link key={chapter.id} to={`/read/${chapter.id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }}>
-              <div className="hover:bg-muted/50 transition-colors bg-card shadow-sm border rounded-lg p-4 flex justify-between items-center">
-                <span className="font-semibold text-sm md:text-base line-clamp-1 mr-2">
-                  {chapter.title || `Chapter ${chapter.chapter_number}`}
-                </span>
-                <span className="text-xs text-muted-foreground shrink-0">
-                  {new Date(chapter.release_date).toLocaleDateString()}
-                </span>
-              </div>
-            </Link>
-          ))}
+          {chapters.map(chapter => {
+            const isSaved = downloadedIds.has(chapter.id);
+            return (
+              <Link key={chapter.id} to={`/read/${chapter.id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }}>
+                <div className="hover:bg-muted/50 transition-colors bg-card shadow-sm border rounded-lg p-4 flex justify-between items-center">
+                  <div className="flex items-center gap-2 min-w-0 mr-2">
+                    <span className="font-semibold text-sm md:text-base line-clamp-1">
+                      {chapter.title || `Chapter ${chapter.chapter_number}`}
+                    </span>
+                    {isSaved && (
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0.5 text-green-500 border-green-500/40 shrink-0 gap-1">
+                        <Check className="h-3 w-3" /> Offline
+                      </Badge>
+                    )}
+                  </div>
+                  <span className="text-xs text-muted-foreground shrink-0">
+                    {new Date(chapter.release_date).toLocaleDateString()}
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
           {loadingChapters && (
              Array(10).fill(0).map((_, i) => (
                 <Skeleton key={i} className="h-16 w-full rounded-lg bg-muted" />
