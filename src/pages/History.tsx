@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card"
-import { History as HistoryIcon, Trash2, Download, BookOpen } from "lucide-react"
+import { History as HistoryIcon, Trash2, Download, BookOpen, ChevronRight } from "lucide-react"
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { comicApi } from "@/services/api"
@@ -52,6 +52,26 @@ export default function History() {
   useEffect(() => {
     getAllOfflineChapters().then(setDownloads).catch(console.error);
   }, [activeTab]);
+
+  const groupedDownloads = useMemo(() => {
+    const groups: { [key: string]: { mangaId: string; mangaTitle: string; cover?: string; chapters: OfflineChapter[] } } = {};
+    downloads.forEach((item) => {
+      const key = item.mangaId || item.mangaTitle;
+      if (!groups[key]) {
+        groups[key] = {
+          mangaId: item.mangaId,
+          mangaTitle: item.mangaTitle,
+          cover: item.cover,
+          chapters: []
+        };
+      }
+      if (!groups[key].cover && item.cover) {
+        groups[key].cover = item.cover;
+      }
+      groups[key].chapters.push(item);
+    });
+    return Object.values(groups);
+  }, [downloads]);
 
   const clearHistory = () => {
     if (confirm("Apakah kamu yakin ingin menghapus semua histori bacaan?")) {
@@ -183,43 +203,66 @@ export default function History() {
             <p className="text-sm">Klik tombol Offline saat membaca chapter untuk menyimpannya.</p>
           </div>
         ) : (
-          <div className="flex flex-col sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6">
-            {downloads.map((item) => (
-              <Link to={`/read/${item.chapterId}?manga=${item.mangaId}`} key={item.chapterId} className="group relative" state={{ mangaTitle: item.mangaTitle, mangaCover: item.cover }}>
-                <Card className="bg-card text-card-foreground flex flex-row sm:flex-col gap-3 sm:gap-2 rounded-xl border-none shadow-sm overflow-hidden group-hover:border-primary transition-colors p-2 sm:p-0 sm:pb-2 h-auto sm:h-full items-center sm:items-stretch">
-                  <div className="w-16 sm:w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 rounded-lg sm:rounded-none flex items-center justify-center">
-                    {item.cover ? (
-                      <img src={item.cover} alt={item.mangaTitle} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" />
-                    ) : (
-                      <BookOpen className="h-8 w-8 text-muted-foreground" />
-                    )}
-                  </div>
-                  <div className="px-0 sm:px-2 pt-0 sm:pt-1 flex flex-col justify-between flex-1 relative w-full min-w-0 pr-8 sm:pr-0">
-                    <div>
-                      <h3 className="font-semibold text-sm line-clamp-1 leading-tight group-hover:text-primary transition-colors pr-0 sm:pr-6">
-                        {item.mangaTitle}
-                      </h3>
-                      <p className="text-xs text-primary font-medium mt-0.5">{item.chapterTitle}</p>
-                      <div className="mt-1 flex items-center gap-2">
-                        <Badge variant="outline" className="text-[10px] px-1.5 py-0.5 text-green-500 border-green-500/30">
-                          {item.images.length} Pages
-                        </Badge>
-                        <span className="text-[10px] text-muted-foreground">
-                          {new Date(item.savedAt).toLocaleDateString()}
-                        </span>
-                      </div>
+          <div className="space-y-6">
+            {groupedDownloads.map((group) => (
+              <div key={group.mangaId || group.mangaTitle} className="bg-card border rounded-xl p-4 space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-14 bg-muted rounded overflow-hidden shrink-0 flex items-center justify-center">
+                      {group.cover ? (
+                        <img src={group.cover} alt={group.mangaTitle} className="w-full h-full object-cover" />
+                      ) : (
+                        <BookOpen className="h-5 w-5 text-muted-foreground" />
+                      )}
                     </div>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="absolute top-0 sm:top-1 right-0 sm:right-1 h-8 w-8 sm:h-6 sm:w-6 text-muted-foreground hover:text-destructive opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
-                      onClick={(e) => handleDeleteDownload(item.chapterId, item.chapterTitle, e)}
-                    >
-                      <Trash2 className="h-4 w-4 sm:h-3 sm:w-3" />
-                    </Button>
+                    <div>
+                      <h3 className="font-bold text-base line-clamp-1">{group.mangaTitle}</h3>
+                      <p className="text-xs text-muted-foreground">{group.chapters.length} Chapter Terunduh</p>
+                    </div>
                   </div>
-                </Card>
-              </Link>
+
+                  {group.mangaId && (
+                    <Button variant="ghost" size="sm" asChild className="text-xs gap-1">
+                      <Link to={`/manga/${group.mangaId}`}>
+                        Detail <ChevronRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                  {group.chapters.map((item) => (
+                    <div key={item.chapterId} className="flex items-center justify-between bg-muted/40 hover:bg-muted p-2.5 rounded-lg transition-colors group">
+                      <Link 
+                        to={`/read/${item.chapterId}?manga=${item.mangaId}`} 
+                        state={{ mangaTitle: item.mangaTitle, mangaCover: item.cover }}
+                        className="flex-1 min-w-0 mr-2"
+                      >
+                        <p className="text-xs font-semibold line-clamp-1 group-hover:text-primary transition-colors">
+                          {item.chapterTitle}
+                        </p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-[10px] text-green-500 font-medium">
+                            {item.images.length} Hal
+                          </span>
+                          <span className="text-[10px] text-muted-foreground">
+                            {new Date(item.savedAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </Link>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-7 w-7 text-muted-foreground hover:text-destructive shrink-0"
+                        onClick={(e) => handleDeleteDownload(item.chapterId, item.chapterTitle, e)}
+                        title="Hapus unduhan"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         )

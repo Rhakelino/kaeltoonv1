@@ -21,6 +21,9 @@ export default function MangaDetail() {
   const [downloadedIds, setDownloadedIds] = useState<Set<string>>(new Set());
   const [downloadingChapterId, setDownloadingChapterId] = useState<string | null>(null);
   const [downloadProgress, setDownloadProgress] = useState<string>("");
+  const [selectedChapterIds, setSelectedChapterIds] = useState<Set<string>>(new Set());
+  const [isBulkDownloading, setIsBulkDownloading] = useState(false);
+  const [bulkStatus, setBulkStatus] = useState<string>("");
 
   useEffect(() => {
     getAllOfflineChapters()
@@ -112,6 +115,70 @@ export default function MangaDetail() {
       setDownloadingChapterId(null);
       setDownloadProgress("");
     }
+  };
+
+  const toggleSelectChapter = (chapterId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (downloadedIds.has(chapterId)) return;
+    setSelectedChapterIds(prev => {
+      const next = new Set(prev);
+      if (next.has(chapterId)) next.delete(chapterId);
+      else next.add(chapterId);
+      return next;
+    });
+  };
+
+  const selectAllUnDownloaded = () => {
+    const unDownloaded = chapters.filter(c => !downloadedIds.has(c.id)).map(c => c.id);
+    if (selectedChapterIds.size === unDownloaded.length) {
+      setSelectedChapterIds(new Set());
+    } else {
+      setSelectedChapterIds(new Set(unDownloaded));
+    }
+  };
+
+  const handleBulkDownload = async () => {
+    if (!id || !data || selectedChapterIds.size === 0 || isBulkDownloading) return;
+    setIsBulkDownloading(true);
+
+    const targets = chapters.filter(c => selectedChapterIds.has(c.id));
+    let count = 0;
+
+    for (const chapter of targets) {
+      count++;
+      const chapterTitleStr = chapter.title || `Chapter ${chapter.chapter_number}`;
+      setBulkStatus(`Downloading ${count}/${targets.length}...`);
+      setDownloadingChapterId(chapter.id);
+      setDownloadProgress("0%");
+
+      try {
+        const resData = await comicApi.readChapter(chapter.id);
+        const imgArray = Array.isArray(resData) ? resData : resData?.data || resData?.images || [];
+        const finalImages = Array.isArray(imgArray) ? imgArray : (imgArray?.images || []);
+
+        if (finalImages.length > 0) {
+          await saveChapterOffline(
+            chapter.id,
+            id,
+            data.title || 'Manga',
+            chapterTitleStr,
+            finalImages,
+            (curr, total) => setDownloadProgress(`${curr}/${total}`),
+            data.cover || data.thumbnail
+          );
+          setDownloadedIds(prev => new Set([...prev, chapter.id]));
+        }
+      } catch (err) {
+        console.error(`Failed bulk download chapter ${chapter.id}:`, err);
+      }
+    }
+
+    setDownloadingChapterId(null);
+    setDownloadProgress("");
+    setIsBulkDownloading(false);
+    setBulkStatus("");
+    setSelectedChapterIds(new Set());
   };
 
   if (loading) {
@@ -228,10 +295,47 @@ export default function MangaDetail() {
 
       {/* Chapters */}
       <div className="mt-8">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <h3 className="text-xl font-bold flex items-center gap-2">
             Chapters {loadingChapters ? <Loader2 className="h-4 w-4 animate-spin inline ml-2" /> : ''}
           </h3>
+
+          {!loadingChapters && chapters.length > 0 && (
+            <div className="flex items-center gap-2 flex-wrap">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={selectAllUnDownloaded}
+                disabled={isBulkDownloading}
+                className="text-xs h-8"
+              >
+                {selectedChapterIds.size > 0 && selectedChapterIds.size === chapters.filter(c => !downloadedIds.has(c.id)).length
+                  ? "Deselect All"
+                  : "Select All"}
+              </Button>
+
+              {selectedChapterIds.size > 0 && (
+                <Button 
+                  size="sm" 
+                  onClick={handleBulkDownload}
+                  disabled={isBulkDownloading}
+                  className="text-xs h-8 bg-primary text-primary-foreground gap-1.5"
+                >
+                  {isBulkDownloading ? (
+                    <>
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      <span>{bulkStatus}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Download className="h-3.5 w-3.5" />
+                      <span>Download Selected ({selectedChapterIds.size})</span>
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
+          )}
         </div>
 
         {totalPages > 1 && (
@@ -258,29 +362,51 @@ export default function MangaDetail() {
         <div className="grid gap-2 grid-cols-1">
           {chapters.map(chapter => {
             const isSaved = downloadedIds.has(chapter.id);
+            const isSelected = selectedChapterIds.has(chapter.id);
             const isDownloadingThis = downloadingChapterId === chapter.id;
             const chapterTitleStr = chapter.title || `Chapter ${chapter.chapter_number}`;
             return (
-              <div key={chapter.id} className="hover:bg-muted/50 transition-colors bg-card shadow-sm border rounded-lg p-3 sm:p-4 flex justify-between items-center group">
-                <Link to={`/read/${chapter.id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex-1 flex items-center gap-2 min-w-0 mr-2">
-                  <span className="font-semibold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">
-                    {chapterTitleStr}
-                  </span>
-                  {isSaved && (
-                    <Badge variant="outline" className="text-[10px] px-1.5 py-0.5 text-green-500 border-green-500/40 shrink-0 gap-1">
-                      <Check className="h-3 w-3" /> Offline
-                    </Badge>
+              <div 
+                key={chapter.id} 
+                className={`hover:bg-muted/50 transition-colors bg-card shadow-sm border rounded-lg p-3 sm:p-4 flex justify-between items-center group ${isSelected ? 'border-primary bg-primary/5' : ''}`}
+              >
+                <div className="flex items-center gap-3 min-w-0 mr-2 flex-1">
+                  {!isSaved && (
+                    <input 
+                      type="checkbox"
+                      checked={isSelected}
+                      disabled={isBulkDownloading}
+                      onChange={(e) => toggleSelectChapter(chapter.id, e as unknown as React.MouseEvent)}
+                      className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer shrink-0"
+                    />
                   )}
-                </Link>
+                  <Link to={`/read/${chapter.id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex-1 flex items-center gap-2 min-w-0">
+                    <span className="font-semibold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">
+                      {chapterTitleStr}
+                    </span>
+                    {isSaved && (
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0.5 text-green-500 border-green-500/40 shrink-0 gap-1">
+                        <Check className="h-3 w-3" /> Offline
+                      </Badge>
+                    )}
+                  </Link>
+                </div>
+
                 <div className="flex items-center gap-3 shrink-0">
                   <span className="text-xs text-muted-foreground hidden sm:inline">
                     {new Date(chapter.release_date).toLocaleDateString()}
                   </span>
                   <Button
-                    variant={isSaved ? "ghost" : "outline"}
+                    variant={isSaved ? "ghost" : isSelected ? "default" : "outline"}
                     size="sm"
-                    disabled={isSaved || isDownloadingThis || !!downloadingChapterId}
-                    onClick={(e) => handleDownloadChapter(chapter.id, chapterTitleStr, e)}
+                    disabled={isSaved || isDownloadingThis || isBulkDownloading}
+                    onClick={(e) => {
+                      if (selectedChapterIds.size > 0) {
+                        toggleSelectChapter(chapter.id, e);
+                      } else {
+                        handleDownloadChapter(chapter.id, chapterTitleStr, e);
+                      }
+                    }}
                     className="h-8 px-2.5 text-xs"
                     title={isSaved ? "Chapter tersimpan offline" : "Download chapter"}
                   >
