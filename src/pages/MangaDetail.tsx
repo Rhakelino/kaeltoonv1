@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { BookOpen, Loader2, ChevronLeft, Check } from "lucide-react"
+import { BookOpen, Loader2, ChevronLeft, Check, Download } from "lucide-react"
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { comicApi } from "@/services/api"
 import type { DetailManga } from "@/services/api"
 import { Skeleton } from "@/components/ui/skeleton"
-import { getAllOfflineChapters } from "@/services/offlineStorage"
+import { getAllOfflineChapters, saveChapterOffline } from "@/services/offlineStorage"
 
 export default function MangaDetail() {
   const { id } = useParams()
@@ -19,6 +19,8 @@ export default function MangaDetail() {
   const [totalPages, setTotalPages] = useState(1)
   const [firstChapterId, setFirstChapterId] = useState<string | null>(null);
   const [downloadedIds, setDownloadedIds] = useState<Set<string>>(new Set());
+  const [downloadingChapterId, setDownloadingChapterId] = useState<string | null>(null);
+  const [downloadProgress, setDownloadProgress] = useState<string>("");
 
   useEffect(() => {
     getAllOfflineChapters()
@@ -77,6 +79,39 @@ export default function MangaDetail() {
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return;
     setPage(newPage);
+  };
+
+  const handleDownloadChapter = async (chapterId: string, chapterTitle: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!id || !data || downloadingChapterId || downloadedIds.has(chapterId)) return;
+
+    setDownloadingChapterId(chapterId);
+    setDownloadProgress("Fetching...");
+
+    try {
+      const resData = await comicApi.readChapter(chapterId);
+      const imgArray = Array.isArray(resData) ? resData : resData?.data || resData?.images || [];
+      const finalImages = Array.isArray(imgArray) ? imgArray : (imgArray?.images || []);
+
+      if (finalImages.length > 0) {
+        await saveChapterOffline(
+          chapterId,
+          id,
+          data.title || 'Manga',
+          chapterTitle,
+          finalImages,
+          (curr, total) => setDownloadProgress(`${curr}/${total}`),
+          data.cover || data.thumbnail
+        );
+        setDownloadedIds(prev => new Set([...prev, chapterId]));
+      }
+    } catch (err) {
+      console.error("Failed to download chapter from detail page:", err);
+    } finally {
+      setDownloadingChapterId(null);
+      setDownloadProgress("");
+    }
   };
 
   if (loading) {
@@ -223,24 +258,48 @@ export default function MangaDetail() {
         <div className="grid gap-2 grid-cols-1">
           {chapters.map(chapter => {
             const isSaved = downloadedIds.has(chapter.id);
+            const isDownloadingThis = downloadingChapterId === chapter.id;
+            const chapterTitleStr = chapter.title || `Chapter ${chapter.chapter_number}`;
             return (
-              <Link key={chapter.id} to={`/read/${chapter.id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }}>
-                <div className="hover:bg-muted/50 transition-colors bg-card shadow-sm border rounded-lg p-4 flex justify-between items-center">
-                  <div className="flex items-center gap-2 min-w-0 mr-2">
-                    <span className="font-semibold text-sm md:text-base line-clamp-1">
-                      {chapter.title || `Chapter ${chapter.chapter_number}`}
-                    </span>
-                    {isSaved && (
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0.5 text-green-500 border-green-500/40 shrink-0 gap-1">
-                        <Check className="h-3 w-3" /> Offline
-                      </Badge>
-                    )}
-                  </div>
-                  <span className="text-xs text-muted-foreground shrink-0">
+              <div key={chapter.id} className="hover:bg-muted/50 transition-colors bg-card shadow-sm border rounded-lg p-3 sm:p-4 flex justify-between items-center group">
+                <Link to={`/read/${chapter.id}?manga=${id}`} state={{ mangaTitle: data.title, mangaCover: data.cover || data.thumbnail }} className="flex-1 flex items-center gap-2 min-w-0 mr-2">
+                  <span className="font-semibold text-sm md:text-base line-clamp-1 group-hover:text-primary transition-colors">
+                    {chapterTitleStr}
+                  </span>
+                  {isSaved && (
+                    <Badge variant="outline" className="text-[10px] px-1.5 py-0.5 text-green-500 border-green-500/40 shrink-0 gap-1">
+                      <Check className="h-3 w-3" /> Offline
+                    </Badge>
+                  )}
+                </Link>
+                <div className="flex items-center gap-3 shrink-0">
+                  <span className="text-xs text-muted-foreground hidden sm:inline">
                     {new Date(chapter.release_date).toLocaleDateString()}
                   </span>
+                  <Button
+                    variant={isSaved ? "ghost" : "outline"}
+                    size="sm"
+                    disabled={isSaved || isDownloadingThis || !!downloadingChapterId}
+                    onClick={(e) => handleDownloadChapter(chapter.id, chapterTitleStr, e)}
+                    className="h-8 px-2.5 text-xs"
+                    title={isSaved ? "Chapter tersimpan offline" : "Download chapter"}
+                  >
+                    {isDownloadingThis ? (
+                      <>
+                        <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />
+                        <span className="text-[10px]">{downloadProgress}</span>
+                      </>
+                    ) : isSaved ? (
+                      <Check className="h-4 w-4 text-green-500" />
+                    ) : (
+                      <>
+                        <Download className="h-3.5 w-3.5 sm:mr-1" />
+                        <span className="hidden sm:inline">Download</span>
+                      </>
+                    )}
+                  </Button>
                 </div>
-              </Link>
+              </div>
             );
           })}
           {loadingChapters && (
