@@ -47,18 +47,20 @@ export default function History() {
   }, [])
 
   const clearHistory = () => {
-    if (confirm("Are you sure you want to clear all history?")) {
+    if (confirm("Apakah kamu yakin ingin menghapus semua histori bacaan?")) {
       localStorage.removeItem('manga_history')
       setHistory([])
     }
   }
 
-  const removeHistoryItem = (manga_id: string, e: React.MouseEvent) => {
+  const removeHistoryItem = (manga_id: string, title: string, e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    const newHistory = history.filter(item => item.manga_id !== manga_id)
-    localStorage.setItem('manga_history', JSON.stringify(newHistory))
-    setHistory(newHistory)
+    if (confirm(`Hapus "${title}" dari histori?`)) {
+      const newHistory = history.filter(item => item.manga_id !== manga_id)
+      localStorage.setItem('manga_history', JSON.stringify(newHistory))
+      setHistory(newHistory)
+    }
   }
 
   return (
@@ -111,7 +113,7 @@ export default function History() {
                     variant="ghost" 
                     size="icon" 
                     className="absolute top-0 sm:top-1 right-0 sm:right-1 h-8 w-8 sm:h-6 sm:w-6 text-muted-foreground hover:text-destructive opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
-                    onClick={(e) => removeHistoryItem(item.manga_id, e)}
+                    onClick={(e) => removeHistoryItem(item.manga_id, item.title, e)}
                   >
                     <Trash2 className="h-4 w-4 sm:h-3 sm:w-3" />
                   </Button>
