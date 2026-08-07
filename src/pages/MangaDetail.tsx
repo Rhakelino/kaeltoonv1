@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 export default function MangaDetail() {
   const { id } = useParams()
   const [data, setData] = useState<DetailManga | null>(null)
-  const [chapters, setChapters] = useState<any[]>([])
+  const [chapters, setChapters] = useState<{ id: string; chapter_number: number; title: string | null; thumbnail: string; release_date: string }[]>([])
   const [loading, setLoading] = useState(true)
   const [loadingChapters, setLoadingChapters] = useState(true)
   
@@ -133,7 +133,7 @@ export default function MangaDetail() {
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-6">
               {data.status && <Badge variant="outline" className="text-xs px-3 py-1 bg-background dark:bg-black/40 border-border dark:border-white/10 text-foreground dark:text-white/90">{String(data.status)}</Badge>}
               
-              {data.manga_genres && Array.isArray(data.manga_genres) && data.manga_genres.slice(0, 4).map((mg: any, i) => (
+              {data.manga_genres && Array.isArray(data.manga_genres) && data.manga_genres.slice(0, 4).map((mg: { genres: { name?: string; id?: string } | string }, i) => (
                 <Badge key={i} variant="outline" className="text-xs px-3 py-1 bg-background dark:bg-black/40 border-border dark:border-white/10 text-foreground dark:text-white/90">
                   {typeof mg.genres === 'object' ? mg.genres.name || mg.genres.id : mg.genres}
                 </Badge>
@@ -153,14 +153,14 @@ export default function MangaDetail() {
                 <p className="text-muted-foreground dark:text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">AUTHOR</p>
                 <p className="font-medium text-sm text-foreground dark:text-white/90">
                   {data.manga_authors && data.manga_authors.length > 0 
-                    ? data.manga_authors.map((a: any) => a.authors?.name).join(', ') 
+                    ? data.manga_authors.map((a: { authors?: { name?: string } }) => a.authors?.name).join(', ') 
                     : data.author || 'Unknown'}
                 </p>
               </div>
               <div>
                 <p className="text-muted-foreground dark:text-white/50 mb-1 text-[10px] md:text-xs font-semibold tracking-wider">TYPE</p>
                 <p className="font-medium text-sm text-foreground dark:text-white/90">
-                   {data.type && Array.isArray(data.type) ? data.type[0]?.name || data.type[0] : data.type || 'Unknown'}
+                   {data.type && Array.isArray(data.type) ? (data.type[0]?.name || String(data.type[0])) : data.type || 'Unknown'}
                 </p>
               </div>
               <div>

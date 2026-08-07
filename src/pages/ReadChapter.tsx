@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Menu, Home, Loader2 } from "lucide-react"
 import { Link, useParams, useSearchParams, useLocation } from "react-router-dom"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useMemo } from "react"
 import { comicApi } from "@/services/api"
 import ChapterComments from "@/components/ChapterComments"
 
@@ -15,10 +15,25 @@ export default function ReadChapter() {
   const [showNav, setShowNav] = useState(true)
   const [images, setImages] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
-  const [chapterList, setChapterList] = useState<any[]>([])
-  const [navChapters, setNavChapters] = useState<{prev: string | null, next: string | null}>({prev: null, next: null})
+  const [chapterList, setChapterList] = useState<{ id: string; title?: string | null; chapter_number?: number | string }[]>([])
   const [mangaTitle, setMangaTitle] = useState<string>((location.state as { mangaTitle?: string })?.mangaTitle || "")
-  const [currentChapterTitle, setCurrentChapterTitle] = useState<string>("")
+
+  const { currentChapterTitle, navChapters } = useMemo(() => {
+    if (chapterList.length > 0 && chapterId) {
+      const idx = chapterList.findIndex(c => c.id === chapterId);
+      if (idx !== -1) {
+        const cur = chapterList[idx];
+        return {
+          currentChapterTitle: cur.title || (cur.chapter_number ? `Chapter ${cur.chapter_number}` : ""),
+          navChapters: {
+            next: idx > 0 ? chapterList[idx - 1].id : null,
+            prev: idx < chapterList.length - 1 ? chapterList[idx + 1].id : null
+          }
+        };
+      }
+    }
+    return { currentChapterTitle: "", navChapters: { prev: null, next: null } };
+  }, [chapterList, chapterId]);
 
   useEffect(() => {
     const fetchMangaDetail = async () => {
@@ -29,7 +44,7 @@ export default function ReadChapter() {
           if (detail?.title) {
             setMangaTitle(detail.title);
           }
-        } catch (err) {}
+        } catch { /* ignore */ }
       }
     };
     fetchMangaDetail();
@@ -58,25 +73,11 @@ export default function ReadChapter() {
           }
           setChapterList(allChapters);
         }
-      } catch (err) {}
+      } catch { /* ignore */ }
     };
     fetchChapters();
   }, [mangaId]);
 
-  useEffect(() => {
-    if (chapterList.length > 0 && chapterId) {
-      const idx = chapterList.findIndex(c => c.id === chapterId);
-      if (idx !== -1) {
-        const cur = chapterList[idx];
-        const titleText = cur.title || (cur.chapter_number ? `Chapter ${cur.chapter_number}` : "");
-        setCurrentChapterTitle(titleText);
-        setNavChapters({
-          next: idx > 0 ? chapterList[idx - 1].id : null, // index 0 is latest
-          prev: idx < chapterList.length - 1 ? chapterList[idx + 1].id : null
-        });
-      }
-    }
-  }, [chapterList, chapterId]);
 
   useEffect(() => {
     const fetchChapter = async () => {
@@ -111,12 +112,12 @@ export default function ReadChapter() {
                 if (!coverToSave && (detail?.cover || detail?.thumbnail)) {
                   coverToSave = detail.cover || detail.thumbnail;
                 }
-              } catch (err) {}
+              } catch { /* ignore */ }
             }
 
             const chapterTitleToSave = currentChapterTitle || `Chapter ${chapterId}`;
             
-            const newHistory = history.filter((h: any) => h.manga_id !== mangaId);
+            const newHistory = history.filter((h: { manga_id: string }) => h.manga_id !== mangaId);
             newHistory.unshift({
                manga_id: mangaId,
                title: titleToSave || `Manga ${mangaId}`,
@@ -134,6 +135,7 @@ export default function ReadChapter() {
       }
     };
     fetchChapter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapterId, mangaId, location.state]);
 
   return (

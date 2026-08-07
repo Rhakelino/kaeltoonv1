@@ -31,7 +31,7 @@ export default function History() {
               if (detail?.title) {
                 return { ...item, title: detail.title };
               }
-            } catch (err) {}
+            } catch { /* ignore */ }
           }
           return item;
         });

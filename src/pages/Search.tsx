@@ -4,7 +4,7 @@ import { Search as SearchIcon, Loader2, Star } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Link, useSearchParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { comicApi } from "@/services/api"
 import type { MangaItem } from "@/services/api"
 import { formatTimeAgo } from "@/lib/utils"
@@ -16,29 +16,15 @@ export default function SearchPage() {
   const [query, setQuery] = useState(initialQuery)
   const [results, setResults] = useState<MangaItem[]>([])
   const [loading, setLoading] = useState(false)
+  const prevSearchRef = useRef("")
 
-  const handleSearch = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!query.trim()) return;
-    
-    setSearchParams({ q: query })
-    setLoading(true)
-    try {
-      const data = await comicApi.search(query)
-      setResults(data.data || [])
-    } catch (error) {
-      console.error("Search failed:", error)
-      setResults([])
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // Run search when searchParams changes
   useEffect(() => {
     const qParam = searchParams.get('q') || ""
+    if (qParam === prevSearchRef.current) return
+    prevSearchRef.current = qParam
     setQuery(qParam)
     if (qParam) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(true)
       comicApi.search(qParam)
         .then(data => setResults(data.data || []))
@@ -49,6 +35,12 @@ export default function SearchPage() {
         .finally(() => setLoading(false))
     }
   }, [searchParams])
+
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!query.trim()) return;
+    setSearchParams({ q: query })
+  }
 
   return (
     <div className="space-y-4 md:space-y-6">

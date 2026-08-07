@@ -3,8 +3,9 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Star, Flame, Compass, Clock } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { comicApi } from "@/services/api"
+import type { MangaItem } from "@/services/api"
 import { Skeleton } from "@/components/ui/skeleton"
 import { formatTimeAgo } from "@/lib/utils"
 import {
@@ -19,18 +20,16 @@ import {
 export default function LatestManga() {
   const location = useLocation()
   
-  const getPageInfo = () => {
+  const pageInfo = useMemo(() => {
     switch (location.pathname) {
       case '/popular': return { title: 'Popular Manga', icon: Flame, fetch: comicApi.getPopular }
       case '/recommended': return { title: 'Recommended', icon: Compass, fetch: comicApi.getRecommended }
       default: return { title: 'Latest Updates', icon: Clock, fetch: comicApi.getLatest }
     }
-  }
-
-  const pageInfo = getPageInfo()
+  }, [location.pathname])
   const Icon = pageInfo.icon
 
-  const [mangas, setMangas] = useState<any[]>([])
+  const [mangas, setMangas] = useState<MangaItem[]>([])
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
@@ -51,7 +50,7 @@ export default function LatestManga() {
       }
     }
     fetchData()
-  }, [location.pathname, page])
+  }, [location.pathname, page, pageInfo])
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return
@@ -69,7 +68,7 @@ export default function LatestManga() {
       {loading ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6">
            {Array(10).fill(0).map((_, i) => (
-             <Card key={`skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border shadow-sm overflow-hidden pb-2">
+             <Card key={`skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border-none shadow-sm overflow-hidden pb-2">
                 <Skeleton className="w-full aspect-[2/3] rounded-none" />
                 <div className="px-2 pt-1 flex flex-col gap-2">
                    <Skeleton className="h-4 w-full" />
@@ -108,7 +107,7 @@ export default function LatestManga() {
 
                     {manga.chapters && manga.chapters.length > 0 ? (
                       <div className="flex flex-col gap-1 mt-auto pt-2">
-                        {manga.chapters.slice(0, 2).map((ch: any) => (
+                        {manga.chapters.slice(0, 2).map((ch) => (
                           <Link
                             key={ch.id}
                             to={`/read/${ch.id}?manga=${manga.id || manga.manga_id}`}

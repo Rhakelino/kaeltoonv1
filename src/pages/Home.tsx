@@ -61,7 +61,7 @@ export default function Home() {
     latest: MangaItem[];
     recommended: MangaItem[];
     popular: MangaItem[];
-    slider: any[];
+    slider: { id: string; manga_id?: string; title: string; description?: string; background_image: string; chara_image?: string; badges?: { name: string; color: string }[] }[];
   } | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -84,7 +84,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetchHomeData();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void fetchHomeData();
   }, [fetchHomeData]);
 
   return (
@@ -128,7 +129,7 @@ export default function Home() {
                              </p>
                           </div>
                           <div className="flex gap-2">
-                             {slide.badges?.map((badge: any, i: number) => (
+                              {slide.badges?.map((badge: { name: string; color: string }, i: number) => (
                                 <Badge key={i} className="text-[10px] md:text-xs font-semibold px-2 py-0.5 border-none" style={{ backgroundColor: badge.color, color: 'white' }}>
                                    {badge.name}
                                 </Badge>
@@ -153,7 +154,7 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6">
             {loading ? (
               Array(5).fill(0).map((_, i) => (
-                <Card key={`lat-skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border pb-2 shadow-sm overflow-hidden">
+                <Card key={`lat-skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border-none pb-2 shadow-sm overflow-hidden">
                   <Skeleton className="w-full aspect-[2/3] rounded-md" />
                   <CardContent className="p-0 pt-2 px-2 flex flex-col gap-1">
                     <Skeleton className="h-4 w-3/4 mb-1" />
@@ -176,7 +177,7 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6">
             {loading ? (
               Array(5).fill(0).map((_, i) => (
-                <Card key={`rec-skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border pb-2 shadow-sm overflow-hidden">
+                <Card key={`rec-skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border-none pb-2 shadow-sm overflow-hidden">
                   <Skeleton className="w-full aspect-[2/3] rounded-md" />
                   <CardContent className="p-0 pt-2 px-2 flex flex-col gap-1">
                     <Skeleton className="h-4 w-3/4 mb-1" />
@@ -199,7 +200,7 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6">
             {loading ? (
               Array(5).fill(0).map((_, i) => (
-                <Card key={`pop-skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border pb-2 shadow-sm overflow-hidden">
+                <Card key={`pop-skel-${i}`} className="bg-card flex flex-col gap-2 rounded-xl border-none pb-2 shadow-sm overflow-hidden">
                   <Skeleton className="w-full aspect-[2/3] rounded-md" />
                   <CardContent className="p-0 pt-2 px-2 flex flex-col gap-1">
                     <Skeleton className="h-4 w-3/4 mb-1" />

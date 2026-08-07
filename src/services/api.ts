@@ -33,19 +33,19 @@ export interface DetailManga {
   description: string;
   cover: string;
   thumbnail?: string;
-  type?: string | any[];
-  format?: string | any[];
+  type?: string | { name?: string }[];
+  format?: string | string[];
   status: string;
   author?: string;
   artist?: string;
-  authors?: any[];
-  artists?: any[];
-  manga_authors?: any[];
+  authors?: { name?: string; slug?: string }[];
+  artists?: { name?: string; slug?: string }[];
+  manga_authors?: { authors?: { name?: string } }[];
   rating?: string | number;
   views?: number;
   bookmarks?: number;
   release_year?: string;
-  manga_genres?: any[];
+  manga_genres?: { genres: { name?: string; id?: string } | string }[];
   chapters?: {
     id: string;
     chapter_number: number;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Download, X } from "lucide-react";
 import { Capacitor } from "@capacitor/core";
 
@@ -8,16 +8,14 @@ function isAndroid(): boolean {
   return /Android/i.test(navigator.userAgent);
 }
 
-export default function DownloadBanner() {
-  const [show, setShow] = useState(false);
+function getInitialShow(): boolean {
+  const isNative = Capacitor.isNativePlatform();
+  const dismissed = sessionStorage.getItem(DISMISS_KEY);
+  return isAndroid() && !isNative && !dismissed;
+}
 
-  useEffect(() => {
-    const isNative = Capacitor.isNativePlatform();
-    const dismissed = sessionStorage.getItem(DISMISS_KEY);
-    if (isAndroid() && !isNative && !dismissed) {
-      setShow(true);
-    }
-  }, []);
+export default function DownloadBanner() {
+  const [show, setShow] = useState(getInitialShow);
 
   if (!show) return null;
 
