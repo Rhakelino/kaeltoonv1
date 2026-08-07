@@ -181,27 +181,11 @@
 }
 /* === Native App Feel === */
 html, body {
-  -webkit-user-select: none;
-  user-select: none;
   -webkit-touch-callout: none;
-  overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: manipulation;
-}
-
-/* Re-enable selection for input fields */
-input, textarea, [contenteditable="true"] {
-  -webkit-user-select: text;
-  user-select: text;
-  -webkit-touch-callout: default;
 }
 
 /* Disable tap highlight */
 * {
   -webkit-tap-highlight-color: transparent;
-}
-
-/* Hide scrollbar but keep scroll */
-::-webkit-scrollbar {
-  display: none;
 }
