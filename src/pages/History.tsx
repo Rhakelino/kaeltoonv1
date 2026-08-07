@@ -84,32 +84,36 @@ export default function History() {
           <p className="text-sm">Start reading some manga to see them here.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6">
+        <div className="flex flex-col sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-6">
           {history.map((item) => (
             <Link to={`/read/${item.chapter_id}?manga=${item.manga_id}`} key={item.manga_id} className="group relative" state={{ mangaTitle: item.title, mangaCover: item.cover }}>
-              <Card className="bg-card text-card-foreground flex flex-col gap-2 rounded-xl border-none shadow-sm overflow-hidden group-hover:border-primary transition-colors pb-2 h-full">
-                <div className="w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0">
+              <Card className="bg-card text-card-foreground flex flex-row sm:flex-col gap-3 sm:gap-2 rounded-xl border-none shadow-sm overflow-hidden group-hover:border-primary transition-colors p-2 sm:p-0 sm:pb-2 h-auto sm:h-full items-center sm:items-stretch">
+                <div className="w-16 sm:w-full aspect-[2/3] bg-muted relative overflow-hidden shrink-0 rounded-lg sm:rounded-none">
                   <img src={item.cover} alt={item.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                  <Badge className="absolute top-2 left-2 pointer-events-none line-clamp-1 max-w-[85%] z-10">
-                    {item.chapter_title && !item.chapter_title.includes(item.chapter_id) 
-                      ? item.chapter_title 
-                      : 'Continue'}
-                  </Badge>
                 </div>
-                <div className="px-2 pt-1 flex flex-col justify-between flex-1 relative">
-                  <h3 className="font-semibold text-sm line-clamp-2 leading-tight group-hover:text-primary transition-colors pr-6">
-                    {item.title}
-                  </h3>
-                  <p className="text-[10px] text-muted-foreground mt-1">
-                    {new Date(item.read_at).toLocaleDateString()}
-                  </p>
+                <div className="px-0 sm:px-2 pt-0 sm:pt-1 flex flex-col justify-between flex-1 relative w-full min-w-0 pr-8 sm:pr-0">
+                  <div>
+                    <h3 className="font-semibold text-sm line-clamp-2 leading-tight group-hover:text-primary transition-colors pr-0 sm:pr-6">
+                      {item.title}
+                    </h3>
+                    <div className="mt-1 flex items-center gap-2">
+                      <Badge variant="secondary" className="text-[10px] px-1.5 py-0.5">
+                        {item.chapter_title && !item.chapter_title.includes(item.chapter_id) 
+                          ? item.chapter_title 
+                          : 'Continue'}
+                      </Badge>
+                      <span className="text-[10px] text-muted-foreground">
+                        {new Date(item.read_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="absolute top-1 right-1 h-6 w-6 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute top-0 sm:top-1 right-0 sm:right-1 h-8 w-8 sm:h-6 sm:w-6 text-muted-foreground hover:text-destructive opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
                     onClick={(e) => removeHistoryItem(item.manga_id, e)}
                   >
-                    <Trash2 className="h-3 w-3" />
+                    <Trash2 className="h-4 w-4 sm:h-3 sm:w-3" />
                   </Button>
                 </div>
               </Card>
