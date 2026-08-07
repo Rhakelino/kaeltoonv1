@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Menu, Home, Loader2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Menu, Home, Loader2, Play, Pause, ArrowDown, ArrowUp } from "lucide-react"
 import { Link, useParams, useSearchParams, useLocation } from "react-router-dom"
 import { useEffect, useState, useRef, useMemo } from "react"
 import { comicApi } from "@/services/api"
@@ -17,6 +17,9 @@ export default function ReadChapter() {
   const [loading, setLoading] = useState(true)
   const [chapterList, setChapterList] = useState<{ id: string; title?: string | null; chapter_number?: number | string }[]>([])
   const [mangaTitle, setMangaTitle] = useState<string>((location.state as { mangaTitle?: string })?.mangaTitle || "")
+  const [isAutoScrolling, setIsAutoScrolling] = useState(false)
+  const [scrollSpeed, setScrollSpeed] = useState<number>(2) // 1: slow, 2: normal, 3: fast
+  const autoScrollRef = useRef<number | null>(null)
 
   const { currentChapterTitle, navChapters } = useMemo(() => {
     if (chapterList.length > 0 && chapterId) {
@@ -34,6 +37,24 @@ export default function ReadChapter() {
     }
     return { currentChapterTitle: "", navChapters: { prev: null, next: null } };
   }, [chapterList, chapterId]);
+
+  useEffect(() => {
+    if (isAutoScrolling) {
+      const pxPerFrame = scrollSpeed * 0.8;
+      const step = () => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTop += pxPerFrame;
+        }
+        autoScrollRef.current = requestAnimationFrame(step);
+      };
+      autoScrollRef.current = requestAnimationFrame(step);
+    } else if (autoScrollRef.current) {
+      cancelAnimationFrame(autoScrollRef.current);
+    }
+    return () => {
+      if (autoScrollRef.current) cancelAnimationFrame(autoScrollRef.current);
+    };
+  }, [isAutoScrolling, scrollSpeed]);
 
   useEffect(() => {
     const fetchMangaDetail = async () => {
@@ -159,6 +180,33 @@ export default function ReadChapter() {
         </div>
 
         <div className="flex items-center gap-1 md:gap-2">
+          <Button 
+            variant={isAutoScrolling ? "default" : "outline"} 
+            size="sm" 
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsAutoScrolling(!isAutoScrolling);
+            }}
+            className="flex items-center gap-1.5 text-xs h-8 px-2 md:px-3"
+          >
+            {isAutoScrolling ? <Pause className="h-3.5 w-3.5 fill-current" /> : <Play className="h-3.5 w-3.5 fill-current" />}
+            <span>Auto</span>
+          </Button>
+
+          {isAutoScrolling && (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                setScrollSpeed(prev => (prev % 3) + 1);
+              }}
+              className="text-[10px] h-8 px-2"
+            >
+              {scrollSpeed}x
+            </Button>
+          )}
+
           <Button variant="ghost" size="icon" asChild>
             <Link to="/" className="flex items-center justify-center">
               <Home className="h-4 w-4" />
@@ -253,6 +301,32 @@ export default function ReadChapter() {
             <Menu className="h-5 w-5" />
           </Button>
         )}
+        <Button 
+          variant="outline"
+          size="icon"
+          className="h-12 w-12 shrink-0"
+          title="Scroll ke atas"
+          onClick={() => {
+            if (scrollRef.current) {
+              scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+        >
+          <ArrowUp className="h-5 w-5" />
+        </Button>
+        <Button 
+          variant="outline"
+          size="icon"
+          className="h-12 w-12 shrink-0"
+          title="Scroll ke bawah"
+          onClick={() => {
+            if (scrollRef.current) {
+              scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
+            }
+          }}
+        >
+          <ArrowDown className="h-5 w-5" />
+        </Button>
         <Button className="flex-1 md:flex-none md:w-48 h-12" disabled={!navChapters.next} asChild>
           <Link to={navChapters.next ? `/read/${navChapters.next}?manga=${mangaId}` : "#"} state={location.state} className="flex items-center justify-center">
             Next <ChevronRight className="h-4 w-4 ml-1" />
