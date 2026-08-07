@@ -4,10 +4,6 @@ const config: CapacitorConfig = {
   appId: 'id.kaeldev.kaeltoon',
   appName: 'Kaeltoon',
   webDir: 'dist',
-  server: {
-    url: 'https://kaeltoon.kaeldev.my.id',
-    androidScheme: 'https'
-  },
   android: {
     backgroundColor: '#09090b',
     allowMixedContent: true

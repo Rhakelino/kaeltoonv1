@@ -8,7 +8,8 @@ import { comicApi } from "@/services/api"
 import type { MangaItem } from "@/services/api"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import { Star } from "lucide-react"
+import { Star, WifiOff, Download } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const MangaCard = memo(function MangaCard({ manga }: { manga: MangaItem }) {
   const mangaId = manga.id || manga.manga_id;
@@ -64,6 +65,18 @@ export default function Home() {
     slider: { id: string; manga_id?: string; title: string; description?: string; background_image: string; chara_image?: string; badges?: { name: string; color: string }[] }[];
   } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const fetchHomeData = useCallback(async () => {
     try {
@@ -90,6 +103,25 @@ export default function Home() {
 
   return (
     <div>
+      {isOffline && (
+        <div className="mb-6 p-4 rounded-xl bg-card border border-border shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-destructive/10 text-destructive rounded-lg shrink-0">
+              <WifiOff className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm">Kamu sedang Offline</p>
+              <p className="text-xs text-muted-foreground">Koneksi internet tidak tersedia. Kamu tetap bisa membaca manga yang telah diunduh.</p>
+            </div>
+          </div>
+          <Button size="sm" asChild className="shrink-0 gap-1.5 text-xs">
+            <Link to="/history">
+              <Download className="h-3.5 w-3.5" /> Buka Downloads
+            </Link>
+          </Button>
+        </div>
+      )}
+
       <h2 className="text-2xl font-bold mb-6">Kaeltoon</h2>
         
         {/* Featured Slider */}
